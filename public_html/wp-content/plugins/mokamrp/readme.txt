@@ -1,4 +1,4 @@
-=== ClassDex ===
+=== MokaMRP ===
 Contributors: johndaskovsky,
 Tags: class registration, customer management, yoga studio, Mailchimp, Cart66
 Requires at least: 3.5
@@ -16,7 +16,7 @@ A class and customer management system for Wordpress.
 [Questions? Post in the forum.](http://wordpress.org/support/plugin/classdex)
 
 Written for yoga studios and other educational facilities that are focused on registration based classes.
-ClassDex is a robust system that brings together student contact information, class details, 
+MokaMRP is a robust system that brings together student contact information, class details, 
 class registration, payment tracking, and basic accounting reports.
 Integration with Mailchimp automatically sends student emails to a mailing list.
 Integration with Cart66 enables easy online registration and payment for classes.
@@ -24,15 +24,15 @@ Integration with Cart66 enables easy online registration and payment for classes
 
 == Installation ==
 
-To  Install ClassDex
+To  Install MokaMRP
 
 1. Download the classdex.zip file 
 2. Extract the zip file so that you have a folder called 'classdex'
 3. Upload the 'classdex' folder to the `/wp-content/plugins/` directory
 4. Activate the plugin through the 'Plugins' menu in WordPress
-5. Configure your settings before you use ClassDex.
+5. Configure your settings before you use MokaMRP.
 6. It is strongly recommended that you also install [Cart66](http://wordpress.org/plugins/cart66-lite/) for full functionality.
-7. It is strongly recommended that you use the Google Chrome browser when working with ClassDex.
+7. It is strongly recommended that you use the Google Chrome browser when working with MokaMRP.
 
 
 == Screenshots ==
@@ -66,7 +66,7 @@ To  Install ClassDex
 * FIXED: Edit Class permissions restricted to admin
 
 = Version 1.1.4 =
-* NEW: Added custom ClassDex css for the front end.
+* NEW: Added custom MokaMRP css for the front end.
 * FIXED: Generalized style of shortcode displays.
 * FIXED: Removed improper shortcode usage.
 
@@ -99,7 +99,7 @@ Initial release with a limited ability to customize
 After you upgrade, it is strongly recommended that you deactivate and then activate the plugin again. This will ensure that all of the changes are made properly.
 
 = 1.1.7 =
-This release is an important upgrade for good integration with the latest version of Cart66. Please update both ClassDex and Cart66.
+This release is an important upgrade for good integration with the latest version of Cart66. Please update both MokaMRP and Cart66.
 
 = 1.1.5 =
 This release contains a few bug fixes and new features.

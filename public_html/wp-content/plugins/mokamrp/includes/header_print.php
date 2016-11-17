@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
-		<title>ClassDex</title>
+		<title>MokaMRP</title>
 		<!-- Bootstrap -->
     	<link href="css/bootstrap.css" rel="stylesheet" media="screen">	
     	<style type="text/css">

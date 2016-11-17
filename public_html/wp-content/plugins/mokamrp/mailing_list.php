@@ -30,9 +30,9 @@ Select earliest included active date:<br>(Automatically selects 3 years ago)<br>
 	
 	if($zip_start == $zip_stop) {
 		echo "</div><div class=\"alert alert-error\">Zip code range is not set. All zips will be included. 
-			To edit this setting visit the <a href=\"admin.php?page=mokamrp_settings\">ClassDex settings</a> page.</div>";		
+			To edit this setting visit the <a href=\"admin.php?page=mokamrp_settings\">MokaMRP settings</a> page.</div>";		
 	} else {
-		echo "Zip code range is " . $zip_start . "-" . $zip_stop . ". To edit this setting visit the ClassDex settings page.</div>";
+		echo "Zip code range is " . $zip_start . "-" . $zip_stop . ". To edit this setting visit the MokaMRP settings page.</div>";
 	}
  ?>
 

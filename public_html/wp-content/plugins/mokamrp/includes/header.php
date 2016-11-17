@@ -2,7 +2,7 @@
 <div class="navbar">
   <div class="navbar-inner" style="padding-right: 0px; padding-left: 0px;">
 	<div class="container-fluid">
-	  <a class="brand" href="admin.php?page=mokamrp_home">ClassDex</a>
+	  <a class="brand" href="admin.php?page=mokamrp_home">MokaMRP</a>
 	  	<ul class="nav">
 		  <li><a href="admin.php?page=mokamrp_home"><i class="icon-home"></i></a></li>
 		  <li><a href="admin.php?page=mokamrp_classes&amp;t=2&amp;g=1"><i class="icon-book"></i> Classes</a></li>

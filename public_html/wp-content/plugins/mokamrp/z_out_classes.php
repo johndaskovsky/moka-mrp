@@ -90,7 +90,7 @@ The date/time is automatically set to the last time that you preformed a Z-Out.
 <?php if(get_option('mokamrp_zout_email') == FALSE) { ?>
 <div class="alert alert-danger">
 <strong>Warning:</strong> No email address has been set to send the Z-Out to. 
-Visit the ClassDex Settings page to add an email address.
+Visit the MokaMRP Settings page to add an email address.
 </div>
 <?php
 }

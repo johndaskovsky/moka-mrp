@@ -179,7 +179,7 @@ function mokamrp_today_dashboard_widget_function() {
 } 
 
 function mokamrp_today_add_dashboard_widgets() {
-	wp_add_dashboard_widget('mokamrp_today_dashboard_widget', "ClassDex: Today's Classes", 'mokamrp_today_dashboard_widget_function');	
+	wp_add_dashboard_widget('mokamrp_today_dashboard_widget', "MokaMRP: Today's Classes", 'mokamrp_today_dashboard_widget_function');	
 } 
 add_action('wp_dashboard_setup', 'mokamrp_today_add_dashboard_widgets' );
 
@@ -194,7 +194,7 @@ function mokamrp_search_dashboard_widget_function() {
 } 
 
 function mokamrp_search_add_dashboard_widgets() {
-	wp_add_dashboard_widget('mokamrp_search_dashboard_widget', "ClassDex: Search Students", 'mokamrp_search_dashboard_widget_function');	
+	wp_add_dashboard_widget('mokamrp_search_dashboard_widget', "MokaMRP: Search Students", 'mokamrp_search_dashboard_widget_function');	
 } 
 add_action('wp_dashboard_setup', 'mokamrp_search_add_dashboard_widgets' );
 
@@ -259,8 +259,8 @@ function mokamrp_zout_page() { include(MOKAMRP_PATH . "/z_out_classes.php"); }
 
 function mokamrp_plugin_menu()
 {    
-    $my_pages[] = add_menu_page('ClassDex', 'ClassDex', 'read', 'mokamrp_home');
-    $my_pages[] = add_submenu_page('mokamrp_home', 'ClassDex', 'ClassDex', 'read', 'mokamrp_home', 'mokamrp_home_page');
+    $my_pages[] = add_menu_page('MokaMRP', 'MokaMRP', 'read', 'mokamrp_home');
+    $my_pages[] = add_submenu_page('mokamrp_home', 'MokaMRP', 'MokaMRP', 'read', 'mokamrp_home', 'mokamrp_home_page');
 	$my_pages[] = add_submenu_page(null, 'Browse', 'Browse', 'read', 'mokamrp_browse', 'mokamrp_browse_page'); 
 	$my_pages[] = add_submenu_page(null, 'Classes', 'Classes', 'read', 'mokamrp_classes', 'mokamrp_classes_page');
 	$my_pages[] = add_submenu_page(null, 'Clear Database', 'Clear Database', 'manage_options', 'mokamrp_clear_database', 'mokamrp_clear_database_page'); 

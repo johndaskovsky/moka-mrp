@@ -14,7 +14,7 @@ function mokamrp_detail_function( $atts ){
 	elseif($type == "detail2") { $type_protocol = "wellness = 1"; }
 	elseif($type == "detail3") { $type_protocol = "philosophy = 1"; }
 	elseif($type == "detail") { $type_protocol = "(seminar = 1 OR meditation = 1 OR wellness = 1 OR philosophy = 1)"; }
-	else { return "Error: Class type must be named correctly. <a href=\"http://howtononprofit.wordpress.com/classdex/\">See ClassDex documentation.</a>"; }
+	else { return "Error: Class type must be named correctly. <a href=\"http://howtononprofit.wordpress.com/classdex/\">See MokaMRP documentation.</a>"; }
 	
 	$query = "SELECT * ";
 	$query .= "FROM {$classes} ";

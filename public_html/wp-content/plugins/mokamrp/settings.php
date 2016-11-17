@@ -1,6 +1,6 @@
 <?php include(MOKAMRP_PATH . "/includes/header.php"); ?>
 
-<legend>ClassDex Settings</legend>
+<legend>MokaMRP Settings</legend>
 
 <div class="alert alert-info">
 <strong>Note:</strong> For more detailed information about these settings, visit  
