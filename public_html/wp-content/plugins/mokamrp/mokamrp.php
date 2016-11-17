@@ -2,7 +2,7 @@
 /*
 Plugin Name: MokaMRP
 Plugin URI: http://mokaorigins.com
-Description: Material resource planning for Moka. 
+Description: Material requirements planning for Moka. 
 Author: John Daskovsky	
 Version: 0.1.0
 Author URI: https://mokaorigins.com
