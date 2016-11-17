@@ -45,80 +45,44 @@ require_once(MOKAMRP_PATH . "/includes/shortcodes.php");
  //Install
 function mokamrp_install() {
 	global $wpdb;
-	$tablename = get_table_name('classes');
+	$tablename = get_table_name('materials');
 	$query = "CREATE TABLE IF NOT EXISTS `{$tablename}` (
-		`class_id` int(11) NOT NULL AUTO_INCREMENT,
-		`public_id` varchar(10) NOT NULL,
-		`title` varchar(255) NOT NULL,
-		`teacher` varchar(255) NOT NULL,
-		`start_date` date NOT NULL,
-		`end_date` date NOT NULL,
-		`time` varchar(255) NOT NULL,
-		`description` text NOT NULL,
-		`fee` int(5) NOT NULL,
-		`discounts` tinyint(1) NOT NULL,
-		`max_size` int(3) NOT NULL,
-		`yoga_class` tinyint(1) NOT NULL,
-		`seminar` tinyint(1) NOT NULL,
-		`meditation` tinyint(1) NOT NULL,
-		`wellness` tinyint(1) NOT NULL,
-		`philosophy` tinyint(1) NOT NULL,
-		`canceled` tinyint(1) NOT NULL,
-		`custom_html` text NOT NULL,
-		`image` varchar(255) NOT NULL,
-		`image_justified` tinyint(1) NOT NULL,
-		`acct_type` int(2) NOT NULL,
-		PRIMARY KEY (`class_id`)
+		`id` int(11) NOT NULL AUTO_INCREMENT,
+		`name` varchar(255) NOT NULL,
+		`measure_type` tinyint(1) NOT NULL,
+		`source` int(11) NOT NULL,
+		`group_id` int(11) NOT NULL,
+		PRIMARY KEY (`id`)
 		) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1";
 	$wpdb -> query($query);
-	$tablename = get_table_name('customers');
+
+	$tablename = get_table_name('groups');
 	$query = "CREATE TABLE IF NOT EXISTS `{$tablename}` (
-		`cust_id` int(11) NOT NULL AUTO_INCREMENT,
-		`first_name` varchar(35) NOT NULL,
-		`last_name` varchar(35) NOT NULL,
-		`address` varchar(255) NOT NULL,
-		`city` varchar(255) NOT NULL,
-		`state` varchar(3) NOT NULL,
-		`zip` int(5) NOT NULL,
-		`phone` varchar(20) NOT NULL,
-		`email` varchar(100) NOT NULL,
-		`active_date` date NOT NULL,
-		`signed_waiver` date NOT NULL,
-		`class_credit` int(5) NOT NULL,
-		`green` tinyint(1) NOT NULL,
-		`senior` tinyint(1) NOT NULL,
-		`student` tinyint(1) NOT NULL,
-		`member` tinyint(1) NOT NULL,
-		`member_expiration` date NOT NULL,
-		PRIMARY KEY (`cust_id`),
-		FULLTEXT KEY `full_name_index` (`first_name`,`last_name`)
-		) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1";
+		`id` int(11) NOT NULL AUTO_INCREMENT,
+		`name` varchar(255) NOT NULL,
+		PRIMARY KEY (`id`)
+		) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1";
 	$wpdb -> query($query);
-	$tablename = get_table_name('payments');
+
+	$tablename = get_table_name('recipes');
 	$query = "CREATE TABLE IF NOT EXISTS `{$tablename}` (
-		`pay_id` int(11) NOT NULL AUTO_INCREMENT,
-		`cust_id` int(11) NOT NULL,
-		`reg_id` int(11) NOT NULL,
+		`id` int(11) NOT NULL AUTO_INCREMENT,
+		`name` varchar(255) NOT NULL,
+		PRIMARY KEY (`id`)
+		) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1";
+	$wpdb -> query($query);
+
+	$tablename = get_table_name('lines');
+	$query = "CREATE TABLE IF NOT EXISTS `{$tablename}` (
+		`id` int(11) NOT NULL AUTO_INCREMENT,
+		`recipe_id` int(11) NOT NULL,
+		`material_type` tinyint(1) NOT NULL,
+		`material_id` int(11) NOT NULL,
+		`source` int(11) NOT NULL,
 		`amount` decimal(6,2) NOT NULL,
-		`pay_type` int(2) NOT NULL,
-		`acct_type` int(2) NOT NULL,
-		`date_time` datetime NOT NULL,
-		PRIMARY KEY (`pay_id`)
+		`cost_responsibility` tinyint(3) NOT NULL,
+		PRIMARY KEY (`id`)
 		) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1";
-	$wpdb -> query($query);
-	$tablename = get_table_name('registrations');
-	$query = "CREATE TABLE IF NOT EXISTS `{$tablename}` (
-		`reg_id` int(11) NOT NULL AUTO_INCREMENT,
-		`class_id` int(11) NOT NULL,
-		`cust_id` int(11) NOT NULL,
-		`paid` tinyint(1) NOT NULL,
-		PRIMARY KEY (`reg_id`)
-		) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1";
-	$wpdb -> query($query);
-	
-	//Added notes to customers table in version 1.1.8
-	$tablename = get_table_name('customers');
-	$query = "alter table `{$tablename}` add column `notes` text not null";
 	$wpdb -> query($query);
 }
 register_activation_hook(__FILE__, 'mokamrp_install');

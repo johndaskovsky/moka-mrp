@@ -88,14 +88,14 @@
 	function get_table_name( $name ) {
 		global $wpdb;	
 			
-		if($name == "customers") {
-			return $wpdb->prefix . "mokamrp_customers";
-		} elseif ($name == "classes") {
-			return $wpdb->prefix . "mokamrp_classes";
-		} elseif ($name == "registrations") {
-			return $wpdb->prefix . "mokamrp_registrations";
-		} elseif ($name == "payments") {
-			return $wpdb->prefix . "mokamrp_payments";
+		if($name == "materials") {
+			return $wpdb->prefix . "mokamrp_materials";
+		} elseif ($name == "groups") {
+			return $wpdb->prefix . "mokamrp_groups";
+		} elseif ($name == "recipes") {
+			return $wpdb->prefix . "mokamrp_recipes";
+		} elseif ($name == "lines") {
+			return $wpdb->prefix . "mokamrp_lines";
 		} else {
 			die;
 		}
