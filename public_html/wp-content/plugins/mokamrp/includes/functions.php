@@ -96,6 +96,8 @@
 			return $wpdb->prefix . "mokamrp_recipes";
 		} elseif ($name == "lines") {
 			return $wpdb->prefix . "mokamrp_lines";
+		} elseif ($name == "logs") {
+			return $wpdb->prefix . "mokamrp_logs";
 		} else {
 			die;
 		}

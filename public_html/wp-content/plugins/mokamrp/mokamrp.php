@@ -84,6 +84,19 @@ function mokamrp_install() {
 		PRIMARY KEY (`id`)
 		) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1";
 	$wpdb -> query($query);
+
+	$tablename = get_table_name('logs');
+	$query = "CREATE TABLE IF NOT EXISTS `{$tablename}` (
+		`id` int(11) NOT NULL AUTO_INCREMENT,
+		`action_id` int(11) NOT NULL,
+		`datetime` datetime NOT NULL,
+		`material_id` int(11) NOT NULL,
+		`recipe_id` int(11) NOT NULL,
+		`in` decimal(6,2) NOT NULL,
+		`out` decimal(6,2) NOT NULL,
+		PRIMARY KEY (`id`)
+		) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1";
+	$wpdb -> query($query);
 }
 register_activation_hook(__FILE__, 'mokamrp_install');
 
