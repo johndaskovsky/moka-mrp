@@ -108,39 +108,10 @@ if(function_exists('register_update_hook')) {
 //Create plugin Options page
 function mokamrp_init()
 {
-	register_setting('mokamrp_options_hidden','mokamrp_zout_register_date');
-	register_setting('mokamrp_options_hidden','mokamrp_zout_register_time');
-	register_setting('mokamrp_options_hidden','mokamrp_zout_paypal_date');
-	register_setting('mokamrp_options_hidden','mokamrp_zout_paypal_time');
-	register_setting('mokamrp_options','mokamrp_zout_email');
-	register_setting('mokamrp_options','mokamrp_mailchimp_apikey');
-	register_setting('mokamrp_options','mokamrp_mailchimp_listid');
-	register_setting('mokamrp_options','mokamrp_zip_start');
-	register_setting('mokamrp_options','mokamrp_zip_stop');
-	register_setting('mokamrp_options','mokamrp_month_01');
-	register_setting('mokamrp_options','mokamrp_month_02');
-	register_setting('mokamrp_options','mokamrp_month_03');
-	register_setting('mokamrp_options','mokamrp_month_04');
-	register_setting('mokamrp_options','mokamrp_month_05');
-	register_setting('mokamrp_options','mokamrp_month_06');
-	register_setting('mokamrp_options','mokamrp_month_07');
-	register_setting('mokamrp_options','mokamrp_month_08');
-	register_setting('mokamrp_options','mokamrp_month_09');
-	register_setting('mokamrp_options','mokamrp_month_10');
-	register_setting('mokamrp_options','mokamrp_month_11');
-	register_setting('mokamrp_options','mokamrp_month_12');
-	register_setting('mokamrp_options','mokamrp_waiver');
-	register_setting('mokamrp_options','mokamrp_list_shortcode');
-	register_setting('mokamrp_options','mokamrp_detail_shortcode');
-	register_setting('mokamrp_options','mokamrp_detail1_shortcode');
-	register_setting('mokamrp_options','mokamrp_detail2_shortcode');
-	register_setting('mokamrp_options','mokamrp_detail3_shortcode');
-	register_setting('mokamrp_options','mokamrp_account_types');
-	register_setting('mokamrp_options','mokamrp_discount_member');
-	register_setting('mokamrp_options','mokamrp_discount_senior');
-	register_setting('mokamrp_options','mokamrp_discount_student');
+	register_setting('mokamrp_options','mokamrp_weight_units');
 }
 add_action('admin_init','mokamrp_init');
+
 
 //Create Admin Dashboard Widgets
 function mokamrp_today_dashboard_widget_function() {
@@ -236,43 +207,28 @@ function mokamrp_zout_page() { include(MOKAMRP_PATH . "/z_out_classes.php"); }
 
 function mokamrp_plugin_menu()
 {    
-    $my_pages[] = add_menu_page('MokaMRP', 'MokaMRP', 'read', 'mokamrp_home');
-    $my_pages[] = add_submenu_page('mokamrp_home', 'MokaMRP', 'MokaMRP', 'read', 'mokamrp_home', 'mokamrp_home_page');
-	$my_pages[] = add_submenu_page(null, 'Browse', 'Browse', 'read', 'mokamrp_browse', 'mokamrp_browse_page'); 
+  $my_pages[] = add_menu_page('MokaMRP', 'MokaMRP', 'read', 'mokamrp_home');
+  $my_pages[] = add_submenu_page('mokamrp_home', 'MokaMRP', 'MokaMRP', 'read', 'mokamrp_home', 'mokamrp_home_page');
+	
+
+
+	$my_pages[] = add_submenu_page('mokamrp_home', 'Add Classes', 'Admin', 'manage_options', 'mokamrp_new_class', 'mokamrp_new_class_page');
+
 	$my_pages[] = add_submenu_page(null, 'Classes', 'Classes', 'read', 'mokamrp_classes', 'mokamrp_classes_page');
 	$my_pages[] = add_submenu_page(null, 'Clear Database', 'Clear Database', 'manage_options', 'mokamrp_clear_database', 'mokamrp_clear_database_page'); 
 	$my_pages[] = add_submenu_page(null, 'Clear Table', 'Clear Table', 'manage_options', 'mokamrp_clear_table', 'mokamrp_clear_table_page');
-	$my_pages[] = add_submenu_page(null, 'Clone Class', 'Clone Class', 'manage_options', 'mokamrp_clone_class', 'mokamrp_clone_class_page');
 	$my_pages[] = add_submenu_page(null, 'Create Cart66 Product', 'Create Cart66 Product', 'manage_options', 'mokamrp_create_cart66_product', 'mokamrp_create_cart66_product_page');
 	$my_pages[] = add_submenu_page(null, 'Create Class', 'Create Class', 'manage_options', 'mokamrp_create_class', 'mokamrp_create_class_page');
 	$my_pages[] = add_submenu_page(null, 'Create Customer', 'Create Customer', 'read', 'mokamrp_create_customer', 'mokamrp_create_customer_page');
 	$my_pages[] = add_submenu_page(null, 'Delete Table Item', 'Delete Table Item', 'read', 'mokamrp_delete_table_item', 'mokamrp_delete_table_item_page');
 	$my_pages[] = add_submenu_page(null, 'Edit Class', 'Edit Class', 'manage_options', 'mokamrp_edit_class', 'mokamrp_edit_class_page');	
 	$my_pages[] = add_submenu_page(null, 'Edit Customer', 'Edit Customer', 'read', 'mokamrp_edit_customer', 'mokamrp_edit_customer_page');
-	$my_pages[] = add_submenu_page(null, 'Expired Members', 'Expired Members', 'manage_options', 'mokamrp_expired', 'mokamrp_expired_page');
 	$my_pages[] = add_submenu_page(null, 'Export Mailing List', 'Export Mailing List', 'manage_options', 'mokamrp_export_mailing_list', 'mokamrp_export_mailing_list_page');
 	$my_pages[] = add_submenu_page(null, 'Export Table', 'Export Table', 'manage_options', 'mokamrp_export_table', 'mokamrp_export_table_page');
-	$my_pages[] = add_submenu_page(null, 'Full Payment', 'Full Payment', 'read', 'mokamrp_full_payment', 'mokamrp_full_payment_page');
 	$my_pages[] = add_submenu_page(null, 'Import/Export', 'Import/Export', 'manage_options', 'mokamrp_import_export', 'mokamrp_import_export_page');
 	$my_pages[] = add_submenu_page(null, 'Import Table', 'Import Table', 'manage_options', 'mokamrp_import_table', 'mokamrp_import_table_page');
-	$my_pages[] = add_submenu_page(null, 'Mailing List', 'Mailing List', 'manage_options', 'mokamrp_mailing_list', 'mokamrp_mailing_list_page');  
-	$my_pages[] = add_submenu_page(null, 'Mark Not Paid', 'Mark Not Paid', 'read', 'mokamrp_mark_not_paid', 'mokamrp_mark_not_paid_page');
-    $my_pages[] = add_submenu_page('mokamrp_home', 'Add Classes', 'Admin', 'manage_options', 'mokamrp_new_class', 'mokamrp_new_class_page');
+  
 	$my_pages[] = add_submenu_page(null, 'New Customer', 'New Customer', 'read', 'mokamrp_new_customer', 'mokamrp_new_customer_page');
-	$my_pages[] = add_submenu_page(null, 'Non Class Payment', 'Non Class Payment', 'read', 'mokamrp_non_class_payment', 'mokamrp_non_class_payment_page');
-	$my_pages[] = add_submenu_page(null, 'Partial Payment', 'Partial Payment', 'read', 'mokamrp_partial_payment', 'mokamrp_partial_payment_page');
-	$my_pages[] = add_submenu_page(null, 'Payment', 'Payment', 'read', 'mokamrp_payment', 'mokamrp_payment_page');
-	$my_pages[] = add_submenu_page(null, 'Print/Email Z-Out', 'Print/Email Z-Out', 'manage_options', 'mokamrp_print_email_z_out', 'mokamrp_print_email_z_out_page');
-	$my_pages[] = add_submenu_page(null, 'Print Sign Up List', 'Print Sign Up List', 'read', 'mokamrp_print_sign_up_list', 'mokamrp_print_sign_up_list_page');
-	$my_pages[] = add_submenu_page(null, 'Print Student List', 'Print Student List', 'read', 'mokamrp_print_student_list', 'mokamrp_print_student_list_page');
-	$my_pages[] = add_submenu_page(null, 'Print Unpaid', 'Print Unpaid', 'manage_options', 'mokamrp_print_unpaid', 'mokamrp_print_unpaid_page');	
-	$my_pages[] = add_submenu_page(null, 'Print Waiver', 'Print Waiver', 'read', 'mokamrp_print_waiver', 'mokamrp_print_waiver_page');	
-	$my_pages[] = add_submenu_page(null, 'Registration', 'Registration', 'read', 'mokamrp_registration', 'mokamrp_registration_page');
-	$my_pages[] = add_submenu_page(null, 'Search', 'Search', 'read', 'mokamrp_search', 'mokamrp_search_page');
-	$my_pages[] = add_submenu_page('mokamrp_home', 'Settings', 'Settings', 'manage_options', 'mokamrp_settings', 'mokamrp_settings_page');
-	$my_pages[] = add_submenu_page(null, 'Student List', 'Student List', 'read', 'mokamrp_student_list', 'mokamrp_student_list_page');
-	$my_pages[] = add_submenu_page(null, 'Unpaid', 'Unpaid', 'manage_options', 'mokamrp_unpaid', 'mokamrp_unpaid_page');
-	$my_pages[] = add_submenu_page(null, 'Z-Out Classes', 'Z-Out Classes', 'manage_options', 'mokamrp_zout', 'mokamrp_zout_page');
  
 	foreach($my_pages as $my_page) {
 		add_action( 'load-' . $my_page, 'mokamrp_load_admin_custom_css' ); 
@@ -282,7 +238,7 @@ add_action('admin_menu', 'mokamrp_plugin_menu');
 
 //Add custom CSS to plugin pages
 function load_custom_mokamrp_style() {
-    wp_register_style( 'custom_wp_admin_css1', MOKAMRP_URL . '/css/bootstrap.css', false, '2.2.2' );
+  wp_register_style( 'custom_wp_admin_css1', MOKAMRP_URL . '/css/bootstrap.css', false, '2.2.2' );
     wp_enqueue_style( 'custom_wp_admin_css1' );
 	wp_register_style( 'custom_wp_admin_css2', MOKAMRP_URL . '/css/bootstrap-responsive.css', false, '2.2.2' );
     wp_enqueue_style( 'custom_wp_admin_css2' );
@@ -297,7 +253,7 @@ function load_custom_mokamrp_style() {
 }
 
 function mokamrp_load_admin_custom_css(){
-    add_action( 'admin_enqueue_scripts', 'load_custom_mokamrp_style' );
+  add_action( 'admin_enqueue_scripts', 'load_custom_mokamrp_style' );
 }
 
 function mokamrp_enqueue_style() {
