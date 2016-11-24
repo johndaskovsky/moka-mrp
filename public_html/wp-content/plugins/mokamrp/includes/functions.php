@@ -353,10 +353,10 @@
 	  * **************************************/  
 	
 	
-	function get_class_by_id($class_id) {
+	function get_item_by_id($item_id, $table_name) {
 		global $wpdb;
-		$classes = get_table_name("classes");
-		$query = $wpdb->prepare("SELECT * FROM {$classes} WHERE class_id = %d LIMIT 1", $class_id);
+		$table = get_table_name($table_name);
+		$query = $wpdb->prepare("SELECT * FROM {$table} WHERE class_id = %d LIMIT 1", $class_id);
 		$row = $wpdb->get_row($query, ARRAY_A);
 		if ($row != NULL) {
 			return $row;

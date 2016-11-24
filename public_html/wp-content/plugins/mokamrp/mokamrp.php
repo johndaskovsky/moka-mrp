@@ -109,6 +109,37 @@ if(function_exists('register_update_hook')) {
 function mokamrp_init()
 {
 	register_setting('mokamrp_options','mokamrp_weight_units');
+	register_setting('mokamrp_options_hidden','mokamrp_zout_register_date');
+	register_setting('mokamrp_options_hidden','mokamrp_zout_register_time');
+	register_setting('mokamrp_options_hidden','mokamrp_zout_paypal_date');
+	register_setting('mokamrp_options_hidden','mokamrp_zout_paypal_time');
+	register_setting('mokamrp_options','mokamrp_zout_email');
+	register_setting('mokamrp_options','mokamrp_mailchimp_apikey');
+	register_setting('mokamrp_options','mokamrp_mailchimp_listid');
+	register_setting('mokamrp_options','mokamrp_zip_start');
+	register_setting('mokamrp_options','mokamrp_zip_stop');
+	register_setting('mokamrp_options','mokamrp_month_01');
+	register_setting('mokamrp_options','mokamrp_month_02');
+	register_setting('mokamrp_options','mokamrp_month_03');
+	register_setting('mokamrp_options','mokamrp_month_04');
+	register_setting('mokamrp_options','mokamrp_month_05');
+	register_setting('mokamrp_options','mokamrp_month_06');
+	register_setting('mokamrp_options','mokamrp_month_07');
+	register_setting('mokamrp_options','mokamrp_month_08');
+	register_setting('mokamrp_options','mokamrp_month_09');
+	register_setting('mokamrp_options','mokamrp_month_10');
+	register_setting('mokamrp_options','mokamrp_month_11');
+	register_setting('mokamrp_options','mokamrp_month_12');
+	register_setting('mokamrp_options','mokamrp_waiver');
+	register_setting('mokamrp_options','mokamrp_list_shortcode');
+	register_setting('mokamrp_options','mokamrp_detail_shortcode');
+	register_setting('mokamrp_options','mokamrp_detail1_shortcode');
+	register_setting('mokamrp_options','mokamrp_detail2_shortcode');
+	register_setting('mokamrp_options','mokamrp_detail3_shortcode');
+	register_setting('mokamrp_options','mokamrp_account_types');
+	register_setting('mokamrp_options','mokamrp_discount_member');
+	register_setting('mokamrp_options','mokamrp_discount_senior');
+	register_setting('mokamrp_options','mokamrp_discount_student');
 }
 add_action('admin_init','mokamrp_init');
 
@@ -169,66 +200,64 @@ function mokamrp_home_page()
 	 include(MOKAMRP_PATH . "/includes/footer.php");
 }
 
-function mokamrp_browse_page() { include(MOKAMRP_PATH . "/browse.php"); }
+//function mokamrp_browse_page() { include(MOKAMRP_PATH . "/browse.php"); }
 function mokamrp_classes_page() { include(MOKAMRP_PATH . "/classes.php"); }
 function mokamrp_clear_database_page() { include(MOKAMRP_PATH . "/clear_database.php"); }
 function mokamrp_clear_table_page() { include(MOKAMRP_PATH . "/clear_table.php"); }
-function mokamrp_clone_class_page() { include(MOKAMRP_PATH . "/clone_class.php"); }
-function mokamrp_create_cart66_product_page() { include(MOKAMRP_PATH . "/create_cart66_product.php"); }
+//function mokamrp_clone_class_page() { include(MOKAMRP_PATH . "/clone_class.php"); }
+//function mokamrp_create_cart66_product_page() { include(MOKAMRP_PATH . "/create_cart66_product.php"); }
+function mokamrp_new_class_page() { include(MOKAMRP_PATH . "/new_class.php"); }
 function mokamrp_create_class_page() { include(MOKAMRP_PATH . "/create_class.php"); }
-function mokamrp_create_customer_page() { include(MOKAMRP_PATH . "/create_customer.php"); }
 function mokamrp_delete_table_item_page() { include(MOKAMRP_PATH . "/delete_table_item.php"); }
 function mokamrp_edit_class_page() { include(MOKAMRP_PATH . "/edit_class.php"); }
-function mokamrp_edit_customer_page() { include(MOKAMRP_PATH . "/edit_customer.php"); }
-function mokamrp_expired_page() { include(MOKAMRP_PATH . "/expired.php"); }
-function mokamrp_export_mailing_list_page() { include(MOKAMRP_PATH . "/export_mailing_list.php"); }
-function mokamrp_export_table_page() { include(MOKAMRP_PATH . "/export_table.php"); }
-function mokamrp_full_payment_page() { include(MOKAMRP_PATH . "/full_payment.php"); }
-function mokamrp_import_export_page() { include(MOKAMRP_PATH . "/import_export.php"); }
-function mokamrp_import_table_page() { include(MOKAMRP_PATH . "/import_table.php"); }
-function mokamrp_mailing_list_page() { include(MOKAMRP_PATH . "/mailing_list.php"); }
-function mokamrp_mark_not_paid_page() { include(MOKAMRP_PATH . "/mark_not_paid.php"); }
-function mokamrp_new_class_page() { include(MOKAMRP_PATH . "/new_class.php"); }
-function mokamrp_new_customer_page() { include(MOKAMRP_PATH . "/new_customer.php"); }
-function mokamrp_non_class_payment_page() { include(MOKAMRP_PATH . "/non_class_payment.php"); }
-function mokamrp_partial_payment_page() { include(MOKAMRP_PATH . "/partial_payment.php"); }
-function mokamrp_payment_page() { include(MOKAMRP_PATH . "/payment.php"); }
-function mokamrp_print_email_z_out_page() { include(MOKAMRP_PATH . "/print_email_z_out.php"); }
-function mokamrp_print_sign_up_list_page() { include(MOKAMRP_PATH . "/print_sign_up_list.php"); }
-function mokamrp_print_student_list_page() { include(MOKAMRP_PATH . "/print_student_list.php"); }
-function mokamrp_print_unpaid_page() { include(MOKAMRP_PATH . "/print_unpaid.php"); }
-function mokamrp_print_waiver_page() { include(MOKAMRP_PATH . "/print_waiver.php"); }
-function mokamrp_registration_page() { include(MOKAMRP_PATH . "/registration.php"); }
-function mokamrp_search_page() { include(MOKAMRP_PATH . "/search.php"); }
+//function mokamrp_create_customer_page() { include(MOKAMRP_PATH . "/create_customer.php"); }
+//function mokamrp_edit_customer_page() { include(MOKAMRP_PATH . "/edit_customer.php"); }
+//function mokamrp_expired_page() { include(MOKAMRP_PATH . "/expired.php"); }
+//function mokamrp_export_mailing_list_page() { include(MOKAMRP_PATH . "/export_mailing_list.php"); }
+//function mokamrp_export_table_page() { include(MOKAMRP_PATH . "/export_table.php"); }
+//function mokamrp_full_payment_page() { include(MOKAMRP_PATH . "/full_payment.php"); }
+//function mokamrp_import_export_page() { include(MOKAMRP_PATH . "/import_export.php"); }
+//function mokamrp_import_table_page() { include(MOKAMRP_PATH . "/import_table.php"); }
+//function mokamrp_mailing_list_page() { include(MOKAMRP_PATH . "/mailing_list.php"); }
+//function mokamrp_mark_not_paid_page() { include(MOKAMRP_PATH . "/mark_not_paid.php"); }
+//function mokamrp_new_customer_page() { include(MOKAMRP_PATH . "/new_customer.php"); }
+//function mokamrp_non_class_payment_page() { include(MOKAMRP_PATH . "/non_class_payment.php"); }
+//function mokamrp_partial_payment_page() { include(MOKAMRP_PATH . "/partial_payment.php"); }
+//function mokamrp_payment_page() { include(MOKAMRP_PATH . "/payment.php"); }
+//function mokamrp_print_email_z_out_page() { include(MOKAMRP_PATH . "/print_email_z_out.php"); }
+//function mokamrp_print_sign_up_list_page() { include(MOKAMRP_PATH . "/print_sign_up_list.php"); }
+//function mokamrp_print_student_list_page() { include(MOKAMRP_PATH . "/print_student_list.php"); }
+//function mokamrp_print_unpaid_page() { include(MOKAMRP_PATH . "/print_unpaid.php"); }
+//function mokamrp_print_waiver_page() { include(MOKAMRP_PATH . "/print_waiver.php"); }
+//function mokamrp_registration_page() { include(MOKAMRP_PATH . "/registration.php"); }
+//function mokamrp_search_page() { include(MOKAMRP_PATH . "/search.php"); }
 function mokamrp_settings_page() { include(MOKAMRP_PATH . "/settings.php"); }
-function mokamrp_student_list_page() { include(MOKAMRP_PATH . "/student_list.php"); }
-function mokamrp_unpaid_page() { include(MOKAMRP_PATH . "/unpaid.php"); }
-function mokamrp_zout_page() { include(MOKAMRP_PATH . "/z_out_classes.php"); }
+//function mokamrp_student_list_page() { include(MOKAMRP_PATH . "/student_list.php"); }
+//function mokamrp_unpaid_page() { include(MOKAMRP_PATH . "/unpaid.php"); }
+//function mokamrp_zout_page() { include(MOKAMRP_PATH . "/z_out_classes.php"); }
 
 function mokamrp_plugin_menu()
 {    
   $my_pages[] = add_menu_page('MokaMRP', 'MokaMRP', 'read', 'mokamrp_home');
   $my_pages[] = add_submenu_page('mokamrp_home', 'MokaMRP', 'MokaMRP', 'read', 'mokamrp_home', 'mokamrp_home_page');
-	
-
-
+	$my_pages[] = add_submenu_page('mokamrp_home', 'Settings', 'Settings', 'manage_options', 'mokamrp_settings', 'mokamrp_settings_page');
 	$my_pages[] = add_submenu_page('mokamrp_home', 'Add Classes', 'Admin', 'manage_options', 'mokamrp_new_class', 'mokamrp_new_class_page');
-
+	$my_pages[] = add_submenu_page(null, 'Edit Class', 'Edit Class', 'manage_options', 'mokamrp_edit_class', 'mokamrp_edit_class_page');	
 	$my_pages[] = add_submenu_page(null, 'Classes', 'Classes', 'read', 'mokamrp_classes', 'mokamrp_classes_page');
 	$my_pages[] = add_submenu_page(null, 'Clear Database', 'Clear Database', 'manage_options', 'mokamrp_clear_database', 'mokamrp_clear_database_page'); 
 	$my_pages[] = add_submenu_page(null, 'Clear Table', 'Clear Table', 'manage_options', 'mokamrp_clear_table', 'mokamrp_clear_table_page');
-	$my_pages[] = add_submenu_page(null, 'Create Cart66 Product', 'Create Cart66 Product', 'manage_options', 'mokamrp_create_cart66_product', 'mokamrp_create_cart66_product_page');
+	//$my_pages[] = add_submenu_page(null, 'Create Cart66 Product', 'Create Cart66 Product', 'manage_options', 'mokamrp_create_cart66_product', 'mokamrp_create_cart66_product_page');
 	$my_pages[] = add_submenu_page(null, 'Create Class', 'Create Class', 'manage_options', 'mokamrp_create_class', 'mokamrp_create_class_page');
-	$my_pages[] = add_submenu_page(null, 'Create Customer', 'Create Customer', 'read', 'mokamrp_create_customer', 'mokamrp_create_customer_page');
+	//$my_pages[] = add_submenu_page(null, 'Create Customer', 'Create Customer', 'read', 'mokamrp_create_customer', 'mokamrp_create_customer_page');
 	$my_pages[] = add_submenu_page(null, 'Delete Table Item', 'Delete Table Item', 'read', 'mokamrp_delete_table_item', 'mokamrp_delete_table_item_page');
-	$my_pages[] = add_submenu_page(null, 'Edit Class', 'Edit Class', 'manage_options', 'mokamrp_edit_class', 'mokamrp_edit_class_page');	
-	$my_pages[] = add_submenu_page(null, 'Edit Customer', 'Edit Customer', 'read', 'mokamrp_edit_customer', 'mokamrp_edit_customer_page');
-	$my_pages[] = add_submenu_page(null, 'Export Mailing List', 'Export Mailing List', 'manage_options', 'mokamrp_export_mailing_list', 'mokamrp_export_mailing_list_page');
-	$my_pages[] = add_submenu_page(null, 'Export Table', 'Export Table', 'manage_options', 'mokamrp_export_table', 'mokamrp_export_table_page');
-	$my_pages[] = add_submenu_page(null, 'Import/Export', 'Import/Export', 'manage_options', 'mokamrp_import_export', 'mokamrp_import_export_page');
-	$my_pages[] = add_submenu_page(null, 'Import Table', 'Import Table', 'manage_options', 'mokamrp_import_table', 'mokamrp_import_table_page');
+	
+	//$my_pages[] = add_submenu_page(null, 'Edit Customer', 'Edit Customer', 'read', 'mokamrp_edit_customer', 'mokamrp_edit_customer_page');
+	//$my_pages[] = add_submenu_page(null, 'Export Mailing List', 'Export Mailing List', 'manage_options', 'mokamrp_export_mailing_list', 'mokamrp_export_mailing_list_page');
+	//$my_pages[] = add_submenu_page(null, 'Export Table', 'Export Table', 'manage_options', 'mokamrp_export_table', 'mokamrp_export_table_page');
+	//$my_pages[] = add_submenu_page(null, 'Import/Export', 'Import/Export', 'manage_options', 'mokamrp_import_export', 'mokamrp_import_export_page');
+	//$my_pages[] = add_submenu_page(null, 'Import Table', 'Import Table', 'manage_options', 'mokamrp_import_table', 'mokamrp_import_table_page');
   
-	$my_pages[] = add_submenu_page(null, 'New Customer', 'New Customer', 'read', 'mokamrp_new_customer', 'mokamrp_new_customer_page');
+	//$my_pages[] = add_submenu_page(null, 'New Customer', 'New Customer', 'read', 'mokamrp_new_customer', 'mokamrp_new_customer_page');
  
 	foreach($my_pages as $my_page) {
 		add_action( 'load-' . $my_page, 'mokamrp_load_admin_custom_css' ); 

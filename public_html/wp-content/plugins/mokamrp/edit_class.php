@@ -1,11 +1,17 @@
 <?php global $wpdb; ?>
 <?php require_once(MOKAMRP_PATH . "/includes/functions.php"); ?>
+
 <?php
+/*
 	if (!isset($_GET['class_id']) || intval($_GET['class_id']) == 0) {
 		//If no class is selected, escape.
 		redirect_to("admin.php?page=mokamrp_home");
-	} else { $class_id = $_GET['class_id']; }
-	if(get_class_by_id($class_id) == NULL) {
+	} 
+	else 
+	{ 
+		$class_id = $_GET['class_id']; 
+	}
+	if(get_item_by_id($class_id, "groups") == NULL) {
 		//If class selected does not exist, escape.
 		redirect_to("admin.php?page=mokamrp_home");
 	}
@@ -143,12 +149,18 @@
 			
 		}
 	} // end: if (isset($_POST['submit']))
+*/
 ?>
 
-<?php $class = get_class_by_id($class_id); ?>
+<?php 
+	$class_id = $_GET['class_id']; 
+	$class = get_item_by_id($class_id, "groups");
+
+?>
 <?php include("includes/header.php"); ?>
 
 <h2>Edit Class: <?php echo $class['title'] . " - " . $class['teacher']; ?></h2>
+
 <?php if (!empty($message)) {
 	echo "<p>" . $message . "</p>";
 } ?>
