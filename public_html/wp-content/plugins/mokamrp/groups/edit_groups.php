@@ -44,7 +44,7 @@
 
 ?>
 
-<?php	display_edit_page("groups"); ?>
+<?php	display_edit_page("groups", $message); ?>
 
 
 <?php require(MOKAMRP_PATH . "/includes/footer.php"); ?>

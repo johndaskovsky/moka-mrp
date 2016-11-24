@@ -69,7 +69,7 @@
 	}
 
 	
-	function display_edit_page($type) {
+	function display_edit_page($type, $message) {
 		$id = $_GET['id']; 
 		$row = get_row_by_id($id, $type);
 		include(MOKAMRP_PATH . "/includes/header.php");
