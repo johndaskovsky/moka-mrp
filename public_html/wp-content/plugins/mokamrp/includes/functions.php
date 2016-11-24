@@ -57,6 +57,44 @@
 	  * GENERAL
 	  * **************************************/  
 	 
+	
+	function get_row_by_id($item_id, $table_name) {
+		global $wpdb;
+		$table = get_table_name($table_name);
+		$query = $wpdb->prepare("SELECT * FROM {$table} WHERE id = %d LIMIT 1", $item_id);
+		$row = $wpdb->get_row($query, ARRAY_A);
+		if ($row != NULL) {
+			return $row;
+		} else {
+			return NULL;
+		}
+	}
+
+	function display_table_list($table) {
+		global $wpdb;	
+		$table = get_table_name($table); 
+		
+		$query = "SELECT * ";
+		$query .= "FROM {$table} ";
+		$query .= "ORDER BY name";
+	
+		$result_set = $wpdb->get_results($query, ARRAY_A);
+	
+		if($result_set == NULL) {
+			echo "<em>No students are registered for this class.</em><br>";
+		}else{ 
+			echo "<table class=\"table table-striped\">
+				  <tr><td>Name</td><td>Action</td></tr>";		
+			foreach($result_set as $row) {
+				echo "<tr>";
+				echo "<td>{$row['name']}</td>";
+				echo "<td><a href=\"admin.php?page=mokamrp_edit_class&amp;class_id={$row['id']}\"><i class=\"icon-pencil\"></i> Edit</a></td></tr>";
+			}
+			echo "</table>";
+		}   
+	}
+
+
 	function redirect_to( $location = NULL ) {
 		if ($location != NULL) {
 			wp_redirect( $location );
@@ -353,17 +391,7 @@
 	  * **************************************/  
 	
 	
-	function get_row_by_id($item_id, $table_name) {
-		global $wpdb;
-		$table = get_table_name($table_name);
-		$query = $wpdb->prepare("SELECT * FROM {$table} WHERE id = %d LIMIT 1", $item_id);
-		$row = $wpdb->get_row($query, ARRAY_A);
-		if ($row != NULL) {
-			return $row;
-		} else {
-			return NULL;
-		}
-	}
+	
 	
 	function number_of_students($class_id)
 	{
