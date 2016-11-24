@@ -17,10 +17,10 @@
 
 	function display_table_list($table) {
 		global $wpdb;	
-		$table = get_table_name($table); 
+		$table_name = get_table_name($table); 
 		
 		$query = "SELECT * ";
-		$query .= "FROM {$table} ";
+		$query .= "FROM {$table_name} ";
 		$query .= "ORDER BY name";
 	
 		$result_set = $wpdb->get_results($query, ARRAY_A);
@@ -33,7 +33,7 @@
 			foreach($result_set as $row) {
 				echo "<tr>";
 				echo "<td>{$row['name']}</td>";
-				echo "<td><a href=\"admin.php?page=mokamrp_edit_groups&amp;id={$row['id']}\"><i class=\"icon-pencil\"></i> Edit</a></td></tr>";
+				echo "<td><a href=\"admin.php?page=mokamrp_edit_{$table}&amp;id={$row['id']}\"><i class=\"icon-pencil\"></i> Edit</a></td></tr>";
 			}
 			echo "</table>";
 		}   
@@ -44,6 +44,9 @@
 		echo "<li";
 		if($active == "groups") echo " class=\"active\"";
 		echo "><a href=\"admin.php?page=mokamrp_new_groups\">Groups</a></li>";
+		echo "<li";
+		if($active == "recipes") echo " class=\"active\"";
+		echo "><a href=\"admin.php?page=mokamrp_new_recipes\">Recipes</a></li>";
 		echo "<li";
 		if($active == "import") echo " class=\"active\"";
 		echo "><a href=\"admin.php?page=mokamrp_import_export\">Import/Export</a></li>";

@@ -207,6 +207,11 @@ function mokamrp_new_groups_page() { include(MOKAMRP_PATH . "/groups/new_groups.
 function mokamrp_create_groups_page() { include(MOKAMRP_PATH . "/groups/create_groups.php"); }
 function mokamrp_edit_groups_page() { include(MOKAMRP_PATH . "/groups/edit_groups.php"); }
 
+//recipes
+function mokamrp_new_recipes_page() { include(MOKAMRP_PATH . "/recipes/new_recipes.php"); }
+function mokamrp_create_recipes_page() { include(MOKAMRP_PATH . "/recipes/create_recipes.php"); }
+function mokamrp_edit_recipes_page() { include(MOKAMRP_PATH . "/recipes/edit_recipes.php"); }
+
 //OTHER
 function mokamrp_settings_page() { include(MOKAMRP_PATH . "/settings.php"); }
 function mokamrp_classes_page() { include(MOKAMRP_PATH . "/classes.php"); }
@@ -225,6 +230,11 @@ function mokamrp_plugin_menu()
 	$my_pages[] = add_submenu_page('mokamrp_home', 'Groups', 'Admin', 'manage_options', 'mokamrp_new_groups', 'mokamrp_new_groups_page');
 	$my_pages[] = add_submenu_page(null, 'Edit Groups', 'Edit Groups', 'manage_options', 'mokamrp_edit_groups', 'mokamrp_edit_groups_page');	
 	$my_pages[] = add_submenu_page(null, 'Create Groups', 'Create Groups', 'manage_options', 'mokamrp_create_groups', 'mokamrp_create_groups_page');
+
+	//RECIPES
+	$my_pages[] = add_submenu_page('mokamrp_home', 'recipes', 'Admin', 'manage_options', 'mokamrp_new_recipes', 'mokamrp_new_recipes_page');
+	$my_pages[] = add_submenu_page(null, 'Edit recipes', 'Edit recipes', 'manage_options', 'mokamrp_edit_recipes', 'mokamrp_edit_recipes_page');	
+	$my_pages[] = add_submenu_page(null, 'Create recipes', 'Create recipes', 'manage_options', 'mokamrp_create_recipes', 'mokamrp_create_recipes_page');
 
 
 
