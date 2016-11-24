@@ -105,7 +105,7 @@
 		foreach($current_classes as $row) {
 			echo "<li>";
 			if ( current_user_can('manage_options') ) {
-				echo "<a href=\"admin.php?page=mokamrp_edit_class&amp;class_id=" . urlencode($row['class_id']) . "\">{$row['title']} - {$row['teacher']}</a>"
+				echo "<a href=\"admin.php?page=mokamrp_edit_groups&amp;class_id=" . urlencode($row['class_id']) . "\">{$row['title']} - {$row['teacher']}</a>"
 				. " (" . date("M j, Y", strtotime($row['start_date'])) . ")";
 		    } else {
 		    	echo "{$row['title']} - {$row['teacher']}"

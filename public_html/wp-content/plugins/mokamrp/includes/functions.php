@@ -1,61 +1,6 @@
 <?php
-	/*
-	 * Functions
-	 * ------------------------------------
-	 * 
-	 * GENERAL
-	 * redirect_to( $location = NULL )
-	 * today()
-	 * timestamp_now()
-	 * get_table_name( $name )
-	 * get_acct_type_option_list( $acct_type = NULL )
-	 * 
-	 * 
-	 * ADMIN
-	 * get_household($address,$zip,$last_name)
-	 * query_to_csv($query, $filename, $attachment = false, $headers = true)
-	 * csv_file_to_mysql_table($source_file, $target_table, $max_line_length=10000)
-	 * quote_all_array($values)
-	 * quote_all($value)
-	 * z_out_classes($type, $start_date_time)
-	 * 
-	 * 
-	 * CUSTOMERS
-	 * update_active_date($cust_id)
-	 * get_customer_by_id($cust_id)
-	 * get_class_history($cust_id)
-	 * get_current_classes($cust_id)
-	 * 
-	 * 
-	 * CLASSES
-	 * get_class_by_id($class_id)
-	 * number_of_students($class_id)
-	 * display_classes($query, $registering = false, $archive = false)
-	 * display_student_list($class_id)
-	 * 
-	 * 
-	 * REGISTRATION
-	 * get_existing_registrations_by_cust($cust_id)
-	 * is_paid($reg_id)
-	 * mark_as_paid($reg_id)
-	 * mark_as_not_paid($reg_id)
-	 * 
-	 * 
-	 * PAYMENT
-	 * get_pending_payments($cust_id)
-	 * get_reg_deposit($reg_id)
-	 * get_reg_balance($fee, $discounts, $deposit)
-	 * display_classes_for_payment($cust_id, $partial = false)
-	 * update_class_credit($cust_id, $new_amount)
-	 * create_payment($cust_id, $reg_id, $amount, $pay_type, $date_time, $acct_type)
-	 * display_payment_history($cust_id)
-	 * 
-	 */ 
 
-	 
-	 /* **************************************
-	  * GENERAL
-	  * **************************************/  
+	
 	 
 	
 	function get_row_by_id($item_id, $table_name) {
@@ -88,12 +33,69 @@
 			foreach($result_set as $row) {
 				echo "<tr>";
 				echo "<td>{$row['name']}</td>";
-				echo "<td><a href=\"admin.php?page=mokamrp_edit_class&amp;class_id={$row['id']}\"><i class=\"icon-pencil\"></i> Edit</a></td></tr>";
+				echo "<td><a href=\"admin.php?page=mokamrp_edit_groups&amp;id={$row['id']}\"><i class=\"icon-pencil\"></i> Edit</a></td></tr>";
 			}
 			echo "</table>";
 		}   
 	}
 
+	function display_admin_navigation($active) {
+		echo "<ul class=\"nav nav-pills\" style=\"margin-top:0px;padding-right:0px;padding-left:0px;\">";				  
+		echo "<li";
+		if($active == "groups") echo " class=\"active\"";
+		echo "><a href=\"admin.php?page=mokamrp_new_groups\">Groups</a></li>";
+		echo "<li";
+		if($active == "import") echo " class=\"active\"";
+		echo "><a href=\"admin.php?page=mokamrp_import_export\">Import/Export</a></li>";
+		echo "</ul>";
+	}
+
+	function display_create_page($type) {
+
+		display_admin_navigation($type);
+			echo "<legend>Add {$type}</legend>
+				<form action=\"admin.php?page=mokamrp_create_{$type}&amp;noheader=true\" method=\"post\">";		
+			wp_nonce_field( "mokamrp_create_{$type}","mokamrp_create_{$type}_nonce" );
+			$edit = false;
+			include(MOKAMRP_PATH . "/{$type}/{$type}_form.php"); 						
+			echo	"<div class=\"form-actions\">
+				  <button type=\"submit\" class=\"btn btn-primary\">Add {$type}</button>
+				  <a href=\"admin.php?page=mokamrp_new_{$type}\" class=\"btn\">Cancel</a>
+				</div>	
+			</form>
+			<legend>{$type}</legend>";
+
+		display_table_list($type);
+	}
+
+	
+	function display_edit_page($type) {
+		$id = $_GET['id']; 
+		$row = get_row_by_id($id, $type);
+		include(MOKAMRP_PATH . "/includes/header.php");
+		echo "<h2>Edit Group: {$row['name']}</h2>";
+		if (!empty($message)) {
+			echo "<p>" . $message . "</p>";
+		}
+		echo "<form action=\"admin.php?page=mokamrp_edit_{$type}&amp;id={$row['id']}\" method=\"post\">";
+		wp_nonce_field( "mokamrp_edit_{$type}","mokamrp_edit_{$type}_nonce" );
+		$edit = true;
+		include(MOKAMRP_PATH . "/groups/groups_form.php"); 
+		echo "<div class=\"form-actions\">
+			  <input type=\"submit\" name=\"submit\" id=\"submit\" value=\"Save Changes\" class=\"btn btn-primary\">
+			  <a href=\"admin.php?page=mokamrp_edit_groups&amp;id={$row['id']}\" class=\"btn\">Cancel</a>
+			</div>	
+			</form>
+			<legend>Groups</legend>";
+              
+		 	display_table_list($type);
+	}
+	
+
+
+	 /* **************************************
+	  * ^^ ABOVE IN USE ^^
+	  * **************************************/  
 
 	function redirect_to( $location = NULL ) {
 		if ($location != NULL) {
@@ -443,7 +445,7 @@
 				echo "<td>{$row['public_id']}</td>";
 				echo "<td>{$row['title']} - {$row['teacher']} ";
 				if (current_user_can('manage_options')) {
-					echo "<a href=\"admin.php?page=mokamrp_edit_class&amp;class_id=" . urlencode($row['class_id']) . "\"><i class=\"icon-pencil\"></i></a>";
+					echo "<a href=\"admin.php?page=mokamrp_edit_groups&amp;class_id=" . urlencode($row['class_id']) . "\"><i class=\"icon-pencil\"></i></a>";
 				}
 				echo "</td><td>";
 				if($row['start_date'] == $row['end_date']){
@@ -492,7 +494,7 @@
 				elseif($row['max_size'] != 0 && $row['max_size'] <= number_of_students($row['class_id'])){ $class_status = "FULL"; }
 				else { $class_status = "Open"; }	
 				echo "<tr><td>";
-				if ( current_user_can('manage_options') ) echo "<a href=\"admin.php?page=mokamrp_edit_class&amp;class_id=" . urlencode($row['class_id']) . "\">";
+				if ( current_user_can('manage_options') ) echo "<a href=\"admin.php?page=mokamrp_edit_groups&amp;class_id=" . urlencode($row['class_id']) . "\">";
 				echo "{$row['title']} - {$row['teacher']} ";
 				if ( current_user_can('manage_options') ) echo "</a>";
 				echo "</td><td>{$row['time']}</td>";
@@ -960,30 +962,6 @@
 		return $options;
 	}
 	
-	function display_admin_navigation($active) {
-		echo "<ul class=\"nav nav-pills\" style=\"padding-right: 0px; padding-left: 0px;\">";				  
-		echo "<li";
-		if($active == "add") echo " class=\"active\"";
-		echo "><a href=\"admin.php?page=mokamrp_new_class\">Add Classes</a></li>";
-		echo "<li";
-		if($active == "zout") echo " class=\"active\"";
-		echo "><a href=\"admin.php?page=mokamrp_zout\">Z-Out Classes</a></li>";
-		echo "<li";
-		if($active == "import") echo " class=\"active\"";
-		echo "><a href=\"admin.php?page=mokamrp_import_export\">Import/Export</a></li>";
-		echo "<li";
-		if($active == "clear") echo " class=\"active\"";
-		echo "><a href=\"admin.php?page=mokamrp_clear_database\">Clear Database</a></li>";
-		echo "<li";
-		if($active == "mailing") echo " class=\"active\"";
-		echo "><a href=\"admin.php?page=mokamrp_mailing_list\">Export Mailing List</a></li>";
-		echo "<li";
-		if($active == "unpaid") echo " class=\"active\"";
-		echo "><a href=\"admin.php?page=mokamrp_unpaid\">Unpaid</a></li>";
-		echo "<li";
-		if($active == "expired") echo " class=\"active\"";
-		echo "><a href=\"admin.php?page=mokamrp_expired\">Expired Members</a></li>";
-		echo "</ul>";
-	}
+	
 	
 ?>

@@ -202,7 +202,7 @@ if (!empty($errors)) {
 				echo "<ul>";	
 				foreach($current_classes as $row) {
 					echo "<li>";
-					if ( current_user_can('manage_options') ) echo "<a href=\"admin.php?page=mokamrp_edit_class&amp;class_id=" . urlencode($row['class_id']) . "\">";
+					if ( current_user_can('manage_options') ) echo "<a href=\"admin.php?page=mokamrp_edit_groups&amp;class_id=" . urlencode($row['class_id']) . "\">";
 					echo "{$row['title']} - {$row['teacher']}";
 					if ( current_user_can('manage_options') ) echo "</a>";
 					echo " (" . date("M j, Y", strtotime($row['start_date'])) . ")";
@@ -226,7 +226,7 @@ if (!empty($errors)) {
 			}else{
 				foreach($class_history as $row) {
 					echo "<li>";
-					if ( current_user_can('manage_options') ) echo "<a href=\"admin.php?page=mokamrp_edit_class&amp;class_id=" . urlencode($row['class_id']) . "\">";
+					if ( current_user_can('manage_options') ) echo "<a href=\"admin.php?page=mokamrp_edit_groups&amp;class_id=" . urlencode($row['class_id']) . "\">";
 					echo "{$row['title']} - {$row['teacher']}";
 					if ( current_user_can('manage_options') ) echo "</a>";
 					echo " (" . date("M j, Y", strtotime($row['start_date'])) . ")";

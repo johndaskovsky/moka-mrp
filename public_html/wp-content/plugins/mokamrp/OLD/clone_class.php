@@ -13,7 +13,7 @@
 
   <!--Admin Navigation-->
 	<ul class="nav nav-pills" style="padding-right: 0px; padding-left: 0px;">				  
-	  <li class="active"><a href="admin.php?page=mokamrp_new_class">Add Classes</a></li>
+	  <li class="active"><a href="admin.php?page=mokamrp_new_groups">Add Classes</a></li>
 	  <li><a href="admin.php?page=mokamrp_zout">Z-Out Classes</a></li>
 	  <li><a href="admin.php?page=mokamrp_import_export">Import/Export</a></li>
 	  <li><a href="admin.php?page=mokamrp_clear_database">Clear Database</a></li>
@@ -23,8 +23,8 @@
 
 <legend>Clone a Class</legend>
 
-<form action="admin.php?page=mokamrp_create_class&amp;noheader=true" method="post">		
-	<?php wp_nonce_field( 'mokamrp_create_class','mokamrp_create_class_nonce' );  ?>
+<form action="admin.php?page=mokamrp_create_groups&amp;noheader=true" method="post">		
+	<?php wp_nonce_field( 'mokamrp_create_groups','mokamrp_create_groups_nonce' );  ?>
 
 	<?php 
 		$class = get_class_by_id($class_id);
@@ -34,7 +34,7 @@
 					
 	<div class="form-actions">
 	  <button type="submit" class="btn btn-primary">Add Class</button>
-	  <a href="admin.php?page=mokamrp_new_class" class="btn">Cancel</a>
+	  <a href="admin.php?page=mokamrp_new_groups" class="btn">Cancel</a>
 	</div>	
 </form>
 

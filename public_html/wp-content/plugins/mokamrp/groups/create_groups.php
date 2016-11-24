@@ -1,4 +1,4 @@
-<?php check_admin_referer( 'mokamrp_create_class','mokamrp_create_class_nonce' );  ?>
+<?php check_admin_referer( 'mokamrp_create_groups','mokamrp_create_groups_nonce' );  ?>
 <?php global $wpdb; ?>
 <?php require_once(MOKAMRP_PATH . "/includes/functions.php"); ?>
 <?php
@@ -19,11 +19,11 @@
 			
 	if ($result != false) {
 		// Success!
-		redirect_to("admin.php?page=mokamrp_new_class");
+		redirect_to("admin.php?page=mokamrp_new_groups");
 	} 
 	else {
 		// Display error message.
-		echo "<p>Class creation failed.</p>";
+		echo "<p>Creation failed.</p>";
 		echo "<p>" . $wpdb->print_error() . "</p>";
 	}
 ?>
