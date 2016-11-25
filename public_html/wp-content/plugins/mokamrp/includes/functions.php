@@ -1,8 +1,11 @@
 <?php
 
-	function array_to_option_list($array, $key, $value, $selection = NULL) {
+	function array_to_option_list($array, $key, $value, $selection = NULL, $zero_option = NULL) {
 		$output = "";
 		$output .= "<option value =\"\">(Select)</option>";
+		if($zero_option != NULL) {
+			$output .= "<option value =\"0\">{$zero_option}</option>";
+		}
 		foreach($array as $row) {
 			$output .= "<option value =\"{$row[$key]}\"";
 			if($selection == $row[$key]) { $output .= " selected"; }
@@ -48,15 +51,47 @@
 	
 		$result_set = $wpdb->get_results($query, ARRAY_A);
 	
-		if($result_set == NULL) {
-			echo "<em>No results.</em><br>";
-		}else{ 
-			echo "<table class=\"table table-striped\">
-				  <tr><td>Name</td><td>Action</td></tr>";		
+		if($result_set != NULL) {
+			echo "<legend>{$table}</legend>
+				<table class=\"table table-striped\">
+				 <tr><th>Name</th><th>Action</th></tr>";		
 			foreach($result_set as $row) {
 				echo "<tr>";
 				echo "<td>{$row['name']}</td>";
 				echo "<td><a href=\"admin.php?page=mokamrp_edit_{$table}&amp;id={$row['id']}\"><i class=\"icon-pencil\"></i> Edit</a></td></tr>";
+			}
+			echo "</table>";
+		}   
+	}
+
+	function display_recipe_lines($recipe_id) {
+		global $wpdb;	
+		$materials = get_table_name("materials");
+		$lines = get_table_name("lines");
+		$recipes = get_table_name("recipes"); 
+		
+		$query = "SELECT {$lines}.id, {$lines}.material_type, {$materials}.name, {$recipes}.name AS recipe ";
+		$query .= "FROM {$lines}, {$materials}, {$recipes} ";
+		$query .= "WHERE ({$lines}.recipe_id = %d AND {$lines}.material_id = {$materials}.id AND {$lines}.recipe_id = {$recipes}.id)";
+		
+		$query_prep = $wpdb->prepare($query, $recipe_id);
+	
+		$result_set = $wpdb->get_results($query_prep, ARRAY_A);
+	
+		if($result_set != NULL) {
+			echo "<legend>Recipe: {$result_set[0]['recipe']}</legend>
+				<table class=\"table table-striped\">
+				 <tr><th>Material</th><th>Type</th><th>Action</th></tr>";		
+			foreach($result_set as $row) {
+				echo "<tr>";
+				echo "<td>{$row['name']}</td>";
+				if($row['material_type'] == 1) {
+					echo "<td>Input</td>";
+				} else {
+					echo "<td>Output</td>";
+				}
+				
+				echo "<td><a href=\"admin.php?page=mokamrp_edit_lines&amp;id={$row['id']}\"><i class=\"icon-pencil\"></i> Edit</a></td></tr>";
 			}
 			echo "</table>";
 		}   
@@ -97,8 +132,7 @@
 				  <button type=\"submit\" class=\"btn btn-primary\">Add {$type}</button>
 				  <a href=\"admin.php?page=mokamrp_new_{$type}\" class=\"btn\">Cancel</a>
 				</div>	
-			</form>
-			<legend>{$type}</legend>";
+			</form>";
 
 		display_table_list($type);
 	}
@@ -120,8 +154,7 @@
 			  <input type=\"submit\" name=\"submit\" id=\"submit\" value=\"Save Changes\" class=\"btn btn-primary\">
 			  <a href=\"admin.php?page=mokamrp_edit_{$type}&amp;id={$row['id']}\" class=\"btn\">Cancel</a>
 			</div>	
-			</form>
-			<legend>{$type}</legend>";
+			</form>";
               
 		 	display_table_list($type);
 	}

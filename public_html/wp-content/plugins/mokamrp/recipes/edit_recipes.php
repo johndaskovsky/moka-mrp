@@ -44,7 +44,10 @@
 
 ?>
 
-<?php	display_edit_page("recipes", $message); ?>
+<?php	
+	display_edit_page("recipes", $message); 
+	display_recipe_lines($id);
+?>
 
 
 <?php require(MOKAMRP_PATH . "/includes/footer.php"); ?>

@@ -17,18 +17,33 @@
 	if (isset($_POST['submit'])) {
 		check_admin_referer( 'mokamrp_edit_lines','mokamrp_edit_lines_nonce' );
 			
-		$name = stripslashes_deep($_POST['name']);
+		$recipe_id = stripslashes_deep($_POST['recipe_id']);
+		$material_type = stripslashes_deep($_POST['material_type']);
+		$material_id = stripslashes_deep($_POST['material_id']);
+		$source = stripslashes_deep($_POST['source']);
+		$units = stripslashes_deep($_POST['units']);
+		$cost_responsibility = stripslashes_deep($_POST['cost_responsibility']);
 
 		$table = get_table_name("lines");
 		
 		$result = $wpdb->update( 
 			$table, 
 			array( 					
-				'name' => $name
+				'recipe_id' => $recipe_id,
+				'material_type' => $material_type,
+				'material_id' => $material_id,
+				'source' => $source,
+				'units' => $units,
+				'cost_responsibility' => $cost_responsibility 
 			), 
 			array( 'id' => $id ), 
 			array( 
-				'%s' //name
+				'%d', // $recipe_id,
+				'%d', // $material_type,
+				'%d', // $material_id,
+				'%d', // $source,
+				'%d', // $units,
+				'%d'  // $cost_responsibility 
 			), 
 			array( '%d' ) //id
 		);
@@ -44,7 +59,13 @@
 
 ?>
 
-<?php	display_edit_page("lines", $message); ?>
+<?php	
+	display_edit_page("lines", $message); 
+	
+	$row = get_row_by_id($id, 'lines'); 
+	$recipe_id = $row['recipe_id']; 
+	display_recipe_lines($recipe_id);
+?>
 
 
 <?php require(MOKAMRP_PATH . "/includes/footer.php"); ?>
