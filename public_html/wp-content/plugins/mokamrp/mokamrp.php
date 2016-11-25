@@ -186,11 +186,8 @@ function mokamrp_home_page()
 {
 	require_once(MOKAMRP_PATH . "/includes/functions.php");
 	include(MOKAMRP_PATH . "/includes/header.php"); 
-	?>
-	  <legend>MokaMRP</legend>
-	<?php
-	
-	 include(MOKAMRP_PATH . "/includes/footer.php");
+	include(MOKAMRP_PATH . "/includes/mokamrp_home.php"); 
+	include(MOKAMRP_PATH . "/includes/footer.php");
 }
 
 
