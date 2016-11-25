@@ -48,10 +48,11 @@ function mokamrp_install() {
 	$tablename = get_table_name('materials');
 	$query = "CREATE TABLE IF NOT EXISTS `{$tablename}` (
 		`id` int(11) NOT NULL AUTO_INCREMENT,
+		`group_id` int(11) NOT NULL,
 		`name` varchar(255) NOT NULL,
 		`measure_type` tinyint(1) NOT NULL,
 		`source` int(11) NOT NULL,
-		`group_id` int(11) NOT NULL,
+		`destination` int(11) NOT NULL,
 		PRIMARY KEY (`id`)
 		) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1";
 	$wpdb -> query($query);
@@ -79,8 +80,8 @@ function mokamrp_install() {
 		`material_type` tinyint(1) NOT NULL,
 		`material_id` int(11) NOT NULL,
 		`source` int(11) NOT NULL,
-		`amount` decimal(6,2) NOT NULL,
-		`cost_responsibility` tinyint(3) NOT NULL,
+		`units` decimal(10,2) NOT NULL,
+		`cost_responsibility` decimal(5,2) NOT NULL,
 		PRIMARY KEY (`id`)
 		) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1";
 	$wpdb -> query($query);
@@ -88,12 +89,13 @@ function mokamrp_install() {
 	$tablename = get_table_name('logs');
 	$query = "CREATE TABLE IF NOT EXISTS `{$tablename}` (
 		`id` int(11) NOT NULL AUTO_INCREMENT,
+		`datetime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
 		`action_id` int(11) NOT NULL,
-		`datetime` datetime NOT NULL,
 		`material_id` int(11) NOT NULL,
 		`recipe_id` int(11) NOT NULL,
-		`in` decimal(6,2) NOT NULL,
-		`out` decimal(6,2) NOT NULL,
+		`units` decimal(10,2) NOT NULL,
+		`cost` decimal(10,2) NOT NULL,
+		`user` varchar(255) NOT NULL,
 		PRIMARY KEY (`id`)
 		) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1";
 	$wpdb -> query($query);
@@ -185,17 +187,8 @@ function mokamrp_home_page()
 	require_once(MOKAMRP_PATH . "/includes/functions.php");
 	include(MOKAMRP_PATH . "/includes/header.php"); 
 	?>
-	  <legend>Today's Classes</legend>
+	  <legend>MokaMRP</legend>
 	<?php
-		$today = today();
-		$classes = get_table_name("classes");
-		
-		$query = "SELECT * FROM {$classes} ";
-		$query .= "WHERE end_date >= '{$today}' AND start_date <= '{$today}' ";
-		$query .= "AND DAYOFWEEK(start_date) = DAYOFWEEK('{$today}') ";
-		$query .= "ORDER BY title ASC";
-	
-		display_classes($query);
 	
 	 include(MOKAMRP_PATH . "/includes/footer.php");
 }
@@ -211,6 +204,21 @@ function mokamrp_edit_groups_page() { include(MOKAMRP_PATH . "/groups/edit_group
 function mokamrp_new_recipes_page() { include(MOKAMRP_PATH . "/recipes/new_recipes.php"); }
 function mokamrp_create_recipes_page() { include(MOKAMRP_PATH . "/recipes/create_recipes.php"); }
 function mokamrp_edit_recipes_page() { include(MOKAMRP_PATH . "/recipes/edit_recipes.php"); }
+
+//materials
+function mokamrp_new_materials_page() { include(MOKAMRP_PATH . "/materials/new_materials.php"); }
+function mokamrp_create_materials_page() { include(MOKAMRP_PATH . "/materials/create_materials.php"); }
+function mokamrp_edit_materials_page() { include(MOKAMRP_PATH . "/materials/edit_materials.php"); }
+
+//lines
+function mokamrp_new_lines_page() { include(MOKAMRP_PATH . "/lines/new_lines.php"); }
+function mokamrp_create_lines_page() { include(MOKAMRP_PATH . "/lines/create_lines.php"); }
+function mokamrp_edit_lines_page() { include(MOKAMRP_PATH . "/lines/edit_lines.php"); }
+
+//logs
+function mokamrp_new_logs_page() { include(MOKAMRP_PATH . "/logs/new_logs.php"); }
+function mokamrp_create_logs_page() { include(MOKAMRP_PATH . "/logs/create_logs.php"); }
+function mokamrp_edit_logs_page() { include(MOKAMRP_PATH . "/logs/edit_logs.php"); }
 
 //OTHER
 function mokamrp_settings_page() { include(MOKAMRP_PATH . "/settings.php"); }
@@ -232,9 +240,24 @@ function mokamrp_plugin_menu()
 	$my_pages[] = add_submenu_page(null, 'Create Groups', 'Create Groups', 'manage_options', 'mokamrp_create_groups', 'mokamrp_create_groups_page');
 
 	//RECIPES
-	$my_pages[] = add_submenu_page('mokamrp_home', 'recipes', 'Admin', 'manage_options', 'mokamrp_new_recipes', 'mokamrp_new_recipes_page');
+	$my_pages[] = add_submenu_page(null, 'recipes', 'Admin', 'manage_options', 'mokamrp_new_recipes', 'mokamrp_new_recipes_page');
 	$my_pages[] = add_submenu_page(null, 'Edit recipes', 'Edit recipes', 'manage_options', 'mokamrp_edit_recipes', 'mokamrp_edit_recipes_page');	
 	$my_pages[] = add_submenu_page(null, 'Create recipes', 'Create recipes', 'manage_options', 'mokamrp_create_recipes', 'mokamrp_create_recipes_page');
+
+	//materials
+	$my_pages[] = add_submenu_page(null, 'materials', 'Admin', 'manage_options', 'mokamrp_new_materials', 'mokamrp_new_materials_page');
+	$my_pages[] = add_submenu_page(null, 'Edit materials', 'Edit materials', 'manage_options', 'mokamrp_edit_materials', 'mokamrp_edit_materials_page');	
+	$my_pages[] = add_submenu_page(null, 'Create materials', 'Create materials', 'manage_options', 'mokamrp_create_materials', 'mokamrp_create_materials_page');
+
+	//lines
+	$my_pages[] = add_submenu_page(null, 'lines', 'Admin', 'manage_options', 'mokamrp_new_lines', 'mokamrp_new_lines_page');
+	$my_pages[] = add_submenu_page(null, 'Edit lines', 'Edit lines', 'manage_options', 'mokamrp_edit_lines', 'mokamrp_edit_lines_page');	
+	$my_pages[] = add_submenu_page(null, 'Create lines', 'Create lines', 'manage_options', 'mokamrp_create_lines', 'mokamrp_create_lines_page');
+
+	//logs
+	$my_pages[] = add_submenu_page(null, 'logs', 'Admin', 'manage_options', 'mokamrp_new_logs', 'mokamrp_new_logs_page');
+	$my_pages[] = add_submenu_page(null, 'Edit logs', 'Edit logs', 'manage_options', 'mokamrp_edit_logs', 'mokamrp_edit_logs_page');	
+	$my_pages[] = add_submenu_page(null, 'Create logs', 'Create logs', 'manage_options', 'mokamrp_create_logs', 'mokamrp_create_logs_page');
 
 
 
