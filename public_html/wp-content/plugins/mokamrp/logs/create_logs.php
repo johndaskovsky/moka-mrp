@@ -7,6 +7,7 @@
 	$material_id = stripslashes_deep($_POST['material_id']);
 	$recipe_id = stripslashes_deep($_POST['recipe_id']);
 	$units = stripslashes_deep($_POST['units']);
+	$type = 0; //stripslashes_deep($_POST['type']);
 	$cost = 0; //stripslashes_deep($_POST['cost']);
 	$user = 0; //stripslashes_deep($_POST['user']);
 
@@ -19,6 +20,7 @@
 				'material_id' => $material_id,
 				'recipe_id' => $recipe_id,
 				'units' => $units,
+				'type' => $type,
 				'cost' => $cost,
 				'user' => $user  
 			), 
@@ -27,6 +29,7 @@
 				'%d', //material_id
 				'%d', //recipe_id
 				'%d', //units
+				'%d', //type
 				'%d', //cost
 				'%s' //user
 			) 

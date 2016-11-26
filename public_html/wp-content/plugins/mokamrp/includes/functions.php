@@ -4,7 +4,9 @@
 		$output = "";
 		$output .= "<option value =\"-1\">(Select)</option>";
 		if($zero_option != NULL) {
-			$output .= "<option value =\"0\">{$zero_option}</option>";
+			$output .= "<option value =\"0\"";
+			if($selection !== NULL && $selection == 0) { $output .= " selected"; }
+			$output .= ">{$zero_option}</option>";
 		}
 		foreach($array as $row) {
 			$output .= "<option value =\"{$row[$key]}\"";
@@ -26,11 +28,12 @@
 		}
 	}
 
-	function get_all_table_rows($table) {
+	function get_all_table_rows($table, $where = "") {
 		global $wpdb;
 		$table_name = get_table_name($table);
 		$query = "SELECT * ";
 		$query .= "FROM {$table_name} ";
+		$query .= $where;
 		$query .= "ORDER BY name";
 
 		$result_set = $wpdb->get_results($query, ARRAY_A);
@@ -151,9 +154,10 @@
 	}
 	
 	function display_edit_page($type, $message) {
+		include(MOKAMRP_PATH . "/includes/header.php");
+		display_admin_navigation($type);
 		$id = $_GET['id']; 
 		$row = get_row_by_id($id, $type);
-		include(MOKAMRP_PATH . "/includes/header.php");
 		echo "<h2>Edit {$type}: {$row['name']}</h2>";
 		if (!empty($message)) {
 			echo "<p>" . $message . "</p>";

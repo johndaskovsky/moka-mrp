@@ -34,8 +34,8 @@
     <select id="source" class="input-large" name="source">
       <?php 
         $results = get_all_table_rows("recipes");
-        if($edit){ echo array_to_option_list($results, "id", "name", $row['source']); }
-        else{ echo array_to_option_list($results, "id", "name"); }
+        if($edit){ echo array_to_option_list($results, "id", "name", $row['source'], "Purchase"); }
+        else{ echo array_to_option_list($results, "id", "name", NULL, "Purchase"); }
       ?>
     </select>
   </div>
