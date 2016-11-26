@@ -25,5 +25,4 @@
 		echo "<p>" . $wpdb->print_error() . "</p>";
 		echo "<a href=\"admin.php?page=mokamrp_home\">Return to Main Page</a>";
 	}
-
 ?>

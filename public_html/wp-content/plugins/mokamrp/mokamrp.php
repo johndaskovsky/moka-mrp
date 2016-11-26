@@ -96,6 +96,7 @@ function mokamrp_install() {
 		`type` tinyint(1) NOT NULL,
 		`cost` decimal(10,2) NOT NULL,
 		`user` varchar(255) NOT NULL,
+		`notes` text NOT NULL,
 		PRIMARY KEY (`id`)
 		) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1";
 	$wpdb -> query($query);

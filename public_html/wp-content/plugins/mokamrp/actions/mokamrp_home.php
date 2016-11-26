@@ -7,6 +7,13 @@
       </div>";
   echo "</form>";
 
+  //Loss
+  echo "<form action=\"admin.php?page=mokamrp_new_actions&amp;id=-1\" method=\"post\">";
+  echo "<div class=\"form-actions\">
+      <input type=\"submit\" name=\"submit\" id=\"submit\" class=\"btn btn-primary\" value=\"Loss\">
+      </div>";
+  echo "</form>";
+
   //Other recipes
   $recipes = get_all_table_rows("recipes");
   $groups = get_all_table_rows("groups");
