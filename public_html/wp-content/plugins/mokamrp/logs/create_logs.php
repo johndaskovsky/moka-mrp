@@ -7,9 +7,10 @@
 	$material_id = stripslashes_deep($_POST['material_id']);
 	$recipe_id = stripslashes_deep($_POST['recipe_id']);
 	$units = stripslashes_deep($_POST['units']);
-	$type = 0; //stripslashes_deep($_POST['type']);
+	$type = stripslashes_deep($_POST['type']);
 	$cost = 0; //stripslashes_deep($_POST['cost']);
 	$user = 0; //stripslashes_deep($_POST['user']);
+	$notes = stripslashes_deep($_POST['notes']);
 
 	$table = get_table_name("logs");
 
@@ -22,7 +23,8 @@
 				'units' => $units,
 				'type' => $type,
 				'cost' => $cost,
-				'user' => $user  
+				'user' => $user,
+				'notes' => $notes  
 			), 
 			array( 
 				'%d', //action_id
@@ -31,7 +33,8 @@
 				'%d', //units
 				'%d', //type
 				'%d', //cost
-				'%s' //user
+				'%s', //user
+				'%s' //notes
 			) 
 		);
 			

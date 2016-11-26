@@ -30,3 +30,20 @@
     <input class="span12" placeholder="Weight/Units" type="number" step="any" name="units" value="<?php if($edit){echo $row['units'];} ?>" id="units">
   </div>  
 </div>
+
+<div class="control-group">  
+  <label class="control-label" for="type">Type</label>  
+  <div class="controls">  
+    <select id="type" class="input-large" name="type" required>
+      <option value ="1"<?php if($edit && $row['type'] == 1) { echo "selected"; } ?>>Increase Material</option>
+      <option value ="-1"<?php if($edit && $row['type'] == -1) { echo "selected"; } ?>>Decrease Material</option>
+    </select>
+  </div>
+</div>
+
+<div class="row-fluid">
+  <div class="span3"> 
+    <label class="control-label" for="notes">Notes</label>
+    <textarea class="span12" rows="1" placeholder="Notes" type="text" name="notes" id="notes"><?php if($edit){echo $row['notes'];} ?></textarea>
+  </div>
+</div>

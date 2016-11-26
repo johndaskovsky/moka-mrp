@@ -24,6 +24,7 @@
 		$type = stripslashes_deep($_POST['type']);
 		$cost = stripslashes_deep($_POST['cost']);
 		$user = stripslashes_deep($_POST['user']);
+		$notes = stripslashes_deep($_POST['notes']);
 
 		$table = get_table_name("logs");
 		
@@ -36,7 +37,8 @@
 				'units' => $units,
 				'type' => $type,
 				'cost' => $cost,
-				'user' => $user 
+				'user' => $user,
+				'notes' => $notes  
 			), 
 			array( 'id' => $id ), 
 			array( 
@@ -46,7 +48,8 @@
 				'%d', //units
 				'%d', //type
 				'%d', //cost
-				'%s' //user
+				'%s', //user
+				'%s' //notes
 			), 
 			array( '%d' ) //id
 		);
