@@ -133,9 +133,6 @@
 		if($active == "materials") echo " class=\"active\"";
 		echo "><a href=\"admin.php?page=mokamrp_new_materials\">Materials</a></li>";
 		echo "<li";
-		if($active == "lines") echo " class=\"active\"";
-		echo "><a href=\"admin.php?page=mokamrp_new_lines\">Lines</a></li>";
-		echo "<li";
 		if($active == "logs") echo " class=\"active\"";
 		echo "><a href=\"admin.php?page=mokamrp_new_logs\">Logs</a></li>";
 		echo "<li";
@@ -144,12 +141,16 @@
 		echo "</ul>";
 	}
 
-	function display_create_page($type) {
+	function display_create_page($type, $custom_title = NULL ) {
 		if($type != "actions") {
 			//IF NOT ACTIONS (Recipes, Materials, etc)
 			display_admin_navigation($type);
-			echo "<legend>Add {$type}</legend>
-				<form action=\"admin.php?page=mokamrp_create_{$type}&amp;noheader=true\" method=\"post\">";
+			if($custom_title != NULL){
+				echo "<legend>{$custom_title}</legend>";
+			} else {
+				echo "<legend>Add {$type}</legend>";
+			}
+			echo "<form action=\"admin.php?page=mokamrp_create_{$type}&amp;noheader=true\" method=\"post\">";
 			wp_nonce_field( "mokamrp_create_{$type}","mokamrp_create_{$type}_nonce" );
 			$edit = false;
 			include(MOKAMRP_PATH . "/{$type}/{$type}_form.php"); 						

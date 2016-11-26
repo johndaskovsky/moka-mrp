@@ -32,7 +32,8 @@
 			
 	if ($result != false) {
 		// Success!
-		redirect_to("admin.php?page=mokamrp_new_lines");
+		$redirect_link = "{$_SERVER['HTTP_REFERER']}";
+		redirect_to($redirect_link);
 	} 
 	else {
 		// Display error message.
