@@ -79,7 +79,6 @@ function mokamrp_install() {
 		`recipe_id` int(11) NOT NULL,
 		`material_type` tinyint(1) NOT NULL,
 		`material_id` int(11) NOT NULL,
-		`source` int(11) NOT NULL,
 		`units` decimal(10,2) NOT NULL,
 		`cost_responsibility` decimal(5,2) NOT NULL,
 		PRIMARY KEY (`id`)
@@ -94,6 +93,7 @@ function mokamrp_install() {
 		`material_id` int(11) NOT NULL,
 		`recipe_id` int(11) NOT NULL,
 		`units` decimal(10,2) NOT NULL,
+		`type` tinyint(1) NOT NULL,
 		`cost` decimal(10,2) NOT NULL,
 		`user` varchar(255) NOT NULL,
 		PRIMARY KEY (`id`)

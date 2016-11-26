@@ -2,7 +2,7 @@
 
 	function array_to_option_list($array, $key, $value, $selection = NULL, $zero_option = NULL) {
 		$output = "";
-		$output .= "<option value =\"\">(Select)</option>";
+		$output .= "<option value =\"-1\">(Select)</option>";
 		if($zero_option != NULL) {
 			$output .= "<option value =\"0\">{$zero_option}</option>";
 		}
@@ -122,7 +122,7 @@
 
 	function display_create_page($type) {
 		if($type != "actions") {
-			//IF NOT ACTION
+			//IF NOT ACTIONS (Recipes, Materials, etc)
 			display_admin_navigation($type);
 			echo "<legend>Add {$type}</legend>
 				<form action=\"admin.php?page=mokamrp_create_{$type}&amp;noheader=true\" method=\"post\">";
@@ -136,7 +136,7 @@
 			</form>";
 			display_table_list($type);
 		} else {
-			//IF ACTION
+			//IF ACTIONS
 			echo "<legend>Log an Action</legend>
 				<form action=\"admin.php?page=mokamrp_create_{$type}&amp;noheader=true\" method=\"post\">";
 			wp_nonce_field( "mokamrp_create_{$type}","mokamrp_create_{$type}_nonce" );
@@ -149,7 +149,6 @@
 				</form>";
 		}
 	}
-
 	
 	function display_edit_page($type, $message) {
 		$id = $_GET['id']; 
@@ -304,6 +303,5 @@
 		$value = "'" . $wpdb->escape($value) . "'"; 
 		return $value; 
 	}
-	
 	
 ?>

@@ -1,4 +1,4 @@
-<?php if(isset($_GET['id']) && $_GET['id'] == 0): ?>
+<?php if($_GET['id'] == 0): ?>
 <!-- PURCHASE -->
 <div class="row-fluid">
   <div class="span3">  

@@ -3,10 +3,8 @@
 <?php
 	if (!isset($_GET['id']) || intval($_GET['id']) == 0) {
 		//If no class is selected, escape.
-		echo "test";
 		wp_redirect("admin.php?page=mokamrp_home");
 		exit;
-
 	} 
 	else 
 	{ 
@@ -47,6 +45,5 @@
 ?>
 
 <?php	display_edit_page("actions", $message); ?>
-
 
 <?php require(MOKAMRP_PATH . "/includes/footer.php"); ?>

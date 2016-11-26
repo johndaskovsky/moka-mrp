@@ -6,7 +6,6 @@
 	$recipe_id = stripslashes_deep($_POST['recipe_id']);
 	$material_type = stripslashes_deep($_POST['material_type']);
 	$material_id = stripslashes_deep($_POST['material_id']);
-	$source = stripslashes_deep($_POST['source']);
 	$units = stripslashes_deep($_POST['units']);
 	$cost_responsibility = stripslashes_deep($_POST['cost_responsibility']);
 
@@ -19,7 +18,6 @@
 				'recipe_id' => $recipe_id,
 				'material_type' => $material_type,
 				'material_id' => $material_id,
-				'source' => $source,
 				'units' => $units,
 				'cost_responsibility' => $cost_responsibility  
 			), 
@@ -27,7 +25,6 @@
 				'%d', // $recipe_id,
 				'%d', // $material_type,
 				'%d', // $material_id,
-				'%d', // $source,
 				'%d', // $units,
 				'%d'  // $cost_responsibility  
 			) 
