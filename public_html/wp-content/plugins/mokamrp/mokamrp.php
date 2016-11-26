@@ -186,7 +186,7 @@ function mokamrp_home_page()
 {
 	require_once(MOKAMRP_PATH . "/includes/functions.php");
 	include(MOKAMRP_PATH . "/includes/header.php"); 
-	include(MOKAMRP_PATH . "/includes/mokamrp_home.php"); 
+	include(MOKAMRP_PATH . "/actions/mokamrp_home.php"); 
 	include(MOKAMRP_PATH . "/includes/footer.php");
 }
 
@@ -216,6 +216,11 @@ function mokamrp_edit_lines_page() { include(MOKAMRP_PATH . "/lines/edit_lines.p
 function mokamrp_new_logs_page() { include(MOKAMRP_PATH . "/logs/new_logs.php"); }
 function mokamrp_create_logs_page() { include(MOKAMRP_PATH . "/logs/create_logs.php"); }
 function mokamrp_edit_logs_page() { include(MOKAMRP_PATH . "/logs/edit_logs.php"); }
+
+//actions
+function mokamrp_new_actions_page() { include(MOKAMRP_PATH . "/actions/new_actions.php"); }
+function mokamrp_create_actions_page() { include(MOKAMRP_PATH . "/actions/create_actions.php"); }
+function mokamrp_edit_actions_page() { include(MOKAMRP_PATH . "/actions/edit_actions.php"); }
 
 //OTHER
 function mokamrp_settings_page() { include(MOKAMRP_PATH . "/settings.php"); }
@@ -256,7 +261,10 @@ function mokamrp_plugin_menu()
 	$my_pages[] = add_submenu_page(null, 'Edit logs', 'Edit logs', 'manage_options', 'mokamrp_edit_logs', 'mokamrp_edit_logs_page');	
 	$my_pages[] = add_submenu_page(null, 'Create logs', 'Create logs', 'manage_options', 'mokamrp_create_logs', 'mokamrp_create_logs_page');
 
-
+	//actions
+	$my_pages[] = add_submenu_page(null, 'actions', 'Admin', 'read', 'mokamrp_new_actions', 'mokamrp_new_actions_page');
+	$my_pages[] = add_submenu_page(null, 'Edit actions', 'Edit actions', 'read', 'mokamrp_edit_actions', 'mokamrp_edit_actions_page');	
+	$my_pages[] = add_submenu_page(null, 'Create actions', 'Create actions', 'read', 'mokamrp_create_actions', 'mokamrp_create_actions_page');
 
 	$my_pages[] = add_submenu_page(null, 'Classes', 'Classes', 'read', 'mokamrp_classes', 'mokamrp_classes_page');
 	$my_pages[] = add_submenu_page(null, 'Clear Database', 'Clear Database', 'manage_options', 'mokamrp_clear_database', 'mokamrp_clear_database_page'); 

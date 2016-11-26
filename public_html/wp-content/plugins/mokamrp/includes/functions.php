@@ -121,10 +121,11 @@
 	}
 
 	function display_create_page($type) {
-
-		display_admin_navigation($type);
+		if($type != "actions") {
+			//IF NOT ACTION
+			display_admin_navigation($type);
 			echo "<legend>Add {$type}</legend>
-				<form action=\"admin.php?page=mokamrp_create_{$type}&amp;noheader=true\" method=\"post\">";		
+				<form action=\"admin.php?page=mokamrp_create_{$type}&amp;noheader=true\" method=\"post\">";
 			wp_nonce_field( "mokamrp_create_{$type}","mokamrp_create_{$type}_nonce" );
 			$edit = false;
 			include(MOKAMRP_PATH . "/{$type}/{$type}_form.php"); 						
@@ -133,8 +134,20 @@
 				  <a href=\"admin.php?page=mokamrp_new_{$type}\" class=\"btn\">Cancel</a>
 				</div>	
 			</form>";
-
-		display_table_list($type);
+			display_table_list($type);
+		} else {
+			//IF ACTION
+			echo "<legend>Log an Action</legend>
+				<form action=\"admin.php?page=mokamrp_create_{$type}&amp;noheader=true\" method=\"post\">";
+			wp_nonce_field( "mokamrp_create_{$type}","mokamrp_create_{$type}_nonce" );
+			$edit = false;
+			include(MOKAMRP_PATH . "/{$type}/{$type}_form.php"); 						
+			echo	"<div class=\"form-actions\">
+				<button type=\"submit\" class=\"btn btn-primary\">Log Action</button>
+				<a href=\"admin.php?page=mokamrp_home\" class=\"btn\">Cancel</a>
+				</div>	
+				</form>";
+		}
 	}
 
 	
