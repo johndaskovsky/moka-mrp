@@ -28,6 +28,20 @@
 		}
 	}
 
+	function get_name_by_id($item_id, $table_name) {
+		global $wpdb;
+		$table = get_table_name($table_name);
+		$query = $wpdb->prepare("SELECT * FROM {$table} WHERE id = %d LIMIT 1", $item_id);
+		$row = $wpdb->get_row($query, ARRAY_A);
+		if($table_name == "materials" && $item_id == 0) {
+				return "*Variable*";
+		} elseif ($row != NULL) {
+			return $row['name'];
+		} else {
+			return NULL;
+		}
+	}
+
 	function get_all_table_rows($table, $where = "") {
 		global $wpdb;
 		$table_name = get_table_name($table);
@@ -61,7 +75,14 @@
 			foreach($result_set as $row) {
 				echo "<tr>";
 				echo "<td>{$row['name']}</td>";
-				echo "<td><a href=\"admin.php?page=mokamrp_edit_{$table}&amp;id={$row['id']}\"><i class=\"icon-pencil\"></i> Edit</a></td></tr>";
+				echo "<td>
+					<a href=\"admin.php?page=mokamrp_edit_{$table}&amp;id={$row['id']}\">
+						<i class=\"icon-pencil\"></i> Edit</a>&nbsp;";
+				if($table == "recipes") {
+					echo	"<a href=\"admin.php?page=mokamrp_new_lines&amp;recipe_id={$row['id']}\">
+						<i class=\"icon-pencil\"></i> Edit Lines</a>";
+				}
+				echo "</td></tr>";
 			}
 			echo "</table>";
 		}   
@@ -69,25 +90,25 @@
 
 	function display_recipe_lines($recipe_id) {
 		global $wpdb;	
-		$materials = get_table_name("materials");
 		$lines = get_table_name("lines");
 		$recipes = get_table_name("recipes"); 
 		
-		$query = "SELECT {$lines}.id, {$lines}.material_type, {$materials}.name, {$recipes}.name AS recipe ";
-		$query .= "FROM {$lines}, {$materials}, {$recipes} ";
-		$query .= "WHERE ({$lines}.recipe_id = %d AND {$lines}.material_id = {$materials}.id AND {$lines}.recipe_id = {$recipes}.id)";
+		$query = "SELECT {$lines}.id, {$lines}.material_type, {$lines}.material_id, {$recipes}.name AS recipe ";
+		$query .= "FROM {$lines}, {$recipes} ";
+		$query .= "WHERE ({$lines}.recipe_id = %d AND {$lines}.recipe_id = {$recipes}.id)";
 		
 		$query_prep = $wpdb->prepare($query, $recipe_id);
 	
 		$result_set = $wpdb->get_results($query_prep, ARRAY_A);
-	
+
 		if($result_set != NULL) {
 			echo "<legend>Recipe: {$result_set[0]['recipe']}</legend>
 				<table class=\"table table-striped\">
 				 <tr><th>Material</th><th>Type</th><th>Action</th></tr>";		
 			foreach($result_set as $row) {
+				$material_name = get_name_by_id($row['material_id'],'materials');
 				echo "<tr>";
-				echo "<td>{$row['name']}</td>";
+				echo "<td>{$material_name}</td>";
 				if($row['material_type'] == 1) {
 					echo "<td>Input</td>";
 				} else {

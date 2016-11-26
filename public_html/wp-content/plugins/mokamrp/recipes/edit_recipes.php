@@ -46,7 +46,6 @@
 
 <?php	
 	display_edit_page("recipes", $message); 
-	display_recipe_lines($id);
 ?>
 
 
