@@ -45,14 +45,14 @@
 
 <div class="row-fluid">
   <div class="span3">  
-    <label class="control-label" for="units">Weight/Units</label>
+    <label class="control-label" for="units">Weight/Units (Inputs)</label>
     <input class="span12" placeholder="Weight/Units" type="number" min="0" step="any" name="units" value="<?php if($edit){echo $row['units'];} ?>" id="units">
   </div>  
 </div>
 
 <div class="row-fluid">
   <div class="span3">  
-    <label class="control-label" for="cost_responsibility">Cost Responsibility %</label>
+    <label class="control-label" for="cost_responsibility">Cost Responsibility % (Outputs)</label>
     <input class="span12" placeholder="Cost Responsibility %" type="number" min="0" max="100" step="any" name="cost_responsibility" value="<?php if($edit){echo $row['cost_responsibility'];} else { echo 100; } ?>" id="cost_responsibility">
   </div>  
 </div>

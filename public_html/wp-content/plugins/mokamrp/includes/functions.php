@@ -189,9 +189,33 @@
 		include(MOKAMRP_PATH . "/{$type}/{$type}_form.php"); 
 		echo "<div class=\"form-actions\">
 			  <input type=\"submit\" name=\"submit\" id=\"submit\" value=\"Save Changes\" class=\"btn btn-primary\">
-			  <a href=\"admin.php?page=mokamrp_edit_{$type}&amp;id={$row['id']}\" class=\"btn\">Cancel</a>
-			</div>	
-			</form>";
+			  <a href=\"admin.php?page=mokamrp_edit_{$type}&amp;id={$row['id']}\" class=\"btn\">Cancel</a>";	
+		if ( current_user_can('manage_options') ) {
+	  	echo "<a href=\"#deleteModal\" role=\"button\" class=\"btn btn-small btn-danger pull-right\" data-toggle=\"modal\">Delete</a>";
+    }   
+		echo "</div></form>";
+
+		echo	"<!-- Modal -->
+			<div id=\"deleteModal\" class=\"modal hide fade\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"myModalLabel\" aria-hidden=\"true\">
+			  <div class=\"modal-header\">
+			    <button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-hidden=\"true\">&times;</button>
+			    <h3 id=\"myModalLabel\">Delete INSERT TITLE</h3>
+			  </div>
+			  <div class=\"modal-body\">
+			    <div class=\"alert alert-block\">
+			  		<h4>Warning!</h4>
+			  		This action cannot be undone.
+				</div>
+			  </div>
+			  <div class=\"modal-footer\">";
+			$form_action_url = "admin.php?page=mokamrp_delete_table_item&amp;noheader=true&amp;t={$type}&amp;i={$id}";	
+			echo	"<form action=\"{$form_action_url}\" method=\"post\">";
+			wp_nonce_field('mokamrp_delete_table_item');
+			echo	"<button class=\"btn\" data-dismiss=\"modal\" aria-hidden=\"true\">Cancel</button>
+					<input type=\"submit\" name=\"submit\" id=\"submit\" value=\"Delete\" class=\"btn btn-danger\">
+				</form>	
+			  </div>
+			</div>";
               
 		 	display_table_list($type);
 	}
