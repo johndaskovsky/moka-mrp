@@ -45,17 +45,26 @@
 
 	$lines = $_POST['line'];
 
+	//General variables that apply to all lines
+	$action_id = get_next_action_id();
+	$current_user = wp_get_current_user();
+	$user = $current_user->display_name;
+
 	$table = get_table_name("logs");
 
 	foreach($lines as $row) {
-		$action_id = 3;
 		$material_id = stripslashes_deep($row['material_id']);
 		$recipe_id = stripslashes_deep($row['recipe_id']);
 		$units = stripslashes_deep($row['units']);
 		$type = stripslashes_deep($row['type']);
-		$cost = stripslashes_deep($row['cost']);
-		$user = 0; 
 		$notes = stripslashes_deep($row['notes']);
+
+		if($recipe_id == 0) {
+			$cost = stripslashes_deep($row['cost']);
+		} else {
+			$cost = 100;
+		}
+		
 
 		$result = $wpdb->insert( 
 				$table, 

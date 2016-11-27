@@ -42,6 +42,14 @@
 		}
 	}
 
+	function get_next_action_id() {
+		global $wpdb;
+		$table = get_table_name("logs");
+		$query = "SELECT MAX(action_id) as max FROM {$table}";
+		$max = $wpdb->get_row($query, ARRAY_A);
+		return $max['max'] + 1;
+	}
+
 	function get_all_table_rows($table, $where = "") {
 		global $wpdb;
 		$table_name = get_table_name($table);
