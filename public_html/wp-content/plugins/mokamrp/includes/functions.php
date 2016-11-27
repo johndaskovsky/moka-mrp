@@ -50,6 +50,22 @@
 		return $max['max'] + 1;
 	}
 
+	function get_cost_of_input($material_id,$units) {
+		global $wpdb;
+		$table = get_table_name("logs");
+		$query = $wpdb->prepare("SELECT * FROM {$table} WHERE (material_id = %d AND type = 1)", $material_id);
+		$results = $wpdb->get_results($query, ARRAY_A);
+		
+		$unit_total = 0;
+		$cost_total = 0;
+		foreach($results as $row) {
+			$unit_total += $row["units"];
+			$cost_total += $row["cost"];
+		}
+
+		return $units * ($cost_total/$unit_total);
+	}
+
 	function get_all_table_rows($table, $where = "") {
 		global $wpdb;
 		$table_name = get_table_name($table);

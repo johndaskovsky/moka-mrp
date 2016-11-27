@@ -62,7 +62,11 @@
 		if($recipe_id == 0) {
 			$cost = stripslashes_deep($row['cost']);
 		} else {
-			$cost = 100;
+			if($type == -1) {
+				$cost = get_cost_of_input($material_id,$units);
+			} else {
+				$cost = 100; //TODO: get_cost_of_output($material_id,$units);
+			}
 		}
 		
 
