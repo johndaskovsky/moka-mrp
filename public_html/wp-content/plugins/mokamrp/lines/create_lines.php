@@ -25,8 +25,8 @@
 				'%d', // $recipe_id,
 				'%d', // $material_type,
 				'%d', // $material_id,
-				'%d', // $units,
-				'%d'  // $cost_responsibility  
+				'%f', // $units,
+				'%f'  // $cost_responsibility  
 			) 
 		);
 			

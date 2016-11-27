@@ -31,6 +31,13 @@
   </div>  
 </div>
 
+<div class="row-fluid">
+  <div class="span3">  
+    <label class="control-label" for="cost">Cost</label>
+    <input class="span12" placeholder="Cost" type="number" step="any" name="cost" value="<?php if($edit){echo $row['cost'];} ?>" id="cost">
+  </div>  
+</div>
+
 <div class="control-group">  
   <label class="control-label" for="type">Type</label>  
   <div class="controls">  

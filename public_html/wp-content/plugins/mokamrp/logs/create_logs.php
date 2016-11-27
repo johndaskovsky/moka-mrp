@@ -3,12 +3,12 @@
 <?php require_once(MOKAMRP_PATH . "/includes/functions.php"); ?>
 <?php
 
-	$action_id = 0;//stripslashes_deep($_POST['action_id']);
+	$action_id = 3;//stripslashes_deep($_POST['action_id']);
 	$material_id = stripslashes_deep($_POST['material_id']);
 	$recipe_id = stripslashes_deep($_POST['recipe_id']);
 	$units = stripslashes_deep($_POST['units']);
 	$type = stripslashes_deep($_POST['type']);
-	$cost = 0; //stripslashes_deep($_POST['cost']);
+	$cost = stripslashes_deep($_POST['cost']);
 	$user = 0; //stripslashes_deep($_POST['user']);
 	$notes = stripslashes_deep($_POST['notes']);
 
@@ -30,9 +30,9 @@
 				'%d', //action_id
 				'%d', //material_id
 				'%d', //recipe_id
-				'%d', //units
+				'%f', //units
 				'%d', //type
-				'%d', //cost
+				'%f', //cost
 				'%s', //user
 				'%s' //notes
 			) 

@@ -17,7 +17,7 @@
 	if (isset($_POST['submit'])) {
 		check_admin_referer( 'mokamrp_edit_logs','mokamrp_edit_logs_nonce' );
 			
-		$action_id = stripslashes_deep($_POST['action_id']);
+		//$action_id = stripslashes_deep($_POST['action_id']);
 		$material_id = stripslashes_deep($_POST['material_id']);
 		$recipe_id = stripslashes_deep($_POST['recipe_id']);
 		$units = stripslashes_deep($_POST['units']);
@@ -31,7 +31,7 @@
 		$result = $wpdb->update( 
 			$table, 
 			array( 					
-				'action_id' => $action_id,
+				//'action_id' => $action_id,
 				'material_id' => $material_id,
 				'recipe_id' => $recipe_id,
 				'units' => $units,
@@ -42,12 +42,12 @@
 			), 
 			array( 'id' => $id ), 
 			array( 
-				'%d', //action_id
+				//'%d', //action_id
 				'%d', //material_id
 				'%d', //recipe_id
-				'%d', //units
+				'%f', //units
 				'%d', //type
-				'%d', //cost
+				'%f', //cost
 				'%s', //user
 				'%s' //notes
 			), 
