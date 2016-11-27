@@ -1,8 +1,12 @@
-<?php if($_GET['id'] == 0 || $_GET['id'] == -1): ?>
+<?php 
+  $recipe_id = $_GET['id'];
+
+  if($recipe_id == 0 || $recipe_id == -1): 
+?>
 <!-- PURCHASE OR LOSS -->
   <h1>
     <?php
-      if($_GET['id'] == 0) {
+      if($recipe_id == 0) {
         echo "Purchase";
       } else {
         echo "Loss";
@@ -29,7 +33,7 @@
       <input class="span12" placeholder="Weight/Units" type="number" min="0" step="any" name="line[0][units]" value="<?php if($edit){echo $row['units'];} ?>" id="units">
     </div> 
     <?php
-      if($_GET['id'] == 0) {
+      if($recipe_id == 0) {
         echo "<div class=\"span3\">  
             <label class=\"control-label\" for=\"cost\">Cost</label>
             <input class=\"span12\" placeholder=\"Cost\" type=\"number\" min=\"0\" step=\"any\" name=\"line[0][cost]\" value=\"";
@@ -44,7 +48,7 @@
     </div>
   </div>
   <?php
-    if($_GET['id'] == 0) {
+    if($recipe_id == 0) {
       echo "<input type=\"hidden\" name=\"line[0][recipe_id]\" value=\"0\" id=\"recipe_id\" required=\"required\">
         <input type=\"hidden\" name=\"line[0][type]\" value=\"1\" id=\"type\" required=\"required\">";
     } else {
@@ -55,11 +59,13 @@
 
 <?php else: ?>
 <!-- OTHER ACTIONS -->
-  <div class="row-fluid">
-    <div class="span3">  
-      <label class="control-label" for="name">Name</label>
-      <input class="span12" placeholder="Name" type="text" name="name" value="<?php if($edit){echo $row['name'];} ?>" id="name" required="required">
-    </div>  
-  </div>
+<?php 
+  $recipe_lines = get_recipe_lines($recipe_id);
+
+  foreach($recipe_lines as $line) {
+    echo $line['material_id'];
+    echo "<br>";
+  }
+?>
 
 <?php endif; ?>

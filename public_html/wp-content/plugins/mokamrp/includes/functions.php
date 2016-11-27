@@ -82,6 +82,24 @@
 		}
 	}
 
+	function get_recipe_lines($recipe_id) {
+		global $wpdb;
+		$table_name = get_table_name("lines");
+		$query_prep = "SELECT * ";
+		$query_prep .= "FROM {$table_name} ";
+		$query_prep .= "WHERE recipe_id = %d ";
+		$query_prep .= "ORDER BY material_type";
+
+		$query = $wpdb->prepare($query_prep, $recipe_id);
+
+		$result_set = $wpdb->get_results($query, ARRAY_A);
+		if ($result_set != NULL) {
+			return $result_set;
+		} else {
+			return NULL;
+		}
+	}
+
 	function display_table_list($table) {
 		global $wpdb;	
 		$table_name = get_table_name($table); 
