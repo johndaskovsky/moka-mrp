@@ -18,6 +18,7 @@
 		$units = stripslashes_deep($row['units']);
 		$type = stripslashes_deep($row['type']);
 		$notes = stripslashes_deep($row['notes']);
+		$cost_responsibility = stripslashes_deep($row['cost_responsibility']);
 
 		if($recipe_id == 0) {
 			//Purchases
@@ -29,10 +30,7 @@
 				$total_cost_of_inputs += $cost;
 			} else {
 				//Outputs
-				$cost = 100; 
-				//@TODO: get_cost_of_output($material_id,$units);
-				//pass % responsibility in form with other data
-				//cost of output is total cost of inputs times % responsibilty
+				$cost = $total_cost_of_inputs * ($cost_responsibility / 100); 
 			}
 		}
 		

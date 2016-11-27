@@ -1,5 +1,6 @@
 <?php 
-  $recipe_id = $_GET['id'];
+  $recipe_id = stripslashes_deep($_GET['id']);
+  $group_id = stripslashes_deep($_POST['group_id']);
 
   if($recipe_id == 0 || $recipe_id == -1): 
 ?>
@@ -21,8 +22,8 @@
           <select id="material_id" class="input-large" name="line[0][material_id]">
             <?php 
               $results = get_all_table_rows("materials");
-              if($edit){ echo array_to_option_list($results, "id", "name", $row['id'], "*Variable*"); }
-              else{ echo array_to_option_list($results, "id", "name", NULL, "*Variable*"); }
+              if($edit){ echo array_to_option_list($results, "id", "name", $row['id'], NULL, false); }
+              else{ echo array_to_option_list($results, "id", "name", NULL, NULL, false); }
             ?>
           </select>
         </div>
@@ -78,16 +79,17 @@
     $results = array();
     if($line['material_id'] == 0) {
       //Variable
-      //@TODO: selection of options for variables
-      //$results = get_materials_for_action_list("materials");
-      $results = get_all_table_rows("materials");
+      $results = get_variable_options($line['recipe_id'],$line['material_type'],$group_id);
+      if($results == NULL) {
+        $results = get_all_table_rows("materials");
+      }
     } else {
       //Fixed
       $results[] = get_row_by_id($line['material_id'], "materials");
     }
     
-    if($edit){ echo array_to_option_list($results, "id", "name", $row['id']); }
-    else{ echo array_to_option_list($results, "id", "name"); }
+    if($edit){ echo array_to_option_list($results, "id", "name", $row['id'], NULL, false); }
+    else{ echo array_to_option_list($results, "id", "name", NULL, NULL, false); }
               
     echo "</select>
             </div>

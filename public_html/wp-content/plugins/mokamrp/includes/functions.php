@@ -1,8 +1,10 @@
 <?php
 
-	function array_to_option_list($array, $key, $value, $selection = NULL, $zero_option = NULL) {
+	function array_to_option_list($array, $key, $value, $selection = NULL, $zero_option = NULL, $no_selection_option = TRUE) {
 		$output = "";
-		$output .= "<option value =\"-1\">(Select)</option>";
+		if($no_selection_option) {
+			$output .= "<option value =\"-1\">(Select)</option>";
+		}
 		if($zero_option != NULL) {
 			$output .= "<option value =\"0\"";
 			if($selection !== NULL && $selection == 0) { $output .= " selected"; }
@@ -100,6 +102,47 @@
 		}
 	}
 
+	function get_variable_options($recipe_id,$type,$group_id) {
+		//@TODO: selection of options for variables
+    //based on selected material group and materials that have this recipe as a destination
+    //$type is -1 for inputs and 1 for outputs
+    //if input find materials (from group) that have recipe as destination
+    //if output find materials (from group) that have recipe as source
+
+		global $wpdb;
+		$table_name = get_table_name("materials");
+
+		if($type == -1) {
+			//INPUTS
+			$query_prep = "SELECT * ";
+			$query_prep .= "FROM {$table_name} ";
+			$query_prep .= "WHERE (destination = %d AND group_id = %d)";
+
+			$query = $wpdb->prepare($query_prep, $recipe_id, $group_id);
+
+			$result_set = $wpdb->get_results($query, ARRAY_A);
+			if ($result_set != NULL) {
+				return $result_set;
+			} else {
+				return NULL;
+			}
+		} elseif ($type == 1) {
+			//OUTPUTS
+			$query_prep = "SELECT * ";
+			$query_prep .= "FROM {$table_name} ";
+			$query_prep .= "WHERE (source = %d AND group_id = %d)";
+
+			$query = $wpdb->prepare($query_prep, $recipe_id, $group_id);
+
+			$result_set = $wpdb->get_results($query, ARRAY_A);
+			if ($result_set != NULL) {
+				return $result_set;
+			} else {
+				return NULL;
+			}
+		}
+	}
+
 	function display_table_list($table) {
 		global $wpdb;	
 		$table_name = get_table_name($table); 
@@ -151,7 +194,7 @@
 				$material_name = get_name_by_id($row['material_id'],'materials');
 				echo "<tr>";
 				echo "<td>{$material_name}</td>";
-				if($row['material_type'] == 1) {
+				if($row['material_type'] == -1) {
 					echo "<td>Input</td>";
 				} else {
 					echo "<td>Output</td>";
