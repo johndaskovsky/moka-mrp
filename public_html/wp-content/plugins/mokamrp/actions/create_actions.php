@@ -30,7 +30,7 @@
 			} else {
 				//Outputs
 				$cost = 100; 
-				//TODO: get_cost_of_output($material_id,$units);
+				//@TODO: get_cost_of_output($material_id,$units);
 				//pass % responsibility in form with other data
 				//cost of output is total cost of inputs times % responsibilty
 			}

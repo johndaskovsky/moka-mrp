@@ -49,11 +49,13 @@
   </div>
   <?php
     if($recipe_id == 0) {
-      echo "<input type=\"hidden\" name=\"line[0][recipe_id]\" value=\"0\" id=\"recipe_id\" required=\"required\">
-        <input type=\"hidden\" name=\"line[0][type]\" value=\"1\" id=\"type\" required=\"required\">";
+      echo "<input type=\"hidden\" name=\"line[0][recipe_id]\" value=\"0\" id=\"recipe_id\">
+        <input type=\"hidden\" name=\"line[0][type]\" value=\"1\" id=\"type\">
+        <input type=\"hidden\" name=\"line[0][cost_responsibility]\" value=\"0\" id=\"type\">";
     } else {
-      echo "<input type=\"hidden\" name=\"line[0][recipe_id]\" value=\"-1\" id=\"recipe_id\" required=\"required\">
-        <input type=\"hidden\" name=\"line[0][type]\" value=\"-1\" id=\"type\" required=\"required\">";
+      echo "<input type=\"hidden\" name=\"line[0][recipe_id]\" value=\"-1\" id=\"recipe_id\">
+        <input type=\"hidden\" name=\"line[0][type]\" value=\"-1\" id=\"type\">
+        <input type=\"hidden\" name=\"line[0][cost_responsibility]\" value=\"0\" id=\"type\">";
     }
   ?>
 
@@ -62,8 +64,8 @@
 <?php 
   $recipe_lines = get_recipe_lines($recipe_id);
 
-  foreach($recipe_lines as $line) {
-    echo $line['material_id'];
+  foreach($recipe_lines as $key=>$line) {
+    echo "{$key}: {$line['material_id']} {$line['material_type']}";
     echo "<br>";
   }
 ?>

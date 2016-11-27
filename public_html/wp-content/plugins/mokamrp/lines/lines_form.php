@@ -24,8 +24,8 @@
   <label class="control-label" for="material_type">Line Type</label>  
   <div class="controls">  
     <select id="material_type" class="input-large" name="material_type" required>
-      <option value ="1"<?php if($edit && $row['material_type'] == 1) { echo "selected"; } ?>>Input</option>
-      <option value ="2"<?php if($edit && $row['material_type'] == 2) { echo "selected"; } ?>>Output</option>
+      <option value ="-1"<?php if($edit && $row['material_type'] == -1) { echo "selected"; } ?>>Input</option>
+      <option value ="1"<?php if($edit && $row['material_type'] == 1) { echo "selected"; } ?>>Output</option>
     </select>
   </div>
 </div>
