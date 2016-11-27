@@ -62,11 +62,51 @@
 <?php else: ?>
 <!-- OTHER ACTIONS -->
 <?php 
+  $recipe_name = get_name_by_id($recipe_id, "recipes");
+  echo "<h1>{$recipe_name}</h1>";
+
   $recipe_lines = get_recipe_lines($recipe_id);
 
   foreach($recipe_lines as $key=>$line) {
-    echo "{$key}: {$line['material_id']} {$line['material_type']}";
-    echo "<br>";
+    echo "<div class=\"row-fluid\">
+        <div class=\"span3\"> 
+          <div class=\"control-group\">  
+            <label class=\"control-label\" for=\"material_id\">Material</label>  
+            <div class=\"controls\">  
+              <select id=\"material_id\" class=\"input-large\" name=\"line[{$key}][material_id]\">";
+    
+    $results = array();
+    if($line['material_id'] == 0) {
+      //Variable
+      //@TODO: selection of options for variables
+      //$results = get_materials_for_action_list("materials");
+      $results = get_all_table_rows("materials");
+    } else {
+      //Fixed
+      $results[] = get_row_by_id($line['material_id'], "materials");
+    }
+    
+    if($edit){ echo array_to_option_list($results, "id", "name", $row['id']); }
+    else{ echo array_to_option_list($results, "id", "name"); }
+              
+    echo "</select>
+            </div>
+          </div>
+        </div>
+        <div class=\"span3\">  
+          <label class=\"control-label\" for=\"units\">Weight/Units</label>
+          <input class=\"span12\" placeholder=\"Weight/Units\" type=\"number\" min=\"0\" step=\"any\" name=\"line[{$key}][units]\" value=\"{$row['units']}\" id=\"units\">
+        </div> 
+        <div class=\"span3\"> 
+          <label class=\"control-label\" for=\"notes\">Notes</label>
+          <textarea class=\"span12\" rows=\"1\" placeholder=\"Notes\" type=\"text\" name=\"line[{$key}][notes]\" id=\"notes\">{$row['notes']}</textarea>
+          </div>
+        </div>";
+  
+
+    echo "<input type=\"hidden\" name=\"line[{$key}][recipe_id]\" value=\"{$line['recipe_id']}\" id=\"recipe_id\">
+        <input type=\"hidden\" name=\"line[{$key}][type]\" value=\"{$line['material_type']}\" id=\"type\">
+        <input type=\"hidden\" name=\"line[{$key}][cost_responsibility]\" value=\"{$line['cost_responsibility']}\" id=\"type\">";
   }
 ?>
 
