@@ -218,9 +218,6 @@
 		if($active == "materials") echo " class=\"active\"";
 		echo "><a href=\"admin.php?page=mokamrp_new_materials\">Materials</a></li>";
 		echo "<li";
-		if($active == "logs") echo " class=\"active\"";
-		echo "><a href=\"admin.php?page=mokamrp_new_logs\">Logs</a></li>";
-		echo "<li";
 		if($active == "import") echo " class=\"active\"";
 		echo "><a href=\"admin.php?page=mokamrp_import_export\">Import/Export</a></li>";
 		echo "</ul>";
@@ -247,6 +244,11 @@
 			display_table_list($type);
 		} else {
 			//IF ACTIONS
+			//@TODO: for action were need to get the recipe line rows
+			//$id = $_GET['id']; 
+			//$row = get_recipe_lines($id);
+			//var_dump($row);
+
 			echo "<legend>Log an Action</legend>
 				<form action=\"admin.php?page=mokamrp_create_{$type}&amp;noheader=true\" method=\"post\">";
 			wp_nonce_field( "mokamrp_create_{$type}","mokamrp_create_{$type}_nonce" );
