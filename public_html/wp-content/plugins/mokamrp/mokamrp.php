@@ -223,12 +223,12 @@ function mokamrp_new_actions_page() { include(MOKAMRP_PATH . "/actions/new_actio
 function mokamrp_create_actions_page() { include(MOKAMRP_PATH . "/actions/create_actions.php"); }
 function mokamrp_edit_actions_page() { include(MOKAMRP_PATH . "/actions/edit_actions.php"); }
 
-//OTHER
-function mokamrp_settings_page() { include(MOKAMRP_PATH . "/settings.php"); }
-function mokamrp_classes_page() { include(MOKAMRP_PATH . "/classes.php"); }
-function mokamrp_clear_database_page() { include(MOKAMRP_PATH . "/clear_database.php"); }
-function mokamrp_clear_table_page() { include(MOKAMRP_PATH . "/clear_table.php"); }
-function mokamrp_delete_table_item_page() { include(MOKAMRP_PATH . "/delete_table_item.php"); }
+//admin
+function mokamrp_settings_page() { include(MOKAMRP_PATH . "/admin/settings.php"); }
+function mokamrp_delete_table_item_page() { include(MOKAMRP_PATH . "/admin/delete_table_item.php"); }
+function mokamrp_export_table_page() { include(MOKAMRP_PATH . "/admin/export_table.php"); }
+function mokamrp_import_export_page() { include(MOKAMRP_PATH . "/admin/import_export.php"); }
+function mokamrp_import_table_page() { include(MOKAMRP_PATH . "/admin/import_table.php"); }
 
 
 function mokamrp_plugin_menu()
@@ -267,10 +267,11 @@ function mokamrp_plugin_menu()
 	$my_pages[] = add_submenu_page(null, 'Edit actions', 'Edit actions', 'read', 'mokamrp_edit_actions', 'mokamrp_edit_actions_page');	
 	$my_pages[] = add_submenu_page(null, 'Create actions', 'Create actions', 'read', 'mokamrp_create_actions', 'mokamrp_create_actions_page');
 
-	$my_pages[] = add_submenu_page(null, 'Classes', 'Classes', 'read', 'mokamrp_classes', 'mokamrp_classes_page');
-	$my_pages[] = add_submenu_page(null, 'Clear Database', 'Clear Database', 'manage_options', 'mokamrp_clear_database', 'mokamrp_clear_database_page'); 
-	$my_pages[] = add_submenu_page(null, 'Clear Table', 'Clear Table', 'manage_options', 'mokamrp_clear_table', 'mokamrp_clear_table_page');
+	//admin
 	$my_pages[] = add_submenu_page(null, 'Delete Table Item', 'Delete Table Item', 'read', 'mokamrp_delete_table_item', 'mokamrp_delete_table_item_page');
+	$my_pages[] = add_submenu_page(null, 'Export Table', 'Export Table', 'manage_options', 'mokamrp_export_table', 'mokamrp_export_table_page');
+	$my_pages[] = add_submenu_page(null, 'Import/Export', 'Import/Export', 'manage_options', 'mokamrp_import_export', 'mokamrp_import_export_page');
+	$my_pages[] = add_submenu_page(null, 'Import Table', 'Import Table', 'manage_options', 'mokamrp_import_table', 'mokamrp_import_table_page');
 	
 
  

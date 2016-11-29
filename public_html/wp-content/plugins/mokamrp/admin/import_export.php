@@ -7,10 +7,11 @@
 <form action="admin.php?page=mokamrp_export_table&amp;noheader=true" method="POST">
 	<?php wp_nonce_field( 'mokamrp_export_table','mokamrp_export_table_nonce' ); ?>
 	<select name="table_name" required="required">
-	  <option value="customers">Customers</option>
-	  <option value="classes">Classes</option>
-	  <option value="registrations">Registrations</option>
-	  <option value="payments">Payments</option>
+	  <option value="groups">Groups</option>
+	  <option value="recipes">Recipes</option>
+	  <option value="materials">Materials</option>
+	  <option value="lines">Lines</option>
+    <option value="logs">Logs</option>
 	</select>
  
     <div class="form-actions">
@@ -38,10 +39,11 @@
 <form enctype="multipart/form-data" action="admin.php?page=mokamrp_import_table&amp;noheader=true" method="POST">
 	<?php wp_nonce_field( 'mokamrp_import_table','mokamrp_import_table_nonce' ); ?>
 	<select name="table_name" required="required">
-	  <option value="customers">Customers</option>
-	  <option value="classes">Classes</option>
-	  <option value="registrations">Registrations</option>
-	  <option value="payments">Payments</option>
+	  <option value="groups">Groups</option>
+    <option value="recipes">Recipes</option>
+    <option value="materials">Materials</option>
+    <option value="lines">Lines</option>
+    <option value="logs">Logs</option>
 	</select>
      <br>
      <input type="hidden" name="MAX_FILE_SIZE" value="10000000" />
