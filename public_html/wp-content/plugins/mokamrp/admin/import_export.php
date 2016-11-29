@@ -56,10 +56,7 @@
 </form>
 
 <div class="alert alert-info">
-<strong>Note:</strong> To replace customer database and preserve customer IDs, 
-	CSV must include a 'cust_id' column. To batch add new customers 
-	(they each will each get a new cust_id), do not include a 'cust_id' column. 
-	In excel, format all date columns to be "yyyy-mm-dd".
+<strong>Note:</strong> To replace/edit database data, CSV must include an 'id' column. To batch add new rows, do not include an 'id' column.
 </div>
 	
 <?php require(MOKAMRP_PATH . "/includes/footer.php"); ?>

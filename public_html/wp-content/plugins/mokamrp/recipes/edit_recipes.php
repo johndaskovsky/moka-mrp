@@ -18,17 +18,20 @@
 		check_admin_referer( 'mokamrp_edit_recipes','mokamrp_edit_recipes_nonce' );
 			
 		$name = stripslashes_deep($_POST['name']);
+		$order = stripslashes_deep($_POST['order']);
 
 		$table = get_table_name("recipes");
 		
 		$result = $wpdb->update( 
 			$table, 
 			array( 					
-				'name' => $name
+				'name' => $name,
+				'order' => $order
 			), 
 			array( 'id' => $id ), 
 			array( 
-				'%s' //name
+				'%s', //name
+				'%d' //order
 			), 
 			array( '%d' ) //id
 		);

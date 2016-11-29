@@ -4,16 +4,19 @@
 <?php
 
 	$name = stripslashes_deep($_POST['name']);
+	$order = stripslashes_deep($_POST['order']);
 
 	$table = get_table_name("recipes");
 
 	$result = $wpdb->insert( 
 			$table, 
 			array( 
-				'name' => $name  
+				'name' => $name,
+				'order' => $order   
 			), 
 			array( 
-				'%s' //name
+				'%s', //name
+				'%d' //order
 			) 
 		);
 			
