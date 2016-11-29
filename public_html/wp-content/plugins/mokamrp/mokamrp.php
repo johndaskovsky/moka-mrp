@@ -101,6 +101,15 @@ function mokamrp_install() {
 		PRIMARY KEY (`id`)
 		) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1";
 	$wpdb -> query($query);
+
+	$tablename = get_table_name('lots');
+	$query = "CREATE TABLE IF NOT EXISTS `{$tablename}` (
+		`id` int(11) NOT NULL AUTO_INCREMENT,
+		`log_id` int(11) NOT NULL,
+		`lot_id` int(11) NOT NULL,
+		PRIMARY KEY (`id`)
+		) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1";
+	$wpdb -> query($query);
 }
 register_activation_hook(__FILE__, 'mokamrp_install');
 

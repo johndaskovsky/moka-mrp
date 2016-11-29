@@ -355,6 +355,8 @@
 			return $wpdb->prefix . "mokamrp_lines";
 		} elseif ($name == "logs") {
 			return $wpdb->prefix . "mokamrp_logs";
+		} elseif ($name == "lots") {
+			return $wpdb->prefix . "mokamrp_lots";
 		} else {
 			die;
 		}
