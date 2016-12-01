@@ -1,5 +1,5 @@
 <?php
-  if( !isset($_GET['id']) ) {
+  if( !isset($_GET['recipe_id']) ) {
     wp_redirect("admin.php?page=mokamrp_home");
     exit;
   }

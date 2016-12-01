@@ -1,9 +1,9 @@
 <?php
 
-	function array_to_option_list($array, $key, $value, $selection = NULL, $zero_option = NULL, $no_selection_option = TRUE) {
+	function array_to_option_list($array, $key, $value, $selection = NULL, $zero_option = NULL, $no_selection_option = TRUE, $selection_value = -1) {
 		$output = "";
 		if($no_selection_option) {
-			$output .= "<option value =\"-1\">(Select)</option>";
+			$output .= "<option value =\"{$selection_value}\">(Select)</option>";
 		}
 		if($zero_option != NULL) {
 			$output .= "<option value =\"0\"";
@@ -76,9 +76,29 @@
 		$query .= $where;
 		if($table == "recipes") {
 			$query .= "ORDER BY 'order'";
+		} elseif($table == "materials") {
+			$query .= "ORDER BY id";
 		} else {
 			$query .= "ORDER BY name";
 		}
+
+		$result_set = $wpdb->get_results($query, ARRAY_A);
+		if ($result_set != NULL) {
+			return $result_set;
+		} else {
+			return NULL;
+		}
+	}
+
+	function get_logs_by_action_id($action_id) {
+		global $wpdb;
+		$table_name = get_table_name("logs");
+		$query_prep = "SELECT * ";
+		$query_prep .= "FROM {$table_name} ";
+		$query_prep .= "WHERE action_id = %d ";
+		$query_prep .= "ORDER BY type";
+
+		$query = $wpdb->prepare($query_prep, $action_id);
 
 		$result_set = $wpdb->get_results($query, ARRAY_A);
 		if ($result_set != NULL) {
@@ -155,6 +175,8 @@
 		$query .= "FROM {$table_name} ";
 		if($table == "recipes") {
 			$query .= "ORDER BY 'order'";
+		} elseif($table == "materials") {
+			$query .= "ORDER BY id";
 		} else {
 			$query .= "ORDER BY name";
 		}
@@ -251,16 +273,9 @@
 			</form>";
 			display_table_list($type);
 		} else {
-			//IF ACTIONS
-			//@TODO: for action were need to get the recipe line rows
-			//$id = $_GET['id']; 
-			//$row = get_recipe_lines($id);
-			//var_dump($row);
-
 			echo "<legend>Log an Action</legend>
 				<form action=\"admin.php?page=mokamrp_create_{$type}&amp;noheader=true\" method=\"post\">";
 			wp_nonce_field( "mokamrp_create_{$type}","mokamrp_create_{$type}_nonce" );
-			$edit = false;
 			include(MOKAMRP_PATH . "/{$type}/{$type}_form.php"); 						
 			echo	"<div class=\"form-actions\">
 				<button type=\"submit\" class=\"btn btn-primary\">Log Action</button>
@@ -272,10 +287,61 @@
 	
 	function display_edit_page($type, $message) {
 		include(MOKAMRP_PATH . "/includes/header.php");
+
+		display_admin_navigation($type);
+		$action_id = $_GET['id']; 
+		$results = get_logs_by_action_id($action_id);			
+		$row = get_logs_by_action_id($action_id);
+		echo "<h2>Edit action from {$row[0]['datetime']}</h2>";
+
+		if (!empty($message)) {
+			echo "<p>" . $message . "</p>";
+		}
+		echo "<form action=\"admin.php?page=mokamrp_edit_{$type}&amp;id={$row['id']}\" method=\"post\">";
+		wp_nonce_field( "mokamrp_edit_{$type}","mokamrp_edit_{$type}_nonce" );
+		$edit = true;
+		include(MOKAMRP_PATH . "/{$type}/{$type}_form.php"); 
+		echo "<div class=\"form-actions\">
+			  <input type=\"submit\" name=\"submit\" id=\"submit\" value=\"Save Changes\" class=\"btn btn-primary\">
+			  <a href=\"admin.php?page=mokamrp_edit_{$type}&amp;id={$row['id']}\" class=\"btn\">Cancel</a>";	
+		if ( current_user_can('manage_options') ) {
+	  	echo "<a href=\"#deleteModal\" role=\"button\" class=\"btn btn-small btn-danger pull-right\" data-toggle=\"modal\">Delete</a>";
+    }   
+		echo "</div></form>";
+
+		echo	"<!-- Modal -->
+			<div id=\"deleteModal\" class=\"modal hide fade\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"myModalLabel\" aria-hidden=\"true\">
+			  <div class=\"modal-header\">
+			    <button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-hidden=\"true\">&times;</button>
+			    <h3 id=\"myModalLabel\">Delete INSERT TITLE</h3>
+			  </div>
+			  <div class=\"modal-body\">
+			    <div class=\"alert alert-block\">
+			  		<h4>Warning!</h4>
+			  		This action cannot be undone.
+				</div>
+			  </div>
+			  <div class=\"modal-footer\">";
+			$form_action_url = "admin.php?page=mokamrp_delete_table_item&amp;noheader=true&amp;t={$type}&amp;i={$id}";	
+			echo	"<form action=\"{$form_action_url}\" method=\"post\">";
+			wp_nonce_field('mokamrp_delete_table_item');
+			echo	"<button class=\"btn\" data-dismiss=\"modal\" aria-hidden=\"true\">Cancel</button>
+					<input type=\"submit\" name=\"submit\" id=\"submit\" value=\"Delete\" class=\"btn btn-danger\">
+				</form>	
+			  </div>
+			</div>";
+              
+		 	display_table_list($type);
+	}
+
+	function display_action_edit_page($type, $message) {
+		include(MOKAMRP_PATH . "/includes/header.php");
+
 		display_admin_navigation($type);
 		$id = $_GET['id']; 
 		$row = get_row_by_id($id, $type);
 		echo "<h2>Edit {$type}: {$row['name']}</h2>";
+
 		if (!empty($message)) {
 			echo "<p>" . $message . "</p>";
 		}
