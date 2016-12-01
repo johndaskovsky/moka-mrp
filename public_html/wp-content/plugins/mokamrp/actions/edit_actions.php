@@ -78,6 +78,6 @@
 
 ?>
 
-<?php	display_action_edit_page("actions", $message); ?>
+<?php	display_action_edit_page($message); ?>
 
 <?php require(MOKAMRP_PATH . "/includes/footer.php"); ?>

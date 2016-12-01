@@ -312,7 +312,7 @@
 			<div id=\"deleteModal\" class=\"modal hide fade\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"myModalLabel\" aria-hidden=\"true\">
 			  <div class=\"modal-header\">
 			    <button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-hidden=\"true\">&times;</button>
-			    <h3 id=\"myModalLabel\">Delete INSERT TITLE</h3>
+			    <h3 id=\"myModalLabel\">Delete</h3>
 			  </div>
 			  <div class=\"modal-body\">
 			    <div class=\"alert alert-block\">
@@ -333,24 +333,28 @@
 		 	display_table_list($type);
 	}
 
-	function display_action_edit_page($type, $message) {
+	function display_action_edit_page($message) {
 		include(MOKAMRP_PATH . "/includes/header.php");
 
-		$action_id = $_GET['id']; 
-		$results = get_logs_by_action_id($action_id);			
-		$row = get_logs_by_action_id($action_id);
-		echo "<h2>Edit action from {$row[0]['datetime']}</h2>";
+		$action_id = $_GET['id']; 		
+		$logs = get_logs_by_action_id($action_id);
+
+		if($logs == NULL) {
+			exit;
+		}
+
+		echo "<h2>Edit action from {$logs[0]['datetime']}</h2>";
 
 		if (!empty($message)) {
 			echo "<p>" . $message . "</p>";
 		}
-		echo "<form action=\"admin.php?page=mokamrp_edit_{$type}&amp;id={$row['id']}\" method=\"post\">";
-		wp_nonce_field( "mokamrp_edit_{$type}","mokamrp_edit_{$type}_nonce" );
+		echo "<form action=\"admin.php?page=mokamrp_edit_actions&amp;id={$action_id}\" method=\"post\">";
+		wp_nonce_field( "mokamrp_edit_actions","mokamrp_edit_actions_nonce" );
 		$edit = true;
-		include(MOKAMRP_PATH . "/{$type}/{$type}_form.php"); 
+		include(MOKAMRP_PATH . "/actions/edit_actions_form.php"); 
 		echo "<div class=\"form-actions\">
 			  <input type=\"submit\" name=\"submit\" id=\"submit\" value=\"Save Changes\" class=\"btn btn-primary\">
-			  <a href=\"admin.php?page=mokamrp_edit_{$type}&amp;id={$row['id']}\" class=\"btn\">Cancel</a>";	
+			  <a href=\"admin.php?page=mokamrp_edit_actions&amp;id={$action_id}\" class=\"btn\">Cancel</a>";	
 		if ( current_user_can('manage_options') ) {
 	  	echo "<a href=\"#deleteModal\" role=\"button\" class=\"btn btn-small btn-danger pull-right\" data-toggle=\"modal\">Delete</a>";
     }   
@@ -360,7 +364,7 @@
 			<div id=\"deleteModal\" class=\"modal hide fade\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"myModalLabel\" aria-hidden=\"true\">
 			  <div class=\"modal-header\">
 			    <button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-hidden=\"true\">&times;</button>
-			    <h3 id=\"myModalLabel\">Delete INSERT TITLE</h3>
+			    <h3 id=\"myModalLabel\">Delete action</h3>
 			  </div>
 			  <div class=\"modal-body\">
 			    <div class=\"alert alert-block\">
@@ -369,7 +373,7 @@
 				</div>
 			  </div>
 			  <div class=\"modal-footer\">";
-			$form_action_url = "admin.php?page=mokamrp_delete_table_item&amp;noheader=true&amp;t={$type}&amp;i={$action_id}";	
+			$form_action_url = "admin.php?page=mokamrp_delete_table_item&amp;noheader=true&amp;t=actions&amp;i={$action_id}";	
 			echo	"<form action=\"{$form_action_url}\" method=\"post\">";
 			wp_nonce_field('mokamrp_delete_table_item');
 			echo	"<button class=\"btn\" data-dismiss=\"modal\" aria-hidden=\"true\">Cancel</button>
@@ -378,7 +382,7 @@
 			  </div>
 			</div>";
               
-		 	display_table_list($type);
+		 	display_table_list("actions");
 	}
 	
 
