@@ -287,12 +287,11 @@
 	
 	function display_edit_page($type, $message) {
 		include(MOKAMRP_PATH . "/includes/header.php");
-
 		display_admin_navigation($type);
-		$action_id = $_GET['id']; 
-		$results = get_logs_by_action_id($action_id);			
-		$row = get_logs_by_action_id($action_id);
-		echo "<h2>Edit action from {$row[0]['datetime']}</h2>";
+
+		$id = $_GET['id']; 
+		$row = get_row_by_id($id, $type);
+		echo "<h2>Edit {$type}: {$row['name']}</h2>";
 
 		if (!empty($message)) {
 			echo "<p>" . $message . "</p>";
@@ -337,10 +336,10 @@
 	function display_action_edit_page($type, $message) {
 		include(MOKAMRP_PATH . "/includes/header.php");
 
-		display_admin_navigation($type);
-		$id = $_GET['id']; 
-		$row = get_row_by_id($id, $type);
-		echo "<h2>Edit {$type}: {$row['name']}</h2>";
+		$action_id = $_GET['id']; 
+		$results = get_logs_by_action_id($action_id);			
+		$row = get_logs_by_action_id($action_id);
+		echo "<h2>Edit action from {$row[0]['datetime']}</h2>";
 
 		if (!empty($message)) {
 			echo "<p>" . $message . "</p>";
