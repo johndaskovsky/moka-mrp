@@ -74,7 +74,11 @@
 		$query = "SELECT * ";
 		$query .= "FROM {$table_name} ";
 		$query .= $where;
-		$query .= "ORDER BY name";
+		if($table == "recipes") {
+			$query .= "ORDER BY 'order'";
+		} else {
+			$query .= "ORDER BY name";
+		}
 
 		$result_set = $wpdb->get_results($query, ARRAY_A);
 		if ($result_set != NULL) {
@@ -149,7 +153,11 @@
 		
 		$query = "SELECT * ";
 		$query .= "FROM {$table_name} ";
-		$query .= "ORDER BY name";
+		if($table == "recipes") {
+			$query .= "ORDER BY 'order'";
+		} else {
+			$query .= "ORDER BY name";
+		}
 	
 		$result_set = $wpdb->get_results($query, ARRAY_A);
 	

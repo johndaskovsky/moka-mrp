@@ -21,10 +21,8 @@
     echo "<form action=\"admin.php?page=mokamrp_new_actions&amp;id={$row['id']}\" method=\"post\">";
     echo "<div class=\"form-actions\">
       <input type=\"submit\" name=\"submit\" id=\"submit\" class=\"btn btn-primary\" value=\"{$row['name']}\">&nbsp;&nbsp;&nbsp;";
-    echo "<select id=\"group_id\" style=\"margin-bottom:0;\" class=\"input-large\" name=\"group_id\">";
-
+    echo "<select id=\"group_id\" style=\"margin-bottom:0;\" class=\"input-large\" name=\"group_id\" required>";
     echo array_to_option_list($groups, "id", "name"); 
-    
     echo "</select>";
     echo "</div>";
     echo "</form>";
