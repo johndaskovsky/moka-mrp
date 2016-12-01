@@ -369,7 +369,7 @@
 				</div>
 			  </div>
 			  <div class=\"modal-footer\">";
-			$form_action_url = "admin.php?page=mokamrp_delete_table_item&amp;noheader=true&amp;t={$type}&amp;i={$id}";	
+			$form_action_url = "admin.php?page=mokamrp_delete_table_item&amp;noheader=true&amp;t={$type}&amp;i={$action_id}";	
 			echo	"<form action=\"{$form_action_url}\" method=\"post\">";
 			wp_nonce_field('mokamrp_delete_table_item');
 			echo	"<button class=\"btn\" data-dismiss=\"modal\" aria-hidden=\"true\">Cancel</button>

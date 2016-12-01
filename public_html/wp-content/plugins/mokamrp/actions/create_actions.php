@@ -57,7 +57,8 @@
 					'%s' //notes
 				) 
 			);
+		
 	}
 			
-	redirect_to("admin.php?page=mokamrp_home");
+	redirect_to("admin.php?page=mokamrp_edit_actions&id={$action_id}");
 ?>

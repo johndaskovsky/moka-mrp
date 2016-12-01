@@ -8,12 +8,19 @@
 	} else {
 		$id = $_GET['i'];	
 		$table_name = $_GET['t'];
-		$table = get_table_name($table_name);
 		$redirect_link = "admin.php?page=mokamrp_home";
-	}
-			
-	$query = $wpdb->prepare("DELETE FROM {$table} WHERE id = %d", 
+		
+		if($table_name == "actions") {
+			$table = get_table_name("logs");
+			$query = $wpdb->prepare("DELETE FROM {$table} WHERE action_id = %d", 
 			$id);
+		} else {
+			$table = get_table_name($table_name);
+			$query = $wpdb->prepare("DELETE FROM {$table} WHERE id = %d", 
+			$id);
+		}
+
+	}
 			
 	$result = $wpdb->query($query);
 	
