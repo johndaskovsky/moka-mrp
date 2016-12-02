@@ -38,7 +38,7 @@
       if($recipe_id == 0) {
         echo "<div class=\"span3\">  
             <label class=\"control-label\" for=\"cost\">Cost</label>
-            <input class=\"span12\" placeholder=\"Cost\" type=\"number\" min=\"0\" step=\"any\" name=\"line[0][cost]\" value=\"\" id=\"cost\">
+            <input class=\"span12\" placeholder=\"Cost\" type=\"number\" min=\"0\" step=\"any\" name=\"line[0][cost]\" value=\"{$logs[0]['cost']}\" id=\"cost\">
           </div>"; 
       }
     ?>

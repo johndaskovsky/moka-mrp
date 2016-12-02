@@ -24,6 +24,7 @@
 		$table = get_table_name("logs");
 
 		foreach($lines as $row) {
+			$recipe_id = stripslashes_deep($row['recipe_id']);
 			$log_id = stripslashes_deep($row['log_id']);
 			$material_id = stripslashes_deep($row['material_id']);
 			$units = stripslashes_deep($row['units']);
