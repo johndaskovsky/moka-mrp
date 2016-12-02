@@ -53,19 +53,10 @@
 	}
 
 	function get_cost_of_input($material_id,$units) {
-		global $wpdb;
-		$table = get_table_name("logs");
-		$query = $wpdb->prepare("SELECT * FROM {$table} WHERE (material_id = %d AND type = 1)", $material_id);
-		$results = $wpdb->get_results($query, ARRAY_A);
-		
-		$unit_total = 0;
-		$cost_total = 0;
-		foreach($results as $row) {
-			$unit_total += $row["units"];
-			$cost_total += $row["cost"];
-		}
+		$in_use_log = get_in_use_log_id($material_id);
+		$current_unit_cost = get_current_unit_cost($material_id,$in_use_log);
 
-		return $units * ($cost_total/$unit_total);
+		return $units * $current_unit_cost;
 	}
 
 	function get_all_table_rows($table, $where = "") {
@@ -285,16 +276,17 @@
 				$total_in = get_total_in_and_out($row['material_id'],1);
 				$total_out = get_total_in_and_out($row['material_id'],-1);
 				$current_total = $total_in - $total_out;
-				$current_cost = 1;
 				$total_value += $current_total * $current_cost;
 				$in_use_log = get_in_use_log_id($row['material_id']);
+				$current_cost = get_current_unit_cost($row['material_id'],$in_use_log);
+				$current_cost_round = round($current_cost, 2);
 
 				echo "<tr>";
 				echo "<td>{$material_name}</td>";
 				echo "<td>{$total_in}</td>";
 				echo "<td>{$total_out}</td>";
 				echo "<td>{$current_total}</td>";
-				echo "<td>\${$current_cost}</td>";
+				echo "<td>\${$current_cost_round}</td>";
 				echo "<td>{$in_use_log}</td>";
 			}
 			echo "</table>";
@@ -303,8 +295,20 @@
 		echo "<h3>Current Total Inventory Value: \${$total_value}";
 	}
 
-	function get_current_unit_cost($material_id) {
-		return NULL;
+	function get_current_unit_cost($material_id,$in_use_log) {
+		global $wpdb;
+		$table = get_table_name("logs");
+		$query = $wpdb->prepare("SELECT * FROM {$table} WHERE (material_id = %d AND type = 1 AND id >= %d)", $material_id, $in_use_log);
+		$results = $wpdb->get_results($query, ARRAY_A);
+		
+		$unit_total = 0;
+		$cost_total = 0;
+		foreach($results as $row) {
+			$unit_total += $row["units"];
+			$cost_total += $row["cost"];
+		}
+
+		return $cost_total/$unit_total;
 	}
 
 	function get_in_use_log_id($material_id) {
