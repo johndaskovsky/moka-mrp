@@ -264,6 +264,86 @@
 		}   
 	}
 
+	function display_inventory() {
+		global $wpdb;	
+		$table_name = get_table_name("logs");
+		$total_value = 0;
+
+		
+		$query = "SELECT DISTINCT(material_id) AS material_id ";
+		$query .= "FROM {$table_name} ";
+		$query .= "ORDER BY material_id";
+
+		$result_set = $wpdb->get_results($query, ARRAY_A);
+
+		if($result_set != NULL) {
+			echo "<table class=\"table table-striped\">
+				 <tr><th>Material</th><th>Total In</th><th>Total Out</th><th>Current Stock</th><th>Current Cost/Unit</th><th>In Use Log</th></tr>";
+
+			foreach($result_set as $row) {
+				$material_name = get_name_by_id($row['material_id'],'materials');
+				$total_in = get_total_in_and_out($row['material_id'],1);
+				$total_out = get_total_in_and_out($row['material_id'],-1);
+				$current_total = $total_in - $total_out;
+				$current_cost = 1;
+				$total_value += $current_total * $current_cost;
+				$in_use_log = get_in_use_log_id($row['material_id']);
+
+				echo "<tr>";
+				echo "<td>{$material_name}</td>";
+				echo "<td>{$total_in}</td>";
+				echo "<td>{$total_out}</td>";
+				echo "<td>{$current_total}</td>";
+				echo "<td>\${$current_cost}</td>";
+				echo "<td>{$in_use_log}</td>";
+			}
+			echo "</table>";
+		}   
+
+		echo "<h3>Current Total Inventory Value: \${$total_value}";
+	}
+
+	function get_current_unit_cost($material_id) {
+		return NULL;
+	}
+
+	function get_in_use_log_id($material_id) {
+		global $wpdb;
+		$table = get_table_name("logs");
+		$total_out = get_total_in_and_out($material_id,-1);
+
+		$query = $wpdb->prepare("SELECT * FROM {$table} WHERE (material_id = %d AND type = 1)", $material_id);
+		$results = $wpdb->get_results($query, ARRAY_A);
+		
+		$unit_total = 0;
+		$current_id = $results[0]["id"];
+
+		foreach($results as $row) {
+			if($unit_total < $total_out) {
+				$current_id = $row["id"];
+			}
+			$unit_total += $row["units"];
+		}
+
+		return $current_id;
+	}
+
+	function get_total_in_and_out($material_id,$type) {
+		//$type: 1 for in and -1 for out
+		global $wpdb;	
+		$table_name = get_table_name("logs");
+		
+		$query = "SELECT *,SUM(units) as sum ";
+		$query .= "FROM {$table_name} ";
+		$query .= "WHERE (material_id = %d AND type = %d)";
+		
+		$query_prep = $wpdb->prepare($query, $material_id, $type);
+	
+		$result_set = $wpdb->get_results($query_prep, ARRAY_A);
+
+		return $result_set[0]["sum"];
+	}
+
 	function display_admin_navigation($active) {
 		echo "<ul class=\"nav nav-pills\" style=\"margin-top:0px;padding-right:0px;padding-left:0px;\">";				  
 		echo "<li";
