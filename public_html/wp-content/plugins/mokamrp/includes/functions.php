@@ -127,12 +127,6 @@
 	}
 
 	function get_variable_options($recipe_id,$type,$group_id) {
-		//@TODO: selection of options for variables
-    //based on selected material group and materials that have this recipe as a destination
-    //$type is -1 for inputs and 1 for outputs
-    //if input find materials (from group) that have recipe as destination
-    //if output find materials (from group) that have recipe as source
-
 		global $wpdb;
 		$table_name = get_table_name("materials");
 
@@ -186,7 +180,7 @@
 		if($result_set != NULL) {
 			echo "<legend>{$table}</legend>
 				<table class=\"table table-striped\">
-				 <tr><th>Name</th><th>Action</th></tr>";		
+				 <tr><th>Name</th><th>Edit</th></tr>";		
 			foreach($result_set as $row) {
 				echo "<tr>";
 				echo "<td>{$row['name']}</td>";
@@ -219,7 +213,7 @@
 		if($result_set != NULL) {
 			echo "<legend>Recipe: {$result_set[0]['recipe']}</legend>
 				<table class=\"table table-striped\">
-				 <tr><th>Material</th><th>Type</th><th>Action</th></tr>";		
+				 <tr><th>Material</th><th>Type</th><th>Edit</th></tr>";		
 			foreach($result_set as $row) {
 				$material_name = get_name_by_id($row['material_id'],'materials');
 				echo "<tr>";
@@ -231,6 +225,40 @@
 				}
 				
 				echo "<td><a href=\"admin.php?page=mokamrp_edit_lines&amp;id={$row['id']}\"><i class=\"icon-pencil\"></i> Edit</a></td></tr>";
+			}
+			echo "</table>";
+		}   
+	}
+
+	function display_actions() {
+		global $wpdb;	
+		$table_name = get_table_name("logs");
+		$current_action = 0;
+		
+		$query = "SELECT * ";
+		$query .= "FROM {$table_name}";
+		$result_set = $wpdb->get_results($query, ARRAY_A);
+
+		if($result_set != NULL) {
+			echo "<table class=\"table table-striped\">
+				 <tr><th>Date</th><th>Action</th><th>Edit</th></tr>";		
+			foreach($result_set as $row) {
+				if($row['action_id'] != $current_action) {
+					$current_action = $row['action_id'];
+
+					if ($row['recipe_id'] == -1) {
+						$recipe_name = "Loss";
+					} elseif ($row['recipe_id'] == 0) {
+						$recipe_name = "Purchase";
+					} else {
+						$recipe_name = get_name_by_id($row['recipe_id'],'recipes');
+					}
+					
+					echo "<tr>";
+					echo "<td>{$row['datetime']}</td>";
+					echo "<td>{$recipe_name}</td>";
+					echo "<td><a href=\"admin.php?page=mokamrp_edit_actions&amp;id={$row['action_id']}\"><i class=\"icon-pencil\"></i> Edit</a></td></tr>";
+				}
 			}
 			echo "</table>";
 		}   

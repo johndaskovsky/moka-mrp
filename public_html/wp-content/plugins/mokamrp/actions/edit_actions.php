@@ -19,6 +19,7 @@
 		$current_user = wp_get_current_user();
 		$user = $current_user->display_name;
 		$total_cost_of_inputs = 0;
+		$success = 0;
 
 		$table = get_table_name("logs");
 
@@ -65,9 +66,14 @@
 					),
 					array( '%d' ) //id 
 				);
+
+			if ($result == 1) {
+				// Success
+				$success++;
+			}
 		}
 		
-		if ($result == 1) {
+		if ($success >= 1) {
 			// Success
 			$message = "<div class=\"alert alert-success\">The update was successful. WOOHOO!</div>";
 		} else {
