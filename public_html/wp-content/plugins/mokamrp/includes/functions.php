@@ -255,6 +255,61 @@
 		}   
 	}
 
+	function display_losses() {
+		global $wpdb;	
+		$table_name = get_table_name("logs");
+		$total_loss = 0;
+		
+		$query = "SELECT * ";
+		$query .= "FROM {$table_name} ";
+		$query .= "WHERE recipe_id = -1";
+		$result_set = $wpdb->get_results($query, ARRAY_A);
+
+		if($result_set != NULL) {
+			echo "<table class=\"table table-striped\">
+				 <tr><th>Date</th><th>Material</th><th>Cost</th><th>Notes</th></tr>";		
+			foreach($result_set as $row) {
+				$total_loss += $row['cost'];
+				$material_name = get_name_by_id($row['material_id'],'materials');					
+				echo "<tr>";
+				echo "<td>{$row['datetime']}</td>";
+				echo "<td>{$material_name}</td>";
+				echo "<td>\${$row['cost']}</td>";
+				echo "<td>{$row['notes']}</td></tr>";
+			}
+			echo "</table>";
+		}
+		echo "<h3>Total Losses Value: \${$total_loss}";   
+	}
+
+	function display_purchases() {
+		global $wpdb;	
+		$table_name = get_table_name("logs");
+		$total = 0;
+		
+		$query = "SELECT * ";
+		$query .= "FROM {$table_name} ";
+		$query .= "WHERE recipe_id = 0";
+		$result_set = $wpdb->get_results($query, ARRAY_A);
+
+		if($result_set != NULL) {
+			echo "<table class=\"table table-striped\">
+				 <tr><th>Date</th><th>Material</th><th>Cost</th><th>Notes</th><th>Lot #</th></tr>";		
+			foreach($result_set as $row) {
+				$total += $row['cost'];
+				$material_name = get_name_by_id($row['material_id'],'materials');					
+				echo "<tr>";
+				echo "<td>{$row['datetime']}</td>";
+				echo "<td>{$material_name}</td>";
+				echo "<td>\${$row['cost']}</td>";
+				echo "<td>{$row['notes']}</td>";
+				echo "<td></td></tr>";
+			}
+			echo "</table>";
+		}
+		echo "<h3>Total Purchases Value: \${$total}";   
+	}
+
 	function display_inventory() {
 		global $wpdb;	
 		$table_name = get_table_name("logs");
@@ -276,10 +331,10 @@
 				$total_in = get_total_in_and_out($row['material_id'],1);
 				$total_out = get_total_in_and_out($row['material_id'],-1);
 				$current_total = $total_in - $total_out;
-				$total_value += $current_total * $current_cost;
 				$in_use_log = get_in_use_log_id($row['material_id']);
 				$current_cost = get_current_unit_cost($row['material_id'],$in_use_log);
 				$current_cost_round = round($current_cost, 2);
+				$total_value += round($current_total * $current_cost, 2);
 
 				echo "<tr>";
 				echo "<td>{$material_name}</td>";
