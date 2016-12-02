@@ -66,7 +66,7 @@
 		$query .= "FROM {$table_name} ";
 		$query .= $where;
 		if($table == "recipes") {
-			$query .= "ORDER BY 'order'";
+			$query .= "ORDER BY sort";
 		} elseif($table == "materials") {
 			$query .= "ORDER BY id";
 		} else {
@@ -159,7 +159,7 @@
 		$query = "SELECT * ";
 		$query .= "FROM {$table_name} ";
 		if($table == "recipes") {
-			$query .= "ORDER BY 'order'";
+			$query .= "ORDER BY sort";
 		} elseif($table == "materials") {
 			$query .= "ORDER BY id";
 		} else {

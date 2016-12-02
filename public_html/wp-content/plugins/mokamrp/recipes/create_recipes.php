@@ -4,7 +4,7 @@
 <?php
 
 	$name = stripslashes_deep($_POST['name']);
-	$order = stripslashes_deep($_POST['order']);
+	$sort = stripslashes_deep($_POST['sort']);
 
 	$table = get_table_name("recipes");
 
@@ -12,11 +12,11 @@
 			$table, 
 			array( 
 				'name' => $name,
-				'order' => $order   
+				'sort' => $sort   
 			), 
 			array( 
 				'%s', //name
-				'%d' //order
+				'%d' //sort
 			) 
 		);
 			

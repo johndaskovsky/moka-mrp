@@ -7,7 +7,7 @@
 
 <div class="row-fluid">
   <div class="span3">  
-    <label class="control-label" for="order">Order</label>
-    <input class="span12" placeholder="Order" type="number" name="order" value="<?php if($edit){echo $row['order'];} ?>" id="order" required="required">
+    <label class="control-label" for="sort">Order</label>
+    <input class="span12" placeholder="Order" type="number" name="sort" value="<?php if($edit){echo $row['sort'];} ?>" id="sort" required="required">
   </div>  
 </div>

@@ -69,7 +69,7 @@ function mokamrp_install() {
 	$query = "CREATE TABLE IF NOT EXISTS `{$tablename}` (
 		`id` int(11) NOT NULL AUTO_INCREMENT,
 		`name` varchar(255) NOT NULL,
-		`order` int(11) NOT NULL,
+		`sort` int(11) NOT NULL,
 		PRIMARY KEY (`id`)
 		) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1";
 	$wpdb -> query($query);
@@ -169,8 +169,6 @@ function mokamrp_home_page()
 	include(MOKAMRP_PATH . "/actions/mokamrp_home.php"); 
 	include(MOKAMRP_PATH . "/includes/footer.php");
 }
-
-
 
 //GROUPS
 function mokamrp_new_groups_page() { include(MOKAMRP_PATH . "/groups/new_groups.php"); }
