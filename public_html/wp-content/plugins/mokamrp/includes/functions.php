@@ -248,6 +248,9 @@
 		if($active == "materials") echo " class=\"active\"";
 		echo "><a href=\"admin.php?page=mokamrp_new_materials\">Materials</a></li>";
 		echo "<li";
+		if($active == "reports") echo " class=\"active\"";
+		echo "><a href=\"admin.php?page=mokamrp_reports_home\">Reports</a></li>";
+		echo "<li";
 		if($active == "import") echo " class=\"active\"";
 		echo "><a href=\"admin.php?page=mokamrp_import_export\">Import/Export</a></li>";
 		echo "</ul>";
