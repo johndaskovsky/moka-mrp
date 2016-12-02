@@ -20,8 +20,13 @@
         <label class="control-label" for="material_id">Material</label>  
         <div class="controls">  
           <select id="material_id" class="input-large" name="line[0][material_id]">
-            <?php 
-              $results = get_all_table_rows("materials");
+            <?php
+              if ($recipe_id == 0) {
+                $results = get_all_table_rows("materials", "WHERE source = 0 ");
+              } else {
+                $results = get_all_table_rows("materials");
+              }
+              
               echo array_to_option_list($results, "id", "name", NULL, NULL, false);
             ?>
           </select>
