@@ -62,14 +62,13 @@
 <?php else: ?>
 <!-- OTHER ACTIONS -->
 <?php 
- // $output_not_reached = true;
- // $recipe_name = get_name_by_id($recipe_id, "recipes");
- // echo "<h1>{$recipe_name}</h1>";
- // echo "<legend style=\"font-size:18px\">Inputs</legend>";
+ $output_not_reached = true;
+ $recipe_name = get_name_by_id($recipe_id, "recipes");
+ echo "<h1>{$recipe_name}</h1>";
+ echo "<legend style=\"font-size:18px\">Inputs</legend>";
 
-/*
   foreach($logs as $key=>$log) {
-    if($log[$key]['material_type'] == 1 && $output_not_reached){
+    if($log['type'] == 1 && $output_not_reached){
         echo "<legend style=\"font-size:18px\">Outputs</legend>";
         $output_not_reached = false;
     }
@@ -82,15 +81,15 @@
               <select id=\"material_id\" class=\"input-large\" name=\"line[{$key}][material_id]\">";
     
     $results = array();
-    if($log[$key]['material_id'] == 0) {
+    if($log['material_id'] == 0) {
       //Variable
-      $results = get_variable_options($log[$key]['recipe_id'],$log[$key]['material_type'],$group_id);
+      $results = get_variable_options($log['recipe_id'],$log['type'],$group_id);
       if($results == NULL) {
         $results = get_all_table_rows("materials");
       }
     } else {
       //Fixed
-      $results[] = get_row_by_id($log[$key]['material_id'], "materials");
+      $results[] = get_row_by_id($log['material_id'], "materials");
     }
     
 
@@ -102,20 +101,19 @@
         </div>
         <div class=\"span3\">  
           <label class=\"control-label\" for=\"units\">Weight/Units</label>
-          <input class=\"span12\" placeholder=\"Weight/Units\" type=\"number\" min=\"0\" step=\"any\" name=\"line[{$key}][units]\" value=\"{$log[$key]['units']}\" id=\"units\">
+          <input class=\"span12\" placeholder=\"Weight/Units\" type=\"number\" min=\"0\" step=\"any\" name=\"line[{$key}][units]\" value=\"{$log['units']}\" id=\"units\">
         </div> 
         <div class=\"span3\"> 
           <label class=\"control-label\" for=\"notes\">Notes</label>
-          <textarea class=\"span12\" rows=\"1\" placeholder=\"Notes\" type=\"text\" name=\"line[{$key}][notes]\" id=\"notes\">{$log[$key]['notes']}</textarea>
+          <textarea class=\"span12\" rows=\"1\" placeholder=\"Notes\" type=\"text\" name=\"line[{$key}][notes]\" id=\"notes\">{$log['notes']}</textarea>
           </div>
         </div>";
-    echo "<input type=\"hidden\" name=\"line[{$key}][recipe_id]\" value=\"{$log[$key]['recipe_id']}\" id=\"recipe_id\">
-        <input type=\"hidden\" name=\"line[{$key}][type]\" value=\"{$log[$key]['material_type']}\" id=\"type\">
-        <input type=\"hidden\" name=\"line[{$key}][cost_responsibility]\" value=\"{$log[$key]['cost_responsibility']}\" id=\"type\">";
-    echo "<input type=\"hidden\" name=\"line[{$key}][log_id]\" value=\"{$log[$key]['id']}\" id=\"type\">";
+    echo "<input type=\"hidden\" name=\"line[{$key}][recipe_id]\" value=\"{$log['recipe_id']}\" id=\"recipe_id\">
+        <input type=\"hidden\" name=\"line[{$key}][type]\" value=\"{$log['type']}\" id=\"type\">
+        <input type=\"hidden\" name=\"line[{$key}][cost_responsibility]\" value=\"{$log['cost_responsibility']}\" id=\"type\">";
+    echo "<input type=\"hidden\" name=\"line[{$key}][log_id]\" value=\"{$log['id']}\" id=\"type\">";
 
   }
-*/
 
 ?>
 
