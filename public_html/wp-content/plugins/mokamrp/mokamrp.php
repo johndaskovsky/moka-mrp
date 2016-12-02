@@ -121,38 +121,7 @@ if(function_exists('register_update_hook')) {
 //Create plugin Options page
 function mokamrp_init()
 {
-	register_setting('mokamrp_options','mokamrp_weight_units');
-	register_setting('mokamrp_options_hidden','mokamrp_zout_register_date');
-	register_setting('mokamrp_options_hidden','mokamrp_zout_register_time');
-	register_setting('mokamrp_options_hidden','mokamrp_zout_paypal_date');
-	register_setting('mokamrp_options_hidden','mokamrp_zout_paypal_time');
-	register_setting('mokamrp_options','mokamrp_zout_email');
-	register_setting('mokamrp_options','mokamrp_mailchimp_apikey');
-	register_setting('mokamrp_options','mokamrp_mailchimp_listid');
-	register_setting('mokamrp_options','mokamrp_zip_start');
-	register_setting('mokamrp_options','mokamrp_zip_stop');
-	register_setting('mokamrp_options','mokamrp_month_01');
-	register_setting('mokamrp_options','mokamrp_month_02');
-	register_setting('mokamrp_options','mokamrp_month_03');
-	register_setting('mokamrp_options','mokamrp_month_04');
-	register_setting('mokamrp_options','mokamrp_month_05');
-	register_setting('mokamrp_options','mokamrp_month_06');
-	register_setting('mokamrp_options','mokamrp_month_07');
-	register_setting('mokamrp_options','mokamrp_month_08');
-	register_setting('mokamrp_options','mokamrp_month_09');
-	register_setting('mokamrp_options','mokamrp_month_10');
-	register_setting('mokamrp_options','mokamrp_month_11');
-	register_setting('mokamrp_options','mokamrp_month_12');
-	register_setting('mokamrp_options','mokamrp_waiver');
-	register_setting('mokamrp_options','mokamrp_list_shortcode');
-	register_setting('mokamrp_options','mokamrp_detail_shortcode');
-	register_setting('mokamrp_options','mokamrp_detail1_shortcode');
-	register_setting('mokamrp_options','mokamrp_detail2_shortcode');
-	register_setting('mokamrp_options','mokamrp_detail3_shortcode');
-	register_setting('mokamrp_options','mokamrp_account_types');
-	register_setting('mokamrp_options','mokamrp_discount_member');
-	register_setting('mokamrp_options','mokamrp_discount_senior');
-	register_setting('mokamrp_options','mokamrp_discount_student');
+	register_setting('mokamrp_options','mokamrp_weight_unit');
 }
 add_action('admin_init','mokamrp_init');
 
