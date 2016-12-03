@@ -394,6 +394,7 @@
 	}
 
 	function get_in_use_log_id($material_id) {
+		//WARNING: this function will fail if the material does not yet have a log.
 		global $wpdb;
 		$table = get_table_name("logs");
 		$total_out = get_total_in_and_out($material_id,-1);
