@@ -32,7 +32,8 @@
 				$cost = get_cost_of_input($material_id,$units);
 				$total_cost_of_inputs += $cost;
 				$lots = get_input_lots_string($material_id);
-				$output_lots_array = array_unique(array_merge(explode (",",$lots),$output_lots_array));
+				$lots_array_merge = array_unique(array_merge(explode(",",$lots),$output_lots_array));
+				$output_lots_array = $lots_array_merge;
 			} else {
 				//Outputs
 				$cost = $total_cost_of_inputs * ($cost_responsibility / 100); 
