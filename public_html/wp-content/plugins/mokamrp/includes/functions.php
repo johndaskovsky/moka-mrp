@@ -6,7 +6,9 @@
 			$output .= "<option value =\"{$selection_value}\">(Select)</option>";
 		}
 		if($sale_option) {
-			$output .= "<option value =\"-2\">Sale</option>";
+			$output .= "<option value =\"-2\"";
+			if($selection !== NULL && $selection == -2) { $output .= " selected"; }
+			$output .= ">Sale</option>";
 		}
 		if($zero_option != NULL) {
 			$output .= "<option value =\"0\"";
