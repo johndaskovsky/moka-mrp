@@ -55,7 +55,7 @@
 	function get_next_lot() {
 		global $wpdb;
 		$table = get_table_name("logs");
-		$query = "SELECT MAX(lots) as max FROM {$table} ";
+		$query = "SELECT COUNT(*) as max FROM {$table} ";
 		$query .= "WHERE recipe_id = 0";
 		$max = $wpdb->get_row($query, ARRAY_A);
 		return $max['max'] + 1;
