@@ -55,7 +55,7 @@
 	function get_next_lot() {
 		global $wpdb;
 		$table = get_table_name("logs");
-		$query = "SELECT MAX(action_id) as max FROM {$table} ";
+		$query = "SELECT MAX(lots) as max FROM {$table} ";
 		$query .= "WHERE recipe_id = 0";
 		$max = $wpdb->get_row($query, ARRAY_A);
 		return $max['max'] + 1;
@@ -325,7 +325,7 @@
 				echo "<td>{$material_name}</td>";
 				echo "<td>\${$row['cost']}</td>";
 				echo "<td>{$row['notes']}</td>";
-				echo "<td></td></tr>";
+				echo "<td>{$row['lots']}</td></tr>";
 			}
 			echo "</table>";
 		}
