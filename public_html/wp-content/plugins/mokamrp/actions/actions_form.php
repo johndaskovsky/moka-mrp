@@ -2,15 +2,17 @@
   $recipe_id = stripslashes_deep($_GET['recipe_id']);
   $group_id = stripslashes_deep($_POST['group_id']);
 
-  if($recipe_id == 0 || $recipe_id == -1): 
+  if($recipe_id == 0 || $recipe_id == -1 || $recipe_id == -2): 
 ?>
 <!-- PURCHASE OR LOSS -->
   <h1>
     <?php
       if($recipe_id == 0) {
         echo "Purchase";
-      } else {
+      } elseif($recipe_id == -1) {
         echo "Loss";
+      } else {
+        echo "Sale";
       }
     ?>
   </h1>
@@ -22,9 +24,14 @@
           <select id="material_id" class="input-large" name="line[0][material_id]">
             <?php
               if ($recipe_id == 0) {
+                //Purchase
                 $results = get_all_table_rows("materials", "WHERE source = 0 ");
-              } else {
+              } elseif($recipe_id == -1) {
+                //Loss
                 $results = get_all_table_rows("materials");
+              } else {
+                //Sale
+                $results = get_all_table_rows("materials", "WHERE destination = -2 ");
               }
               
               echo array_to_option_list($results, "id", "name", NULL, NULL, false);
@@ -52,11 +59,18 @@
   </div>
   <?php
     if($recipe_id == 0) {
+      //Purchase
       echo "<input type=\"hidden\" name=\"line[0][recipe_id]\" value=\"0\" id=\"recipe_id\">
         <input type=\"hidden\" name=\"line[0][type]\" value=\"1\" id=\"type\">
         <input type=\"hidden\" name=\"line[0][cost_responsibility]\" value=\"0\" id=\"type\">";
-    } else {
+    } elseif($recipe_id == -1) {
+      //Loss
       echo "<input type=\"hidden\" name=\"line[0][recipe_id]\" value=\"-1\" id=\"recipe_id\">
+        <input type=\"hidden\" name=\"line[0][type]\" value=\"-1\" id=\"type\">
+        <input type=\"hidden\" name=\"line[0][cost_responsibility]\" value=\"0\" id=\"type\">";
+    } else {
+      //Sale
+      echo "<input type=\"hidden\" name=\"line[0][recipe_id]\" value=\"-2\" id=\"recipe_id\">
         <input type=\"hidden\" name=\"line[0][type]\" value=\"-1\" id=\"type\">
         <input type=\"hidden\" name=\"line[0][cost_responsibility]\" value=\"0\" id=\"type\">";
     }

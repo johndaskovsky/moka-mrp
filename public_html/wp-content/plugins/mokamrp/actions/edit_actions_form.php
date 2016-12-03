@@ -4,15 +4,17 @@
 
   $recipe_id = $logs[0]['recipe_id'];
 
-  if($recipe_id == 0 || $recipe_id == -1): 
+  if($recipe_id == 0 || $recipe_id == -1 || $recipe_id == -2): 
 ?>
 <!-- PURCHASE OR LOSS -->
   <h1>
     <?php
       if($recipe_id == 0) {
         echo "Purchase";
-      } else {
+      } elseif($recipe_id == -1) {
         echo "Loss";
+      } else {
+        echo "Sale";
       }
     ?>
   </h1>
@@ -51,8 +53,13 @@
     if($recipe_id == 0) {
       echo "<input type=\"hidden\" name=\"line[0][recipe_id]\" value=\"0\" id=\"recipe_id\">
         <input type=\"hidden\" name=\"line[0][type]\" value=\"1\" id=\"type\">";
-    } else {
+    } elseif($recipe_id == -1) {
+      //Loss
       echo "<input type=\"hidden\" name=\"line[0][recipe_id]\" value=\"-1\" id=\"recipe_id\">
+        <input type=\"hidden\" name=\"line[0][type]\" value=\"-1\" id=\"type\">";
+    } else {
+      //Sale
+      echo "<input type=\"hidden\" name=\"line[0][recipe_id]\" value=\"-2\" id=\"recipe_id\">
         <input type=\"hidden\" name=\"line[0][type]\" value=\"-1\" id=\"type\">";
     }
     echo "<input type=\"hidden\" name=\"line[0][cost_responsibility]\" value=\"0\" id=\"type\">";

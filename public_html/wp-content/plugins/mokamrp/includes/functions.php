@@ -1,9 +1,12 @@
 <?php
 
-	function array_to_option_list($array, $key, $value, $selection = NULL, $zero_option = NULL, $no_selection_option = TRUE, $selection_value = -1) {
+	function array_to_option_list($array, $key, $value, $selection = NULL, $zero_option = NULL, $no_selection_option = TRUE, $selection_value = -1, $sale_option = FALSE) {
 		$output = "";
 		if($no_selection_option) {
 			$output .= "<option value =\"{$selection_value}\">(Select)</option>";
+		}
+		if($sale_option) {
+			$output .= "<option value =\"-2\">Sale</option>";
 		}
 		if($zero_option != NULL) {
 			$output .= "<option value =\"0\"";

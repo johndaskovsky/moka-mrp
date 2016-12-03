@@ -1,5 +1,8 @@
 <?php 
-  
+
+if ( current_user_can('manage_options') ) {
+  echo "<legend>Accounting</legend>";
+
   //Purchase
   echo "<form action=\"admin.php?page=mokamrp_new_actions&amp;recipe_id=0\" method=\"post\">";
   echo "<div class=\"form-actions\">
@@ -13,6 +16,16 @@
       <input type=\"submit\" name=\"submit\" id=\"submit\" class=\"btn btn-primary\" value=\"Loss\">
       </div>";
   echo "</form>";
+
+  //Sale
+  echo "<form action=\"admin.php?page=mokamrp_new_actions&amp;recipe_id=-2\" method=\"post\">";
+  echo "<div class=\"form-actions\">
+      <input type=\"submit\" name=\"submit\" id=\"submit\" class=\"btn btn-primary\" value=\"Sale\">
+      </div>";
+  echo "</form>";
+}
+
+  echo "<legend>Recipes</legend>";
 
   //Other recipes
   $recipes = get_all_table_rows("recipes");

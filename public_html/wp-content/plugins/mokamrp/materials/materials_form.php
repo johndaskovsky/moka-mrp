@@ -47,8 +47,8 @@
     <select id="destination" class="input-large" name="destination">
       <?php 
         $results = get_all_table_rows("recipes");
-        if($edit){ echo array_to_option_list($results, "id", "name", $row['destination']); }
-        else{ echo array_to_option_list($results, "id", "name"); }
+        if($edit){ echo array_to_option_list($results, "id", "name", $row['destination'], NULL, TRUE, "-1", TRUE); }
+        else{ echo array_to_option_list($results, "id", "name", NULL, NULL, TRUE, "-1", TRUE); }
       ?>
     </select>
   </div>
