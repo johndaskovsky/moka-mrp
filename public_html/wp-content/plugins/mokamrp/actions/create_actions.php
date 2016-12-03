@@ -9,6 +9,8 @@
 	$current_user = wp_get_current_user();
 	$user = $current_user->display_name;
 	$total_cost_of_inputs = 0;
+	$lots = 0;
+	$output_lots_array = array();
 
 	$table = get_table_name("logs");
 
@@ -23,14 +25,18 @@
 		if($recipe_id == 0) {
 			//Purchases
 			$cost = stripslashes_deep($row['cost']);
+			$lots = get_next_lot();
 		} else {
 			if($type == -1) {
 				//Inputs and Losses
 				$cost = get_cost_of_input($material_id,$units);
 				$total_cost_of_inputs += $cost;
+				$lots = get_input_lots_string($material_id);
+				$output_lots_array = array_unique(array_merge(explode (",",$lots),$output_lots_array));
 			} else {
 				//Outputs
 				$cost = $total_cost_of_inputs * ($cost_responsibility / 100); 
+				$lots = implode(",",$output_lots_array);
 			}
 		}
 		
@@ -44,7 +50,8 @@
 					'type' => $type,
 					'cost' => $cost,
 					'user' => $user,
-					'notes' => $notes  
+					'notes' => $notes,
+					'lots' => $lots  
 				), 
 				array( 
 					'%d', //action_id
@@ -54,7 +61,8 @@
 					'%d', //type
 					'%f', //cost
 					'%s', //user
-					'%s' //notes
+					'%s', //notes
+					'%s' //lots
 				) 
 			);
 		

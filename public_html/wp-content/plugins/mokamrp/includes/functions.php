@@ -52,11 +52,33 @@
 		return $max['max'] + 1;
 	}
 
+	function get_next_lot() {
+		global $wpdb;
+		$table = get_table_name("logs");
+		$query = "SELECT MAX(action_id) as max FROM {$table} ";
+		$query .= "WHERE recipe_id = 0";
+		$max = $wpdb->get_row($query, ARRAY_A);
+		return $max['max'] + 1;
+	}
+
 	function get_cost_of_input($material_id,$units) {
 		$in_use_log = get_in_use_log_id($material_id);
 		$current_unit_cost = get_current_unit_cost($material_id,$in_use_log);
 
 		return $units * $current_unit_cost;
+	}
+
+	function get_input_lots_string($material_id) {
+		$in_use_log = get_in_use_log_id($material_id);
+		$log_lots_string = get_log_lots_string($in_use_log);
+
+		return $log_lots_string;
+	}
+
+	function get_log_lots_string($log_id) {
+		$log = get_row_by_id($log_id, "logs");
+
+		return $log['lots']; 
 	}
 
 	function get_all_table_rows($table, $where = "") {

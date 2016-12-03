@@ -98,15 +98,7 @@ function mokamrp_install() {
 		`cost` decimal(10,2) NOT NULL,
 		`user` varchar(255) NOT NULL,
 		`notes` text NOT NULL,
-		PRIMARY KEY (`id`)
-		) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1";
-	$wpdb -> query($query);
-
-	$tablename = get_table_name('lots');
-	$query = "CREATE TABLE IF NOT EXISTS `{$tablename}` (
-		`id` int(11) NOT NULL AUTO_INCREMENT,
-		`log_id` int(11) NOT NULL,
-		`lot_id` int(11) NOT NULL,
+		`lots` text NOT NULL,
 		PRIMARY KEY (`id`)
 		) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1";
 	$wpdb -> query($query);
