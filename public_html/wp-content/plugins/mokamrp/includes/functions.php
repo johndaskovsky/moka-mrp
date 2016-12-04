@@ -268,6 +268,8 @@
 						$recipe_name = "Loss";
 					} elseif ($row['recipe_id'] == 0) {
 						$recipe_name = "Purchase";
+					} elseif ($row['recipe_id'] == -2) {
+						$recipe_name = "Sale";
 					} else {
 						$recipe_name = get_name_by_id($row['recipe_id'],'recipes');
 					}
@@ -444,10 +446,27 @@
 		echo "><a href=\"admin.php?page=mokamrp_new_materials\">Materials</a></li>";
 		echo "<li";
 		if($active == "reports") echo " class=\"active\"";
-		echo "><a href=\"admin.php?page=mokamrp_reports_home\">Reports</a></li>";
+		echo "><a href=\"admin.php?page=mokamrp_reports_actions\">Reports</a></li>";
 		echo "<li";
 		if($active == "import") echo " class=\"active\"";
 		echo "><a href=\"admin.php?page=mokamrp_import_export\">Import/Export</a></li>";
+		echo "</ul>";
+	}
+
+	function display_report_navigation($active) {
+		echo "<ul class=\"nav nav-pills\" style=\"margin-top:0px;padding-right:0px;padding-left:0px;\">";				  
+		echo "<li";
+		if($active == "actions") echo " class=\"active\"";
+		echo "><a href=\"admin.php?page=mokamrp_reports_actions\">Actions</a></li>";
+		echo "<li";
+		if($active == "inventory") echo " class=\"active\"";
+		echo "><a href=\"admin.php?page=mokamrp_reports_inventory\">Inventory</a></li>";
+		echo "<li";
+		if($active == "losses") echo " class=\"active\"";
+		echo "><a href=\"admin.php?page=mokamrp_reports_losses\">Losses</a></li>";
+		echo "<li";
+		if($active == "purchases") echo " class=\"active\"";
+		echo "><a href=\"admin.php?page=mokamrp_reports_purchases\">Purchases</a></li>";
 		echo "</ul>";
 	}
 

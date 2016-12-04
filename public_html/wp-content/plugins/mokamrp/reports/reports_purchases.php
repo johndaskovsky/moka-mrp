@@ -3,6 +3,8 @@
   <!--Admin Navigation-->
 <?php display_admin_navigation("reports"); ?>
 
+<?php display_report_navigation("purchases"); ?>
+
 <legend>Purchases Report</legend>
 
 <?php display_purchases(); ?>

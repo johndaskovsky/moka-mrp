@@ -3,6 +3,8 @@
   <!--Admin Navigation-->
 <?php	display_admin_navigation("reports"); ?>
 
+<?php display_report_navigation("actions"); ?>
+
 <legend>Edit Actions</legend>
 
 <?php display_actions(); ?>
