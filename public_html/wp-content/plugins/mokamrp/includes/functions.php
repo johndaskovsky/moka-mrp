@@ -179,6 +179,41 @@
 		}
 	}
 
+	function get_unset_options($type,$group_id) {
+		global $wpdb;
+		$table_name = get_table_name("materials");
+
+		if($type == -1) {
+			//INPUTS
+			$query_prep = "SELECT * ";
+			$query_prep .= "FROM {$table_name} ";
+			$query_prep .= "WHERE (destination = -1 AND group_id = %d)";
+
+			$query = $wpdb->prepare($query_prep, $group_id);
+
+			$result_set = $wpdb->get_results($query, ARRAY_A);
+			if ($result_set != NULL) {
+				return $result_set;
+			} else {
+				return NULL;
+			}
+		} elseif ($type == 1) {
+			//OUTPUTS
+			$query_prep = "SELECT * ";
+			$query_prep .= "FROM {$table_name} ";
+			$query_prep .= "WHERE (source = -1 AND group_id = %d)";
+
+			$query = $wpdb->prepare($query_prep, $group_id);
+
+			$result_set = $wpdb->get_results($query, ARRAY_A);
+			if ($result_set != NULL) {
+				return $result_set;
+			} else {
+				return NULL;
+			}
+		}
+	}
+
 	function display_table_list($table) {
 		global $wpdb;	
 		$table_name = get_table_name($table); 
