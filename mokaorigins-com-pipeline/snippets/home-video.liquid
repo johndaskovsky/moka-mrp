@@ -1,0 +1,57 @@
+<div class="homepage-image preventOverflow homepageVideo {{ settings.home_video_color }} {{ settings.home_video_height }}">
+  <div class="content--centered">
+    <div class="{{ settings.homepage_video_align }} preventOverflowContent">
+      {% if settings.homepage_video_cta_image_enable %}
+        <a href="{{ settings.home_video_link }}" class="popupVideo">
+          <img src="{{ 'homepage_video_cta_image.png' | asset_url }}" alt="{{ settings.video_headline }} | {{ settings.video_description }} | {{ settings.video_link_text }}" class="image--flex" id="ctaImage" onerror='this.style.display = "none"'/>
+        </a>
+      {% else %}
+        {% unless settings.video_headline == '' %}<h1 class="title--flex">{{ settings.home_video_title }}</h1>{% endunless %}
+        {% unless settings.video_description == '' %}<p class="content--flex h4--body">{{ settings.home_video_description }}</p>{% endunless %}
+        {% unless settings.home_video_link == '' %}
+          <a href="{{ settings.home_video_link }}" class="icon-fallback-text popupVideo homepage-video__play">
+            <span class="icon icon-play"></span>
+            <span class="fallback-text">&#9658;</span>
+          </a>
+        {% endunless %}
+      {% endif %}
+    </div>
+  </div>
+  <div class="image-overlay {{ settings.home_video_overlay }}"></div>
+  {% if settings.home_video_height == 'use_image' %}
+    <img src="{{ 'home_video_image.jpg' | asset_url }}" class="responsive-wide-image" onerror='this.style.display = "none"'{% if settings.home_video_parallax %} style="opacity: 0;"{% endif %}/>
+  {% endif %}
+  {% if settings.home_video_parallax == false and settings.home_video_height != 'use_image' %}
+    <div class="background-size-cover" style="background-image: url('{{ 'home_video_image.jpg' | asset_url }}');"></div>
+  {% endif %}
+</div>
+
+<script>
+$(document).ready(function() {
+  $('.popupVideo').magnificPopup({
+    type: 'iframe',
+    mainClass: 'mfp-fade',
+    removalDelay: 160,
+    closeBtnInside: false,
+    preloader: false,
+    fixedContentPos: false,
+    iframe: {
+      patterns: {
+        youtube: {
+          src: '//www.youtube.com/embed/%id%?autoplay=1&rel=0&showinfo=0'
+        }
+      }
+    }
+  });
+
+  {% if settings.home_video_parallax %}
+    $('.homepageVideo').parallax({
+      imageSrc: '{{ 'home_video_image.jpg' | asset_url }}',
+      parallax: 'scroll',
+      bleed: '55'
+    });
+  {% endif %}
+});
+</script>
+
+{{ 'magnific-popup.min.js' | asset_url | script_tag }}

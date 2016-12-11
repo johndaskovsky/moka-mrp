@@ -1,0 +1,25 @@
+{% unless settings.instagram_id == blank %}
+
+  <div class="homepage-instagram {{ settings.homepage_instagram_color }}">
+    {% unless settings.homepage_instagram_subtitle == '' %}
+      <h4 class="home__subtitle">{{ settings.homepage_instagram_subtitle}}</h4>
+    {% endunless %}
+    <div id="instafeed" class="grid-uniform"></div>
+  </div>
+
+  <script>
+    $(document).ready(function(){
+      var userFeed = new Instafeed({
+        get: 'user',
+        userId: 'self',
+        accessToken: "{{ settings.instagram_id }}",
+        sortBy: 'most-recent',
+        resolution: 'standard_resolution',
+        limit: {{ settings.instagram_photo_count}},
+        template: {%raw%}'<a href="{{link}}" target="_blank" style="background-image: url({{image}});" class="grid__item instagram--square {%endraw%}{{settings.instagram_grid_width_large}} {{settings.instagram_grid_width_medium}} {{settings.instagram_grid_width_small}}{%raw%}"><span class="icon icon-instagram"></span></a>'{%endraw%}
+      });
+      userFeed.run();
+    });
+  </script>
+
+{% endunless %}

@@ -1,0 +1,46 @@
+<div class="homepage-image preventOverflow homepageHero {{ settings.home_hero_height }} {{ settings.home_hero_color }}">
+  {% if settings.hero_link_text == '' and settings.hero_link != '' and settings.homepage_hero_cta_image_enable == false %}
+    <a href="{{ settings.hero_link }}">
+  {% endif %}
+  <div class="content--centered">
+    <div class="{{ settings.homepage_hero_align }} preventOverflowContent">
+      {% if settings.homepage_hero_cta_image_enable %}
+        <a href="{{ settings.hero_link }}">
+          <img src="{{ 'homepage_hero_cta_image.png' | asset_url }}" alt="{{ settings.hero_headline }} | {{ settings.hero_description }} | {{ settings.hero_link_text }}" class="image--flex" id="ctaImage" onerror='this.style.display = "none"'/>
+        </a>
+      {% else %}
+        {% unless settings.hero_headline == '' %}<h1 class="title--flex">{{ settings.hero_headline }}</h1>{% endunless %}
+        {% unless settings.hero_description == '' %}<p class="content--flex h4--body">{{ settings.hero_description }}</p>{% endunless %}
+        {% unless settings.hero_link_text == '' %}<a class="{{ settings.home_hero_button }}" href="{{ settings.hero_link }}">{{ settings.hero_link_text }}</a>{% endunless %}
+      {% endif %}
+    </div>
+  </div>
+  {% if settings.home_hero_height == 'use_screen_full' %}
+  <div class="scroll_icon_wrap">
+    <a href="#scroll" class="scroll_link bloop">
+      <span class="scroll_icon"></span>
+    </a>
+  </div>
+  <div id="scroll"></div>
+  {% endif %}
+  <div class="image-overlay {{ settings.home_hero_overlay }}"></div>
+  {% if settings.home_hero_height == 'use_image' %}
+    <img src="{{ 'homepage_hero_image.jpg' | asset_url }}" onerror='this.style.display = "none"' class="responsive-wide-image"{% if settings.home_hero_parallax %} style="opacity: 0;"{% endif %}/>
+  {% endif %}
+  {% if settings.home_hero_parallax == false and settings.home_hero_height != 'use_image' %}
+    <div class="background-size-cover" style="background-image: url('{{ 'homepage_hero_image.jpg' | asset_url }}');"></div>
+  {% endif %}
+  {% if settings.hero_link_text == '' and settings.hero_link != '' and settings.homepage_hero_cta_image_enable == false %}
+    </a>
+  {% endif %}
+</div>
+
+{% if settings.home_hero_parallax %}
+<script>
+  $('.homepageHero').parallax({
+    imageSrc: '{{ 'homepage_hero_image.jpg' | asset_url }}',
+    parallax: 'scroll',
+    bleed: '55'
+  });
+</script>
+{% endif %}
