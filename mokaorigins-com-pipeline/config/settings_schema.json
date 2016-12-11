@@ -783,6 +783,10 @@
             "label": "Featured products"
           },
           {
+            "value": "home-collection2",
+            "label": "Featured products2"
+          },
+          {
             "value": "home-page",
             "label": "Featured text 1"
           },
@@ -827,6 +831,10 @@
           {
             "value": "home-collection",
             "label": "Featured products"
+          },
+          {
+            "value": "home-collection2",
+            "label": "Featured products2"
           },
           {
             "value": "home-page",
@@ -875,6 +883,10 @@
             "label": "Featured products"
           },
           {
+            "value": "home-collection2",
+            "label": "Featured products2"
+          },
+          {
             "value": "home-page",
             "label": "Featured text 1"
           },
@@ -919,6 +931,10 @@
           {
             "value": "home-collection",
             "label": "Featured products"
+          },
+          {
+            "value": "home-collection2",
+            "label": "Featured products2"
           },
           {
             "value": "home-page",
@@ -967,6 +983,10 @@
             "label": "Featured products"
           },
           {
+            "value": "home-collection2",
+            "label": "Featured products2"
+          },
+          {
             "value": "home-page",
             "label": "Featured text 1"
           },
@@ -1011,6 +1031,10 @@
           {
             "value": "home-collection",
             "label": "Featured products"
+          },
+          {
+            "value": "home-collection2",
+            "label": "Featured products2"
           },
           {
             "value": "home-page",
@@ -1059,6 +1083,10 @@
             "label": "Featured products"
           },
           {
+            "value": "home-collection2",
+            "label": "Featured products2"
+          },
+          {
             "value": "home-page",
             "label": "Featured text 1"
           },
@@ -1105,6 +1133,10 @@
             "label": "Featured products"
           },
           {
+            "value": "home-collection2",
+            "label": "Featured products2"
+          },
+          {
             "value": "home-page",
             "label": "Featured text 1"
           },
@@ -1149,6 +1181,10 @@
           {
             "value": "home-collection",
             "label": "Featured products"
+          },
+          {
+            "value": "home-collection2",
+            "label": "Featured products2"
           },
           {
             "value": "home-page",
@@ -1358,6 +1394,36 @@
       {
         "type": "text",
         "id": "homepage_collection_subtitle",
+        "label": "Secondary title"
+      }
+    ]
+  },
+  {
+    "name": "Home page - featured products2",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Products"
+      },
+      {
+        "type": "collection",
+        "id": "home_collection2",
+        "label": "Choose collection"
+      },
+      {
+        "type": "select",
+        "id": "homepage_collection2_color",
+        "label": "Background color",
+        "options": [
+          { "value": "homepage--white", "label": "White"},
+          { "value": "homepage--light", "label": "Light"},
+          { "value": "homepage--splash", "label": "Accent"},
+          { "value": "homepage--dark", "label": "Dark"}
+        ]
+      },
+      {
+        "type": "text",
+        "id": "homepage_collection2_subtitle",
         "label": "Secondary title"
       }
     ]
