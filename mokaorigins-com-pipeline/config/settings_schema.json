@@ -2977,5 +2977,89 @@
         "label": "+1 on Google Plus"
       }
     ]
+  },
+  {
+    "name": "Wholesale",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Products"
+      },
+      {
+        "type": "collection",
+        "id": "wholesale_collection",
+        "label": "Choose collection"
+      },
+      {
+        "type": "select",
+        "id": "wholesale_collection_color",
+        "label": "Background color",
+        "options": [
+          {
+            "value": "homepage--white",
+            "label": "White"
+          },
+          {
+            "value": "homepage--light",
+            "label": "Light"
+          },
+          {
+            "value": "homepage--splash",
+            "label": "Accent"
+          },
+          {
+            "value": "homepage--dark",
+            "label": "Dark"
+          }
+        ]
+      },
+      {
+        "type": "text",
+        "id": "wholesale_collection_subtitle",
+        "label": "Secondary title"
+      }
+    ]
+  },
+  {
+    "name": "Wholesale2",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Products"
+      },
+      {
+        "type": "collection",
+        "id": "wholesale_collection2",
+        "label": "Choose collection"
+      },
+      {
+        "type": "select",
+        "id": "wholesale_collection2_color",
+        "label": "Background color",
+        "options": [
+          {
+            "value": "homepage--white",
+            "label": "White"
+          },
+          {
+            "value": "homepage--light",
+            "label": "Light"
+          },
+          {
+            "value": "homepage--splash",
+            "label": "Accent"
+          },
+          {
+            "value": "homepage--dark",
+            "label": "Dark"
+          }
+        ]
+      },
+      {
+        "type": "text",
+        "id": "wholesale_collection2_subtitle",
+        "label": "Secondary title"
+      }
+    ]
   }
 ]
