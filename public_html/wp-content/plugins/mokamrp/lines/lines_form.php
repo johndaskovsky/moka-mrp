@@ -36,7 +36,7 @@
     <select id="material_id" class="input-large" name="material_id">
       <?php 
         $results = get_all_table_rows("materials");
-        if($edit){ echo array_to_option_list($results, "id", "name", $row['id'], "*Variable*"); }
+        if($edit){ echo array_to_option_list($results, "id", "name", $row['material_id'], "*Variable*"); }
         else{ echo array_to_option_list($results, "id", "name", NULL, "*Variable*"); }
       ?>
     </select>
