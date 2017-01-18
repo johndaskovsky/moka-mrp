@@ -102,7 +102,15 @@
     $results = array();
     if($line['material_id'] == 0) {
       //Variable
-      $results = get_variable_options($line['recipe_id'],$line['material_type'],$group_id);
+      $results1 = get_variable_options($line['recipe_id'],$line['material_type'],$group_id);
+      $results2 = get_unset_group_options($line['material_type'],$recipe_id);
+      
+      if($results2 == NULL){
+        $results = $results1;
+      } else {
+        $results = array_merge ( $results1, $results2 );
+      }
+
       //Fall back to materials in group with no destination
       if($results == NULL) {
         $results = get_unset_options($line['material_type'],$group_id);
