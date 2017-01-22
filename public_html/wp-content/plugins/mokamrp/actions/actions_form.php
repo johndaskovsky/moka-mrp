@@ -17,11 +17,11 @@
     ?>
   </h1>
   <div class="row-fluid">
-    <div class="span3"> 
+    <div class="span4"> 
       <div class="control-group">  
         <label class="control-label" for="material_id">Material</label>  
         <div class="controls">  
-          <select id="material_id" class="input-large" name="line[0][material_id]">
+          <select id="material_id" class="input-xlarge" name="line[0][material_id]">
             <?php
               if ($recipe_id == 0) {
                 //Purchase
@@ -93,11 +93,11 @@
     }
 
     echo "<div class=\"row-fluid\">
-        <div class=\"span3\"> 
+        <div class=\"span4\"> 
           <div class=\"control-group\">  
             <label class=\"control-label\" for=\"material_id\">Material</label>  
             <div class=\"controls\">  
-              <select id=\"material_id\" class=\"input-large\" name=\"line[{$key}][material_id]\">";
+              <select id=\"material_id\" class=\"input-xlarge\" name=\"line[{$key}][material_id]\">";
     
     $results = array();
     if($line['material_id'] == 0) {

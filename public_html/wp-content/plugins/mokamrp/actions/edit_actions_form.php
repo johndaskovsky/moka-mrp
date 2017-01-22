@@ -19,11 +19,11 @@
     ?>
   </h1>
   <div class="row-fluid">
-    <div class="span3"> 
+    <div class="span4"> 
       <div class="control-group">  
         <label class="control-label" for="material_id">Material</label>  
         <div class="controls">  
-          <select id="material_id" class="input-large" name="line[0][material_id]">
+          <select id="material_id" class="input-xlarge" name="line[0][material_id]">
             <?php 
               $results = get_all_table_rows("materials");
               echo array_to_option_list($results, "id", "name", $logs[0]['material_id'], NULL, false);
@@ -81,11 +81,11 @@
     }
 
     echo "<div class=\"row-fluid\">
-        <div class=\"span3\"> 
+        <div class=\"span4\"> 
           <div class=\"control-group\">  
             <label class=\"control-label\" for=\"material_id\">Material</label>  
             <div class=\"controls\">  
-              <select id=\"material_id\" class=\"input-large\" name=\"line[{$key}][material_id]\">";
+              <select id=\"material_id\" class=\"input-xlarge\" name=\"line[{$key}][material_id]\">";
     
     $results = array();
     if($log['material_id'] == 0) {
