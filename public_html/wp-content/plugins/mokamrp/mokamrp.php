@@ -282,12 +282,11 @@ function load_custom_mokamrp_style() {
     wp_enqueue_style( 'custom_wp_admin_css2' );
 	wp_register_style( 'custom_wp_admin_css3', MOKAMRP_URL . '/css/jquery.dataTables.css', false, '1.0.0' );
     wp_enqueue_style( 'custom_wp_admin_css3' );
-	wp_register_script('datatables_script', MOKAMRP_URL . '/js/jquery.dataTables.min.js' );
+  wp_register_script('datatables_script', MOKAMRP_URL . '/js/jquery.dataTables.min.js' );
     wp_enqueue_script('datatables_script');
 	wp_register_script('bootstrap_script', MOKAMRP_URL . '/js/bootstrap.min.js' );
     wp_enqueue_script('bootstrap_script');
-	wp_register_script('jquery_script', '//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js' );
-    wp_enqueue_script('jquery_script');
+	
 }
 
 function mokamrp_load_admin_custom_css(){

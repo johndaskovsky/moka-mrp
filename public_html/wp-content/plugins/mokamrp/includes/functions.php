@@ -353,8 +353,8 @@
 		$result_set = $wpdb->get_results($query, ARRAY_A);
 
 		if($result_set != NULL) {
-			echo "<table class=\"table table-striped\">
-				 <tr><th>Date</th><th>Action</th><th>Edit</th></tr>";		
+			echo "<table id=\"data_table\" class=\"table table-striped\">
+				 <thead><tr><th>Date</th><th>Action</th><th>Edit</th></tr></thead><tbody>";		
 			foreach($result_set as $row) {
 				if($row['action_id'] != $current_action) {
 					$current_action = $row['action_id'];
@@ -375,7 +375,7 @@
 					echo "<td><a href=\"admin.php?page=mokamrp_edit_actions&amp;id={$row['action_id']}\"><i class=\"icon-pencil\"></i> Edit</a></td></tr>";
 				}
 			}
-			echo "</table>";
+			echo "</tbody></table>";
 		}   
 	}
 
@@ -390,8 +390,8 @@
 		$result_set = $wpdb->get_results($query, ARRAY_A);
 
 		if($result_set != NULL) {
-			echo "<table class=\"table table-striped\">
-				 <tr><th>Date</th><th>Material</th><th>Cost</th><th>Notes</th></tr>";		
+			echo "<table id=\"data_table\" class=\"table table-striped\">
+				 <thead><tr><th>Date</th><th>Material</th><th>Cost</th><th>Notes</th></tr></thead><tbody>";		
 			foreach($result_set as $row) {
 				$total_loss += $row['cost'];
 				$material_name = get_name_by_id($row['material_id'],'materials');					
@@ -401,9 +401,9 @@
 				echo "<td>\${$row['cost']}</td>";
 				echo "<td>{$row['notes']}</td></tr>";
 			}
-			echo "</table>";
+			echo "</tbody></table>";
 		}
-		echo "<h3>Total Losses Value: \${$total_loss}";   
+		echo "<br><br><h3>Total Losses Value: \${$total_loss}";   
 	}
 
 	function display_purchases() {
@@ -417,8 +417,8 @@
 		$result_set = $wpdb->get_results($query, ARRAY_A);
 
 		if($result_set != NULL) {
-			echo "<table class=\"table table-striped\">
-				 <tr><th>Date</th><th>Material</th><th>Cost</th><th>Notes</th><th>Lot #</th></tr>";		
+			echo "<table id=\"data_table\" class=\"table table-striped\">
+				 <thead><tr><th>Date</th><th>Material</th><th>Cost</th><th>Notes</th><th>Lot #</th></tr></thead><tbody>";		
 			foreach($result_set as $row) {
 				$total += $row['cost'];
 				$material_name = get_name_by_id($row['material_id'],'materials');					
@@ -429,9 +429,9 @@
 				echo "<td>{$row['notes']}</td>";
 				echo "<td>{$row['lots']}</td></tr>";
 			}
-			echo "</table>";
+			echo "</tbody></table>";
 		}
-		echo "<h3>Total Purchases Value: \${$total}";   
+		echo "<br><br><h3>Total Purchases Value: \${$total}";   
 	}
 
 	function display_inventory() {
@@ -447,8 +447,8 @@
 		$result_set = $wpdb->get_results($query, ARRAY_A);
 
 		if($result_set != NULL) {
-			echo "<table class=\"table table-striped\">
-				 <tr><th>Material</th><th>Total In</th><th>Total Out</th><th>Current Stock</th><th>Current Cost/Unit</th><th>In Use Log</th></tr>";
+			echo "<table id=\"data_table\" class=\"table table-striped\">
+				 <thead><tr><th>Material</th><th>Total In</th><th>Total Out</th><th>Current Stock</th><th>Current Cost/Unit</th><th>In Use Log</th></tr></thead><tbody>";
 
 			foreach($result_set as $row) {
 				$material_name = get_name_by_id($row['material_id'],'materials');
@@ -468,10 +468,10 @@
 				echo "<td>\${$current_cost_round}</td>";
 				echo "<td>{$in_use_log}</td>";
 			}
-			echo "</table>";
+			echo "</tbody></table>";
 		}   
 
-		echo "<h3>Current Total Inventory Value: \${$total_value}";
+		echo "<br><br><h3>Current Total Inventory Value: \${$total_value}";
 	}
 
 	function get_current_unit_cost($material_id,$in_use_log) {
