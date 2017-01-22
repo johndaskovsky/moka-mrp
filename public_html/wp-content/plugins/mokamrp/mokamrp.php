@@ -4,7 +4,7 @@ Plugin Name: MokaMRP
 Plugin URI: http://mokaorigins.com
 Description: Material requirements planning for Moka. 
 Author: John Daskovsky	
-Version: 0.1.0
+Version: 0.2.0
 Author URI: https://mokaorigins.com
 
 Copyright 2016 John Daskovsky
@@ -101,6 +101,10 @@ function mokamrp_install() {
 		`lots` text NOT NULL,
 		PRIMARY KEY (`id`)
 		) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1";
+	$wpdb -> query($query);
+
+	$tablename = get_table_name('recipes');
+	$query = "alter table `{$tablename}` add column `groups` varchar(255) not null";
 	$wpdb -> query($query);
 }
 register_activation_hook(__FILE__, 'mokamrp_install');
