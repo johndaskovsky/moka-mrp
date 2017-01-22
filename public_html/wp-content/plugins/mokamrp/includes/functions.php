@@ -353,7 +353,7 @@
 		$result_set = $wpdb->get_results($query, ARRAY_A);
 
 		if($result_set != NULL) {
-			echo "<table id=\"data_table\" class=\"table table-striped\">
+			echo "<table id=\"data_table_desc\" class=\"table table-striped\">
 				 <thead><tr><th>Date</th><th>Action</th><th>Edit</th></tr></thead><tbody>";		
 			foreach($result_set as $row) {
 				if($row['action_id'] != $current_action) {
@@ -417,7 +417,7 @@
 		$result_set = $wpdb->get_results($query, ARRAY_A);
 
 		if($result_set != NULL) {
-			echo "<table id=\"data_table\" class=\"table table-striped\">
+			echo "<table id=\"data_table_desc\" class=\"table table-striped\">
 				 <thead><tr><th>Date</th><th>Material</th><th>Cost</th><th>Notes</th><th>Lot #</th></tr></thead><tbody>";		
 			foreach($result_set as $row) {
 				$total += $row['cost'];
