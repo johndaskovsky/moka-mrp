@@ -22,6 +22,19 @@
 		}
 		return $output;
 	}
+
+	function array_to_option_multi_list($array, $key, $value, $selection_array = []) {
+		$output = "";
+		foreach($array as $row) {
+			$output .= "<option value =\"{$row[$key]}\"";
+			if(in_array($row[$key], $selection_array)) 
+			{ 
+				$output .= " selected"; 
+			}
+			$output .=">{$row[$value]}</option>";
+		}
+		return $output;
+	}
 	 
 	function get_row_by_id($item_id, $table_name) {
 		global $wpdb;
@@ -44,6 +57,18 @@
 				return "*Variable*";
 		} elseif ($row != NULL) {
 			return $row['name'];
+		} else {
+			return NULL;
+		}
+	}
+
+	function get_recipe_groups($recipe_id) {
+		global $wpdb;
+		$table = get_table_name("recipes");
+		$query = $wpdb->prepare("SELECT * FROM {$table} WHERE id = %d LIMIT 1", $recipe_id);
+		$row = $wpdb->get_row($query, ARRAY_A);
+		if ($row != NULL) {
+			return $row["groups"];
 		} else {
 			return NULL;
 		}

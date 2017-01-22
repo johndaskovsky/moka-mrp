@@ -18,6 +18,8 @@
 		check_admin_referer( 'mokamrp_edit_recipes','mokamrp_edit_recipes_nonce' );
 			
 		$name = stripslashes_deep($_POST['name']);
+		$groups_array = stripslashes_deep($_POST['groups']);
+		$groups = implode(",",$groups_array);
 		$sort = stripslashes_deep($_POST['sort']);
 
 		$table = get_table_name("recipes");
@@ -26,11 +28,13 @@
 			$table, 
 			array( 					
 				'name' => $name,
+				'groups' => $groups,
 				'sort' => $sort
 			), 
 			array( 'id' => $id ), 
 			array( 
 				'%s', //name
+				'%s', //groups
 				'%d' //sort
 			), 
 			array( '%d' ) //id
