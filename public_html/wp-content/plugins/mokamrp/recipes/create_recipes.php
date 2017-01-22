@@ -4,6 +4,8 @@
 <?php
 
 	$name = stripslashes_deep($_POST['name']);
+	$groups_array = stripslashes_deep($_POST['groups']);
+	$groups = implode(",",$groups_array);
 	$sort = stripslashes_deep($_POST['sort']);
 
 	$table = get_table_name("recipes");
@@ -12,10 +14,12 @@
 			$table, 
 			array( 
 				'name' => $name,
+				'groups' => $groups,
 				'sort' => $sort   
 			), 
 			array( 
 				'%s', //name
+				'%s', //groups
 				'%d' //sort
 			) 
 		);
