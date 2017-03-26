@@ -503,7 +503,7 @@
 		$current_id = $results[0]["id"];
 
 		foreach($results as $row) {
-			if($unit_total < $total_out) {
+			if($unit_total <= $total_out) {
 				$current_id = $row["id"];
 			}
 			$unit_total += $row["units"];
