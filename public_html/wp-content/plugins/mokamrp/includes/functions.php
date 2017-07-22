@@ -355,7 +355,6 @@
 			echo "<table id=\"data_table_desc\" class=\"table table-striped\">
 				 <thead><tr><th>ID</th><th>Date</th><th>Material</th><th>Action</th><th>Lots</th><th>Edit</th></tr></thead><tbody>";		
 			foreach($result_set as $row) {
-				$current_action = $row['action_id'];
 				$material_name = get_name_by_id($row['material_id'],'materials');		
 
 				if ($row['recipe_id'] == -1) {
@@ -373,7 +372,7 @@
 				echo "<td>{$row['datetime']}</td>";
 				echo "<td>{$material_name}</td>";
 				echo "<td>{$recipe_name}</td>";
-				echo "<td>{$row['lots']}</td>";
+				echo "<td><a href=\"admin.php?page=mokamrp_reports_finished&amp;id={$row['id']}\">{$row['lots']}</a></td>";
 				echo "<td><a href=\"admin.php?page=mokamrp_edit_actions&amp;id={$row['action_id']}\"><i class=\"icon-pencil\"></i> Edit</a></td></tr>";
 			}
 			echo "</tbody></table>";
@@ -435,43 +434,44 @@
 		echo "<br><br><h3>Total Purchases Value: \${$total}";   
 	}
 
-	function display_finished() {
+	function display_finished($id) {
 		global $wpdb;	
-		$table_name = get_table_name("logs");
-		$current_action = 0;
-		
-		$query = "SELECT * ";
-		$query .= "FROM {$table_name}";
+		$query = $wpdb->prepare("SELECT * FROM {$table_name} WHERE id = %d", $id);
 		$result_set = $wpdb->get_results($query, ARRAY_A);
+		
+		$row = get_row_by_id($id, "logs");
+		$material_name = get_name_by_id($row['material_id'],'materials');	
+		if ($row['recipe_id'] == -1) {
+			$recipe_name = "Loss";
+		} elseif ($row['recipe_id'] == 0) {
+			$recipe_name = "Purchase";
+		} elseif ($row['recipe_id'] == -2) {
+			$recipe_name = "Sale";
+		} else {
+			$recipe_name = get_name_by_id($row['recipe_id'],'recipes');
+		}
+		
+		echo "Date: {$row['datetime']}<br>";
+		echo "Material: {$material_name}<br>";
+		echo "Recipe: {$recipe_name}<br>";
+		echo "Lots: {$row['lots']}<br><br>"; 
+		
+		$lots_string = $row['lots'];
+		$lots_array = array_unique(explode(",",$lots_string));
 
-		if($result_set != NULL) {
-			echo "<table id=\"data_table_desc\" class=\"table table-striped\">
-				 <thead><tr><th>Date</th><th>Material</th><th>Action</th><th>Lots</th><th>Edit</th></tr></thead><tbody>";		
-			foreach($result_set as $row) {
-				if($row['action_id'] != $current_action) {
-					$current_action = $row['action_id'];
-					$material_name = get_name_by_id($row['material_id'],'materials');		
-
-					if ($row['recipe_id'] == -1) {
-						$recipe_name = "Loss";
-					} elseif ($row['recipe_id'] == 0) {
-						$recipe_name = "Purchase";
-					} elseif ($row['recipe_id'] == -2) {
-						$recipe_name = "Sale";
-					} else {
-						$recipe_name = get_name_by_id($row['recipe_id'],'recipes');
-					}
-					
-					echo "<tr>";
-					echo "<td>{$row['datetime']}</td>";
-					echo "<td>{$material_name}</td>";
-					echo "<td>{$recipe_name}</td>";
-					echo "<td>{$row['lots']}</td>";
-					echo "<td><a href=\"admin.php?page=mokamrp_edit_actions&amp;id={$row['action_id']}\"><i class=\"icon-pencil\"></i> Edit</a></td></tr>";
-				}
-			}
-			echo "</tbody></table>";
-		}   
+		echo "<table id=\"data_table_desc\" class=\"table table-striped\">
+			 <thead><tr><th>Date</th><th>Material</th><th>Notes</th><th>Lot #</th></tr></thead><tbody>";		
+		foreach($lots_array as $lot_id) {
+			$row = get_row_by_id($lot_id, "logs");
+			
+			$material_name = get_name_by_id($row['material_id'],'materials');					
+			echo "<tr>";
+			echo "<td>{$row['datetime']}</td>";
+			echo "<td>{$material_name}</td>";
+			echo "<td>{$row['notes']}</td>";
+			echo "<td>{$row['lots']}</td></tr>";
+		}
+		echo "</tbody></table>";  
 	}
 
 	function display_inventory() {
