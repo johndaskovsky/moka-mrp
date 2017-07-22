@@ -354,10 +354,11 @@
 
 		if($result_set != NULL) {
 			echo "<table id=\"data_table_desc\" class=\"table table-striped\">
-				 <thead><tr><th>Date</th><th>Action</th><th>Edit</th></tr></thead><tbody>";		
+				 <thead><tr><th>Date</th><th>Material</th><th>Action</th><th>Lots</th><th>Edit</th></tr></thead><tbody>";		
 			foreach($result_set as $row) {
 				if($row['action_id'] != $current_action) {
 					$current_action = $row['action_id'];
+					$material_name = get_name_by_id($row['material_id'],'materials');		
 
 					if ($row['recipe_id'] == -1) {
 						$recipe_name = "Loss";
@@ -371,12 +372,14 @@
 					
 					echo "<tr>";
 					echo "<td>{$row['datetime']}</td>";
+					echo "<td>{$material_name}</td>";
 					echo "<td>{$recipe_name}</td>";
+					echo "<td>{$row['lots']}</td>";
 					echo "<td><a href=\"admin.php?page=mokamrp_edit_actions&amp;id={$row['action_id']}\"><i class=\"icon-pencil\"></i> Edit</a></td></tr>";
 				}
 			}
 			echo "</tbody></table>";
-		}   
+		}  
 	}
 
 	function display_losses() {
@@ -432,6 +435,45 @@
 			echo "</tbody></table>";
 		}
 		echo "<br><br><h3>Total Purchases Value: \${$total}";   
+	}
+
+	function display_finished() {
+		global $wpdb;	
+		$table_name = get_table_name("logs");
+		$current_action = 0;
+		
+		$query = "SELECT * ";
+		$query .= "FROM {$table_name}";
+		$result_set = $wpdb->get_results($query, ARRAY_A);
+
+		if($result_set != NULL) {
+			echo "<table id=\"data_table_desc\" class=\"table table-striped\">
+				 <thead><tr><th>Date</th><th>Material</th><th>Action</th><th>Lots</th><th>Edit</th></tr></thead><tbody>";		
+			foreach($result_set as $row) {
+				if($row['action_id'] != $current_action) {
+					$current_action = $row['action_id'];
+					$material_name = get_name_by_id($row['material_id'],'materials');		
+
+					if ($row['recipe_id'] == -1) {
+						$recipe_name = "Loss";
+					} elseif ($row['recipe_id'] == 0) {
+						$recipe_name = "Purchase";
+					} elseif ($row['recipe_id'] == -2) {
+						$recipe_name = "Sale";
+					} else {
+						$recipe_name = get_name_by_id($row['recipe_id'],'recipes');
+					}
+					
+					echo "<tr>";
+					echo "<td>{$row['datetime']}</td>";
+					echo "<td>{$material_name}</td>";
+					echo "<td>{$recipe_name}</td>";
+					echo "<td>{$row['lots']}</td>";
+					echo "<td><a href=\"admin.php?page=mokamrp_edit_actions&amp;id={$row['action_id']}\"><i class=\"icon-pencil\"></i> Edit</a></td></tr>";
+				}
+			}
+			echo "</tbody></table>";
+		}   
 	}
 
 	function display_inventory() {
@@ -552,7 +594,7 @@
 		echo "<ul class=\"nav nav-pills\" style=\"margin-top:0px;padding-right:0px;padding-left:0px;\">";				  
 		echo "<li";
 		if($active == "actions") echo " class=\"active\"";
-		echo "><a href=\"admin.php?page=mokamrp_reports_actions\">Actions</a></li>";
+		echo "><a href=\"admin.php?page=mokamrp_reports_actions\">Actions & Lots</a></li>";
 		echo "<li";
 		if($active == "inventory") echo " class=\"active\"";
 		echo "><a href=\"admin.php?page=mokamrp_reports_inventory\">Inventory</a></li>";
@@ -562,6 +604,9 @@
 		echo "<li";
 		if($active == "purchases") echo " class=\"active\"";
 		echo "><a href=\"admin.php?page=mokamrp_reports_purchases\">Purchases</a></li>";
+		//echo "<li";
+		//if($active == "finished") echo " class=\"active\"";
+		//echo "><a href=\"admin.php?page=mokamrp_reports_finished\">Finished</a></li>";
 		echo "</ul>";
 	}
 

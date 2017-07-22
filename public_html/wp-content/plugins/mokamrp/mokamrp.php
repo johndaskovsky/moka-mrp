@@ -210,6 +210,7 @@ function mokamrp_reports_inventory_page() { include(MOKAMRP_PATH . "/reports/rep
 function mokamrp_reports_historical_page() { include(MOKAMRP_PATH . "/reports/reports_historical.php"); }
 function mokamrp_reports_losses_page() { include(MOKAMRP_PATH . "/reports/reports_losses.php"); }
 function mokamrp_reports_purchases_page() { include(MOKAMRP_PATH . "/reports/reports_purchases.php"); }
+function mokamrp_reports_finished_page() { include(MOKAMRP_PATH . "/reports/reports_finished.php"); }
 function mokamrp_reports_low_inventory_page() { include(MOKAMRP_PATH . "/reports/reports_low_inventory.php"); }
 function mokamrp_reports_recipe_warning_page() { include(MOKAMRP_PATH . "/reports/reports_recipe_warning.php"); }
 
@@ -264,6 +265,7 @@ function mokamrp_plugin_menu()
 	$my_pages[] = add_submenu_page(null, 'Reports losses', 'Reports losses', 'manage_options', 'mokamrp_reports_losses', 'mokamrp_reports_losses_page');
 	$my_pages[] = add_submenu_page(null, 'Reports low_inventory', 'Reports low_inventory', 'manage_options', 'mokamrp_reports_low_inventory', 'mokamrp_reports_low_inventory_page');
 	$my_pages[] = add_submenu_page(null, 'Reports purchases', 'Reports purchases', 'manage_options', 'mokamrp_reports_purchases', 'mokamrp_reports_purchases_page');
+	$my_pages[] = add_submenu_page(null, 'Reports finished', 'Reports finished', 'manage_options', 'mokamrp_reports_finished', 'mokamrp_reports_finished_page');
 	$my_pages[] = add_submenu_page(null, 'Reports recipe_warning', 'Reports recipe_warning', 'manage_options', 'mokamrp_reports_recipe_warning', 'mokamrp_reports_recipe_warning_page');
 	
 
