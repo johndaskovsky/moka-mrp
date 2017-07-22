@@ -48,6 +48,18 @@
 		}
 	}
 
+	function get_purchase_row_by_lot($lot_id) {
+		global $wpdb;
+		$table = get_table_name("logs");
+		$query = $wpdb->prepare("SELECT * FROM {$table} WHERE (lots = %d AND recipe_id = 0) LIMIT 1", $lot_id);
+		$row = $wpdb->get_row($query, ARRAY_A);
+		if ($row != NULL) {
+			return $row;
+		} else {
+			return NULL;
+		}
+	}
+
 	function get_name_by_id($item_id, $table_name) {
 		global $wpdb;
 		$table = get_table_name($table_name);
@@ -457,19 +469,22 @@
 		echo "Lots: {$row['lots']}<br><br>"; 
 		
 		$lots_string = $row['lots'];
-		$lots_array = array_unique(explode(",",$lots_string));
+		$lots_array = explode(",",$lots_string);
 
 		echo "<table id=\"data_table_desc\" class=\"table table-striped\">
-			 <thead><tr><th>Date</th><th>Material</th><th>Notes</th><th>Lot #</th></tr></thead><tbody>";		
+			 <thead><tr><th>Purchase Date</th><th>Material</th><th>Notes</th><th>Lot #</th></tr></thead><tbody>";		
 		foreach($lots_array as $lot_id) {
-			$row = get_row_by_id($lot_id, "logs");
-			
-			$material_name = get_name_by_id($row['material_id'],'materials');					
-			echo "<tr>";
-			echo "<td>{$row['datetime']}</td>";
-			echo "<td>{$material_name}</td>";
-			echo "<td>{$row['notes']}</td>";
-			echo "<td>{$row['lots']}</td></tr>";
+			if($lot_id != '') {
+				$lot_id = intval($lot_id);
+				$row = get_purchase_row_by_lot($lot_id);
+				
+				$material_name = get_name_by_id($row['material_id'],'materials');					
+				echo "<tr>";
+				echo "<td>{$row['datetime']}</td>";
+				echo "<td>{$material_name}</td>";
+				echo "<td>{$row['notes']}</td>";
+				echo "<td>{$row['lots']}</td></tr>";
+			}
 		}
 		echo "</tbody></table>";  
 	}
